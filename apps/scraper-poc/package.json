@@ -1,0 +1,21 @@
+{
+  "name": "scraper-poc",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file=.env dist/index.js",
+    "dev": "tsup --watch --onSuccess 'node --env-file=.env dist/index.js'",
+    "build": "tsup"
+  },
+  "dependencies": {
+    "@gordon/models": "workspace:*"
+  },
+  "devDependencies": {
+    "@gordon/tsconfig": "workspace:^",
+    "@total-typescript/ts-reset": "0.5.1",
+    "@types/node": "20.11.17",
+    "tsup": "^8.2.4",
+    "typescript": "latest"
+  }
+}
