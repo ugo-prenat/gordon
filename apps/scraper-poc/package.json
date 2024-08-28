@@ -9,11 +9,14 @@
     "build": "tsup"
   },
   "dependencies": {
-    "@gordon/models": "workspace:*"
+    "@contentstack/json-rte-serializer": "^2.0.9",
+    "@gordon/models": "workspace:*",
+    "jsdom": "^25.0.0"
   },
   "devDependencies": {
     "@gordon/tsconfig": "workspace:^",
     "@total-typescript/ts-reset": "0.5.1",
+    "@types/jsdom": "^21.1.7",
     "@types/node": "20.11.17",
     "tsup": "^8.2.4",
     "typescript": "latest"
