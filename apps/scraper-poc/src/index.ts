@@ -1,12 +1,9 @@
-import { IDriver } from '@gordon/models';
+import { DRIVERS_SCRAP_CONF } from './scraper.models';
+import { fetchWiki, parsePageContent } from './scraper.utils';
 
-const scrap = () => {
-  const driver: IDriver = {
-    id: 1,
-    name: 'Roman Staněk'
-  };
+const scrap = () =>
+  DRIVERS_SCRAP_CONF.map(({ name, wikiKey, tableIds }) =>
+    fetchWiki(wikiKey).then(parsePageContent)
+  );
 
-  console.log(driver);
-};
-
-scrap();
+// scrap();
