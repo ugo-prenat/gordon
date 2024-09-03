@@ -1,6 +1,11 @@
 import { htmlToJson } from '@contentstack/json-rte-serializer';
 import { JSDOM } from 'jsdom';
-import { IHtmlTag, WIKIPEDIA_URL } from './scraper.models';
+import {
+  IHtmlTag,
+  TEAM_COLUMN_ID,
+  WIKIPEDIA_URL,
+  YEAR_COLUMN_ID
+} from './scraper.models';
 import { IDriverRecord } from '@gordon/models';
 import fs from 'fs';
 
@@ -43,8 +48,40 @@ export const formatTable = (table: IHtmlTag): IDriverRecord[] => {
   if (table.type !== 'table')
     throw new Error(`Element ${table.type} is not a table`);
 
+  const tbody = table.children?.[0];
+  const tableHeaders =
+    tbody?.children?.[0]?.children
+      ?.map((h) => h.children?.[0]?.text?.replace('\n', '').toLowerCase())
+      .filter((el) => el !== undefined) || [];
+
+  const yearColumnIndex = tableHeaders.findIndex(
+    (header) => header === YEAR_COLUMN_ID
+  );
+  const teamColumnIndex = tableHeaders.findIndex(
+    (header) => header === TEAM_COLUMN_ID
+  );
+  const lines = tbody?.children?.slice(1);
+
+  const records: Partial<IDriverRecord>[] | undefined = lines?.map((line) => ({
+    year: getYear(line, yearColumnIndex),
+    team: getTeam(line, teamColumnIndex)
+  }));
+
+  console.log(records);
+
   return [];
 };
+
+const getYear = (el: IHtmlTag, yearColumnIndex: number) =>
+  Number(el.children?.[yearColumnIndex]?.children?.[0]?.children?.[0]?.text);
+
+const getTeam = (el: IHtmlTag, teamColumnIndex: number) =>
+  (
+    el.children?.[teamColumnIndex]?.children?.[0]?.attrs?.[
+      'redactor-attributes'
+    ] as { title?: string }
+  )?.title ||
+  el.children?.[teamColumnIndex]?.children?.[0]?.children?.[0]?.text;
 
 export const parsePageContent = (elements: IHtmlTag[]) => {
   const racingRecordIndex = getRacingRecordIndex(elements);
