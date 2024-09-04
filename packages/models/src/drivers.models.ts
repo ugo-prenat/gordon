@@ -3,21 +3,23 @@ export interface IDriver {
   name: string;
 }
 
-export type RaceResult =
-  | number
-  | 'NC' // Not classified, finished
-  | 'Ret' // Not classified, retired
-  | 'DNQ' // Did not qualify
-  | 'DNPQ' // Did not pre-qualify
-  | 'DSQ' // Disqualified
-  | 'DNS' // Did not start
-  | 'C' // Race cancelled
-  | 'PO' // Practiced only
-  | 'TD' // Thursday/Friday test driver (from 2003 onwards)
-  | 'DNP' // Did not practice
-  | 'EX' // Excluded
-  | 'DNA' // Did not arrive
-  | 'WD'; // Withdrawn
+export const RACE_RESULTS = [
+  'EX', // Excluded
+  'WD', // Withdrawn
+  'C', // Race cancelled
+  'DSQ', // Disqualified
+  'PO', // Practiced only
+  'DNS', // Did not start
+  'DNA', // Did not arrive
+  'DNQ', // Did not qualify
+  'DNP', // Did not practice
+  'DNPQ', // Did not pre-qualify
+  'Ret', // Not classified, retired
+  'NC', // Not classified, finished
+  'TD' // Thursday/Friday test driver (from 2003 onwards)
+] as const;
+
+export type RaceResult = number | (typeof RACE_RESULTS)[number];
 
 export interface IDriverRecord {
   year: number;
@@ -25,7 +27,7 @@ export interface IDriverRecord {
   result: RaceResult;
   circuitKey: string;
   championship: string;
-  race: { round: number; name?: string };
+  race: { index: number; key?: 'SPR' | 'FEA'; name?: string };
 }
 
 export interface IDriverScrapConf {

@@ -6,7 +6,7 @@ import {
   WIKIPEDIA_URL,
   YEAR_COLUMN_ID
 } from './scraper.models';
-import { IDriverRecord } from '@gordon/models';
+import { IDriverRecord, RACE_RESULTS, RaceResult } from '@gordon/models';
 import fs from 'fs';
 
 export const fetchWiki = (wikiKey: string): Promise<IHtmlTag[]> =>
@@ -60,14 +60,50 @@ export const formatTable = (table: IHtmlTag): IDriverRecord[] => {
   const teamColumnIndex = tableHeaders.findIndex(
     (header) => header === TEAM_COLUMN_ID
   );
-  const lines = tbody?.children?.slice(1);
+  const roundsColumnIndexes = tableHeaders
+    .map((el, index) => (!isNaN(Number(el)) ? index : undefined))
+    .filter((el) => el !== undefined);
 
-  const records: Partial<IDriverRecord>[] | undefined = lines?.map((line) => ({
-    year: getYear(line, yearColumnIndex),
-    team: getTeam(line, teamColumnIndex)
-  }));
+  const lines = tbody?.children?.slice(1) || [];
 
-  console.log(records);
+  const records = roundsColumnIndexes.map((roundIndex) =>
+    lines.map((line) => {
+      const raceCell = line.children?.[roundIndex]?.children;
+      const raceData = raceCell?.[0]?.children?.filter(
+        (el) => el.text !== '\n'
+      );
+      const result = getRaceResult(raceCell?.pop());
+
+      const raceKey = raceData?.[1]?.text === 'SPR' ? 'SPR' : 'FEA';
+      const raceIndex =
+        raceKey === 'SPR'
+          ? 0
+          : raceKey === 'FEA'
+            ? 1
+            : Number(raceData?.[1]?.text);
+
+      const record: Partial<IDriverRecord> = {
+        race: {
+          key: raceKey,
+          index: raceIndex,
+          name: getRedactorTitle(raceCell?.[0])
+        },
+        circuitKey: raceData?.[0]?.text,
+        result,
+        year: getYear(line, yearColumnIndex),
+        team: getTeam(line, teamColumnIndex) || ''
+      };
+
+      // if (roundIndex === 2) {
+      //   // console.log({ raceData, raceResult });
+      //   console.log(record);
+      // }
+
+      return record;
+    })
+  );
+
+  console.log(JSON.stringify(records, null, 2));
 
   return [];
 };
@@ -76,12 +112,19 @@ const getYear = (el: IHtmlTag, yearColumnIndex: number) =>
   Number(el.children?.[yearColumnIndex]?.children?.[0]?.children?.[0]?.text);
 
 const getTeam = (el: IHtmlTag, teamColumnIndex: number) =>
-  (
-    el.children?.[teamColumnIndex]?.children?.[0]?.attrs?.[
-      'redactor-attributes'
-    ] as { title?: string }
-  )?.title ||
+  getRedactorTitle(el.children?.[teamColumnIndex]?.children?.[0]) ||
   el.children?.[teamColumnIndex]?.children?.[0]?.children?.[0]?.text;
+
+const getRedactorTitle = (el: IHtmlTag | undefined): string | undefined =>
+  (el?.attrs?.['redactor-attributes'] as { title?: string })?.title;
+
+const getRaceResult = (el: IHtmlTag | undefined): RaceResult | undefined => {
+  if (!el || !el.text) return undefined;
+
+  return RACE_RESULTS.includes(el.text as (typeof RACE_RESULTS)[number])
+    ? (el.text as RaceResult)
+    : Number(el.text);
+};
 
 export const parsePageContent = (elements: IHtmlTag[]) => {
   const racingRecordIndex = getRacingRecordIndex(elements);
