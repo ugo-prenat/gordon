@@ -1,3 +1,5 @@
+import { Championship } from './championships.models';
+
 export interface IDriver {
   id: number;
   name: string;
@@ -26,14 +28,14 @@ export interface IDriverRecord {
   team: string;
   result: RaceResult;
   circuitKey: string;
-  championship: string;
+  championship: Championship;
   race: { index: number; key?: 'SPR' | 'FEA'; name?: string };
 }
 
 export interface IDriverScrapConf {
   name: string;
   wikiKey: string;
-  tableIds: string[];
+  loadedChampionships: Championship[];
   params?: IDriverScrapConfParams;
 }
 

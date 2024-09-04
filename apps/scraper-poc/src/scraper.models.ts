@@ -6,9 +6,26 @@ export const YEAR_COLUMN_ID = 'year';
 export const TEAM_COLUMN_ID = 'entrant';
 
 export const DRIVERS_SCRAP_CONF: IDriverScrapConf[] = [
-  // { name: 'Victor Martins', wikiKey: 'Victor_Martins', tableIds: [] },
-  // { name: 'Max Verstappen', wikiKey: 'Max_Verstappen', tableIds: [] },
-  { name: 'Roman Staněk', wikiKey: 'Roman_Stan%C4%9Bk', tableIds: [] }
+  {
+    name: 'Roman Staněk',
+    wikiKey: 'Roman_Stan%C4%9Bk',
+    loadedChampionships: ['FIA Formula 2']
+  },
+  {
+    name: 'Victor Martins',
+    wikiKey: 'Victor_Martins',
+    loadedChampionships: ['FIA Formula 2', 'FIA Formula 3']
+  },
+  {
+    name: 'Max Verstappen',
+    wikiKey: 'Max_Verstappen',
+    loadedChampionships: ['Formula One']
+  },
+  {
+    name: 'Charles Leclerc',
+    wikiKey: 'Charles_Leclerc',
+    loadedChampionships: ['Formula One', 'FIA Formula 2']
+  }
 ];
 
 export interface IHtmlTag {
