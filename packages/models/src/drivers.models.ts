@@ -23,6 +23,8 @@ export const RACE_RESULTS = [
 
 export type RaceResult = number | (typeof RACE_RESULTS)[number];
 
+export const UNWANTED_RESULTS: RaceResult[] = ['C', 'PO', 'TD'] as const;
+
 export interface IDriverRecord {
   year: number;
   team: string;

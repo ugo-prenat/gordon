@@ -11,6 +11,7 @@ import {
   IDriverRecord,
   IDriverScrapConf,
   RACE_RESULTS,
+  UNWANTED_RESULTS,
   RaceResult
 } from '@gordon/models';
 
@@ -189,3 +190,6 @@ const filterUnwantedRecords = (
   records.filter(({ championship }) =>
     wantedChampionships.some((champ) => championship.includes(champ))
   );
+
+export const filterUnWantedResults = (records: IDriverRecord[]) =>
+  records.filter(({ result }) => !UNWANTED_RESULTS.includes(result));
