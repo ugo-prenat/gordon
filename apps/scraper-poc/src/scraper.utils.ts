@@ -84,7 +84,9 @@ export const formatTable = (
         const raceData = raceCell?.[0]?.children?.filter(
           (el) => el.text !== '\n'
         );
-        const result = getRaceResult(raceCell?.pop());
+
+        const resultTags = raceCell?.filter((el) => el.text !== '\n');
+        const result = getRaceResult(resultTags?.[1]);
 
         if (!result) return null;
 
