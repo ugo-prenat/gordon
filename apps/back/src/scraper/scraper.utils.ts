@@ -1,18 +1,18 @@
 import { htmlToJson } from '@contentstack/json-rte-serializer';
 import { JSDOM } from 'jsdom';
 import {
-  IHtmlTag,
-  TEAM_COLUMN_ID,
-  WIKIPEDIA_URL,
-  YEAR_COLUMN_ID
+    IHtmlTag,
+    TEAM_COLUMN_ID,
+    WIKIPEDIA_URL,
+    YEAR_COLUMN_ID
 } from './scraper.models';
 import {
-  Championship,
-  IDriverRecord,
-  IDriverScrapConf,
-  RACE_RESULTS,
-  UNWANTED_RESULTS,
-  RaceResult
+    Championship,
+    IDriverRecord,
+    IDriverScrapConf,
+    RACE_RESULTS,
+    UNWANTED_RESULTS,
+    RaceResult
 } from '@gordon/models';
 
 export const fetchWiki = (wikiKey: string): Promise<IHtmlTag[]> =>
