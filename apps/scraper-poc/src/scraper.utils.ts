@@ -133,10 +133,12 @@ const getRedactorTitle = (el: IHtmlTag | undefined): string | undefined =>
 const getRaceResult = (el: IHtmlTag | undefined): RaceResult | undefined => {
   if (!el || !el.text || el.text === '') return undefined;
 
-  return RACE_RESULTS.includes(el.text as (typeof RACE_RESULTS)[number])
-    ? (el.text as RaceResult)
-    : !isNaN(Number(el.text))
-      ? Number(el.text)
+  const text = el.text.replace('†', '');
+
+  return RACE_RESULTS.includes(text as (typeof RACE_RESULTS)[number])
+    ? (text as RaceResult)
+    : !isNaN(Number(text))
+      ? Number(text)
       : undefined;
 };
 
