@@ -2,7 +2,15 @@ import { Championship } from './championships.models';
 
 export interface IDriver {
   id: number;
-  name: string;
+  fullName: string;
+  wikiKey: string;
+  activeChampionship: Championship;
+  recordedChampionships: Championship[];
+}
+
+export interface IAPIDriver extends IDriver {
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export const RACE_RESULTS = [
@@ -23,7 +31,7 @@ export const RACE_RESULTS = [
 
 export type RaceResult = number | (typeof RACE_RESULTS)[number];
 
-export const UNWANTED_RESULTS: RaceResult[] = ['C', 'PO', 'TD'] as const;
+export const UNWANTED_RESULTS: RaceResult[] = ['C', 'PO', 'TD'];
 
 export interface IDriverRecord {
   year: number;

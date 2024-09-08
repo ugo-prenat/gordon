@@ -1,0 +1,78 @@
+{
+  "id": "60b7b7ce-00b1-4b05-802e-73c8657be56d",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.drivers": {
+      "name": "drivers",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "full_name": {
+          "name": "full_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "wiki_key": {
+          "name": "wiki_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "active_championship": {
+          "name": "active_championship",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "recorded_championships": {
+          "name": "recorded_championships",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "drivers_wiki_key_unique": {
+          "name": "drivers_wiki_key_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "wiki_key"
+          ]
+        }
+      }
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
