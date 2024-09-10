@@ -1,0 +1,20 @@
+{
+  "name": "@gordon/utils",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsup src/index.ts --watch --onSuccess 'node dist/index.js'",
+    "build": "tsup"
+  },
+  "devDependencies": {
+    "@gordon/tsconfig": "workspace:*",
+    "tsup": "^8.2.4",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "hono": "^4.5.11"
+  }
+}
