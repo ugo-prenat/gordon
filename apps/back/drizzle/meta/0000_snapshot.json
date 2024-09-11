@@ -1,5 +1,5 @@
 {
-  "id": "60b7b7ce-00b1-4b05-802e-73c8657be56d",
+  "id": "4895b03d-2dcf-48cd-9d26-27a4b740c18d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -18,6 +18,12 @@
         "full_name": {
           "name": "full_name",
           "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tla": {
+          "name": "tla",
+          "type": "varchar(3)",
           "primaryKey": false,
           "notNull": true
         },

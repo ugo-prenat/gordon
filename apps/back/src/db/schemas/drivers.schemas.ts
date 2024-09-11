@@ -1,11 +1,18 @@
-import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { Championship } from '@gordon/models';
+import { pgTable, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 
 export const driversTable = pgTable('drivers', {
   id: uuid('id').defaultRandom().primaryKey(),
   fullName: text('full_name').notNull(),
+  tla: varchar('tla', { length: 3 }).notNull(),
   wikiKey: text('wiki_key').notNull().unique(),
-  activeChampionship: text('active_championship').notNull(),
-  recordedChampionships: text('recorded_championships').array().notNull(),
+  activeChampionship: text('active_championship')
+    .$type<Championship>()
+    .notNull(),
+  recordedChampionships: text('recorded_championships')
+    .array()
+    .$type<Championship[]>()
+    .notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at')
     .notNull()
