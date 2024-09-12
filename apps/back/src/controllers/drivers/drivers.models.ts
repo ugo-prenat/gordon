@@ -1,4 +1,4 @@
-import { IInsertDBDriver } from '@db/schemas/drivers.schemas';
+import { IInsertDBDriver } from '@controllers/drivers/drivers.schemas';
 
 export const UNUSED_DRIVERS: IInsertDBDriver[] = [
   {

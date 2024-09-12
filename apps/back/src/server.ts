@@ -1,8 +1,8 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { serve } from '@hono/node-server';
-import { driversRouter } from '@controllers/drivers/drivers.router';
-import { recordsRouter } from '@controllers/records/records.router';
+import { driversRouter } from '@controllers/drivers/drivers.routes';
+import { recordsRouter } from '@controllers/records/records.routes';
 import { honoLogger } from '@gordon/utils';
 
 const port = 4000;

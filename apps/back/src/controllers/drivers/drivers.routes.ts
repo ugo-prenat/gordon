@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { createDBDriver, getDBDriver, getDBDrivers } from './drivers.db';
-import { IInsertDBDriver } from '@db/schemas/drivers.schemas';
+import { IInsertDBDriver } from '@controllers/drivers/drivers.schemas';
 import { isEmpty } from '@gordon/utils';
 
 export const driversRouter = new Hono()

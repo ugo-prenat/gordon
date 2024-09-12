@@ -1,5 +1,8 @@
-import { db } from '@db/db.index';
-import { driversTable, IInsertDBDriver } from '@db/schemas/drivers.schemas';
+import { db } from '@db';
+import {
+  driversTable,
+  IInsertDBDriver
+} from '@controllers/drivers/drivers.schemas';
 import { eq } from 'drizzle-orm';
 
 export const createDBDriver = (driver: IInsertDBDriver) =>
