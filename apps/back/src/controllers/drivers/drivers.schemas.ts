@@ -21,3 +21,4 @@ export const driversTable = pgTable('drivers', {
 
 export type IInsertDBDriver = typeof driversTable.$inferInsert;
 export type IDBDriver = typeof driversTable.$inferSelect;
+export type IDriver = Omit<IDBDriver, 'updatedAt' | 'createdAt'>;

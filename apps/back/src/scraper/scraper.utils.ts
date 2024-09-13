@@ -1,18 +1,18 @@
 import { htmlToJson } from '@contentstack/json-rte-serializer';
 import { JSDOM } from 'jsdom';
 import {
-    IHtmlTag,
-    TEAM_COLUMN_ID,
-    WIKIPEDIA_URL,
-    YEAR_COLUMN_ID
+  IHtmlTag,
+  TEAM_COLUMN_ID,
+  WIKIPEDIA_URL,
+  YEAR_COLUMN_ID
 } from './scraper.models';
 import {
-    Championship,
-    IDriverRecord,
-    IDriverScrapConf,
-    RACE_RESULTS,
-    UNWANTED_RESULTS,
-    RaceResult
+  Championship,
+  IDriverScrapConf,
+  IRecord,
+  RACE_RESULTS,
+  UNWANTED_RESULTS,
+  RaceResult
 } from '@gordon/models';
 
 export const fetchWiki = (wikiKey: string): Promise<IHtmlTag[]> =>
@@ -55,7 +55,7 @@ export const formatTableTitle = (el: IHtmlTag) =>
 export const formatTable = (
   table: IHtmlTag,
   championship: Championship
-): IDriverRecord[] => {
+): IRecord[] => {
   if (table.type !== 'table')
     throw new Error(`Element ${table.type} is not a table`);
 
@@ -98,13 +98,14 @@ export const formatTable = (
               ? 1
               : Number(raceData?.[1]?.text);
 
-        const record: IDriverRecord = {
+        const record: IRecord = {
           race: {
+            round: 0,
             key: raceKey,
             index: raceIndex,
             name: getRedactorTitle(raceCell?.[0])
           },
-          circuitKey: raceData?.[0]?.text!,
+          circuitId: raceData?.[0]?.text!,
           championship,
           result,
           year: getYear(line, yearColumnIndex),
@@ -145,7 +146,7 @@ const getRaceResult = (el: IHtmlTag | undefined): RaceResult | undefined => {
 export const parsePageContent = (
   elements: IHtmlTag[],
   driverConf: IDriverScrapConf
-): IDriverRecord[] => {
+): IRecord[] => {
   const racingRecordIndex = getRacingRecordIndex(elements);
 
   const formatted = elements
@@ -175,7 +176,7 @@ const groupTablesAndTitles = (
     title?: string;
     table?: IHtmlTag;
   }[]
-): IDriverRecord[] =>
+): IRecord[] =>
   elements
     .map((curr, index, array) => {
       if (curr?.title) {
@@ -188,12 +189,12 @@ const groupTablesAndTitles = (
     .flat();
 
 const filterUnwantedRecords = (
-  records: IDriverRecord[],
+  records: IRecord[],
   wantedChampionships: Championship[]
 ) =>
   records.filter(({ championship }) =>
     wantedChampionships.some((champ) => championship.includes(champ))
   );
 
-export const filterUnWantedResults = (records: IDriverRecord[]) =>
+export const filterUnWantedResults = (records: IRecord[]) =>
   records.filter(({ result }) => !UNWANTED_RESULTS.includes(result));

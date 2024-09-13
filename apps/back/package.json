@@ -16,7 +16,7 @@
   "dependencies": {
     "@contentstack/json-rte-serializer": "^2.0.9",
     "@gordon/models": "workspace:*",
-    "@gordon/utils": "workspace:^",
+    "@gordon/utils": "workspace:*",
     "@hono/node-server": "^1.12.2",
     "@hono/zod-validator": "^0.2.2",
     "@neondatabase/serverless": "^0.9.5",

@@ -27,7 +27,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/models
       '@gordon/utils':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../packages/utils
       '@hono/node-server':
         specifier: ^1.12.2
