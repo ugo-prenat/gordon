@@ -2,18 +2,23 @@ import { htmlToJson } from '@contentstack/json-rte-serializer';
 import { JSDOM } from 'jsdom';
 import {
   IHtmlTag,
+  IGroupedContent,
+  IRawGroupedContent,
   TEAM_COLUMN_ID,
   WIKIPEDIA_URL,
   YEAR_COLUMN_ID
 } from './scraper.models';
 import {
   Championship,
-  IDriverScrapConf,
   IRecord,
   RACE_RESULTS,
-  UNWANTED_RESULTS,
-  RaceResult
+  RaceResult,
+  CHAMPIONSHIPS_CONF,
+  IInsertDBRecord,
+  IFlattenedRecord
 } from '@gordon/models';
+import fs from 'fs';
+import path from 'path';
 
 export const fetchWiki = (wikiKey: string): Promise<IHtmlTag[]> =>
   fetch(`${WIKIPEDIA_URL}/${wikiKey}`)
@@ -27,39 +32,107 @@ export const fetchWiki = (wikiKey: string): Promise<IHtmlTag[]> =>
       return jsonValue.children;
     });
 
-export const getRacingRecordIndex = (elements: IHtmlTag[]) =>
+export const parsePageContent = (
+  elements: IHtmlTag[],
+  wantedChampionships: Championship[]
+): IGroupedContent[] => {
+  const ungroupedElements: IRawGroupedContent[] = elements
+    .filter((_, index) => index > getRacingRecordIndex(elements))
+    .map((el) => {
+      if (isTableTitle(el)) {
+        const championship = getMaybeChampionship(el, wantedChampionships);
+        if (!championship) return null;
+        return { championship, table: undefined };
+      }
+      if (isTable(el)) return { table: el, championship: undefined };
+      return null;
+    })
+    .filter((el) => el !== null);
+
+  return groupTablesAndTitles(ungroupedElements);
+};
+
+export const buildRecords = (
+  groupedContents: IGroupedContent[],
+  driverId: string
+): IInsertDBRecord[] => groupedContents.map(formatTable(driverId)).flat();
+
+const getMaybeChampionship = (
+  el: IHtmlTag,
+  wantedChampionships: Championship[]
+): Championship | undefined => {
+  const championship = getChampionshipFromWikiName(
+    el?.children?.[0]?.children?.[0]?.text
+  );
+  if (!championship) return undefined;
+  if (wantedChampionships.includes(championship)) return championship;
+  return undefined;
+};
+
+const formatTable =
+  (driverId: string) =>
+  ({ championship, table }: IGroupedContent): IInsertDBRecord[] => {
+    if (table.type !== 'table')
+      throw new Error(`Element ${table.type} is not a table`);
+
+    const tbody = table.children?.[0];
+    const { yearColumnIndex, teamColumnIndex, roundsColumnIndexes } =
+      parseTableHeaders(tbody);
+
+    const lines = tbody?.children?.slice(1) || [];
+
+    const records = lines
+      .map((line) =>
+        roundsColumnIndexes.map((roundIndex) => {
+          const raceCell = line.children?.[roundIndex]?.children;
+          const raceData = raceCell?.[0]?.children?.filter(
+            (el) => el.text !== '\n'
+          );
+
+          const raceKey = raceData?.[1]?.text === 'SPR' ? 'SPR' : 'FEA';
+          const resultTags = raceCell?.filter((el) => el.text !== '\n');
+          const result = getRaceResult(resultTags?.[1]);
+
+          if (!result) return null;
+
+          const record: IFlattenedRecord = {
+            result,
+            raceKey,
+            driverId,
+            championship,
+            raceIndex: 0, // temp value
+            raceRound: 0, // temp value
+            raceName: getRedactorTitle(raceCell?.[0]),
+            circuitId: raceData?.[0]?.text!,
+            year: getYear(line, yearColumnIndex),
+            team: getTeam(line, teamColumnIndex) || ''
+          };
+          return record;
+        })
+      )
+      .flat()
+      .filter((el) => el !== null);
+
+    return records;
+  };
+
+const getRacingRecordIndex = (elements: IHtmlTag[]) =>
   elements.findIndex((el) => el?.children?.[0]?.attrs?.id === 'Racing_record');
 
-export const isTableTitle = (el: IHtmlTag) => {
+const isTableTitle = (el: IHtmlTag) => {
   const firstChild = el.children?.[0];
   const firstGrandChild = firstChild?.children?.[0]?.text;
 
   if (!firstChild || !firstGrandChild) return false;
-
   return (
-    el?.attrs?.['class-name'] === 'mw-heading mw-heading3' &&
-    firstChild.type === 'h3'
+    firstChild.type === 'h3' &&
+    el?.attrs?.['class-name'] === 'mw-heading mw-heading3'
   );
 };
 
-export const isTable = (el: IHtmlTag) =>
-  el.attrs?.['class-name'] === 'wikitable';
+const isTable = (el: IHtmlTag) => el.attrs?.['class-name'] === 'wikitable';
 
-export const formatTableTitle = (el: IHtmlTag) =>
-  el?.children?.[0]?.children?.[0]?.text
-    ?.replace('Complete ', '')
-    .replace('Championship', '')
-    .replace(' results', '')
-    .trim();
-
-export const formatTable = (
-  table: IHtmlTag,
-  championship: Championship
-): IRecord[] => {
-  if (table.type !== 'table')
-    throw new Error(`Element ${table.type} is not a table`);
-
-  const tbody = table.children?.[0];
+const parseTableHeaders = (tbody: IHtmlTag | undefined) => {
   const tableHeaders =
     tbody?.children?.[0]?.children
       ?.map((h) => h.children?.[0]?.text?.replace('\n', '').toLowerCase())
@@ -75,50 +148,7 @@ export const formatTable = (
     .map((el, index) => (!isNaN(Number(el)) ? index : undefined))
     .filter((el) => el !== undefined);
 
-  const lines = tbody?.children?.slice(1) || [];
-
-  const records = lines
-    .map((line) =>
-      roundsColumnIndexes.map((roundIndex) => {
-        const raceCell = line.children?.[roundIndex]?.children;
-        const raceData = raceCell?.[0]?.children?.filter(
-          (el) => el.text !== '\n'
-        );
-
-        const resultTags = raceCell?.filter((el) => el.text !== '\n');
-        const result = getRaceResult(resultTags?.[1]);
-
-        if (!result) return null;
-
-        const raceKey = raceData?.[1]?.text === 'SPR' ? 'SPR' : 'FEA';
-        const raceIndex =
-          raceKey === 'SPR'
-            ? 0
-            : raceKey === 'FEA'
-              ? 1
-              : Number(raceData?.[1]?.text);
-
-        const record: IRecord = {
-          race: {
-            round: 0,
-            key: raceKey,
-            index: raceIndex,
-            name: getRedactorTitle(raceCell?.[0])
-          },
-          circuitId: raceData?.[0]?.text!,
-          championship,
-          result,
-          year: getYear(line, yearColumnIndex),
-          team: getTeam(line, teamColumnIndex) || ''
-        };
-
-        return record;
-      })
-    )
-    .flat()
-    .filter((el) => el !== null);
-
-  return records;
+  return { yearColumnIndex, teamColumnIndex, roundsColumnIndexes };
 };
 
 const getYear = (el: IHtmlTag, yearColumnIndex: number) =>
@@ -143,58 +173,37 @@ const getRaceResult = (el: IHtmlTag | undefined): RaceResult | undefined => {
       : undefined;
 };
 
-export const parsePageContent = (
-  elements: IHtmlTag[],
-  driverConf: IDriverScrapConf
-): IRecord[] => {
-  const racingRecordIndex = getRacingRecordIndex(elements);
-
-  const formatted = elements
-    .filter((_, index) => index > racingRecordIndex)
-    .map((el, index) => {
-      if (isTableTitle(el))
-        return {
-          table: undefined,
-          title: formatTableTitle(el)
-        };
-      if (isTable(el)) return { table: el, title: undefined };
-
-      return undefined;
-    })
-    .filter((el) => el !== undefined);
-
-  const grouped = filterUnwantedRecords(
-    groupTablesAndTitles(formatted),
-    driverConf.loadedChampionships
-  );
-
-  return grouped;
-};
-
 const groupTablesAndTitles = (
-  elements: {
-    title?: string;
-    table?: IHtmlTag;
-  }[]
-): IRecord[] =>
+  elements: IRawGroupedContent[]
+): IGroupedContent[] =>
   elements
     .map((curr, index, array) => {
-      if (curr?.title) {
-        const nextElement = array[index + 1];
-        if (nextElement?.table)
-          return formatTable(nextElement.table, curr.title as Championship);
-      }
-      return [];
+      const nextElement = array[index + 1];
+      return curr?.championship && nextElement?.table
+        ? { championship: curr.championship, table: nextElement.table }
+        : null;
     })
-    .flat();
+    .filter((el) => el !== null);
 
-const filterUnwantedRecords = (
-  records: IRecord[],
-  wantedChampionships: Championship[]
-) =>
-  records.filter(({ championship }) =>
-    wantedChampionships.some((champ) => championship.includes(champ))
+const getChampionshipFromWikiName = (
+  wikiName: string | undefined
+): Championship | undefined =>
+  wikiName
+    ? Object.values(CHAMPIONSHIPS_CONF).find((champ) =>
+        wikiName.toLowerCase().includes(champ.wikiName.toLowerCase())
+      )?.championship
+    : undefined;
+
+export const saveRecords = (records: IRecord[], id: string) => {
+  const filename = `${id.replace(/\s+/g, '-').toLowerCase()}.json`;
+
+  const exportDir = './exports';
+  if (!fs.existsSync(exportDir)) fs.mkdirSync(exportDir, { recursive: true });
+
+  fs.writeFileSync(
+    path.join(exportDir, filename),
+    JSON.stringify(records, null, 2)
   );
 
-export const filterUnWantedResults = (records: IRecord[]) =>
-  records.filter(({ result }) => !UNWANTED_RESULTS.includes(result));
+  console.log(`Records saved to ./exports/${filename}`);
+};

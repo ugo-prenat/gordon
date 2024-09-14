@@ -1,4 +1,4 @@
-import { IInsertDBDriver } from '@controllers/drivers/drivers.schemas';
+import { IInsertDBDriver } from '@gordon/models';
 
 export const UNUSED_DRIVERS: IInsertDBDriver[] = [
   {

@@ -1,8 +1,9 @@
 import { Championship } from '@gordon/models';
-import { pgTable, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 export const driversTable = pgTable('drivers', {
-  id: uuid('id').defaultRandom().primaryKey(),
+  id: text('id').primaryKey(),
+  teamId: text('team_id').notNull(),
   fullName: text('full_name').notNull(),
   tla: varchar('tla', { length: 3 }).notNull(),
   wikiKey: text('wiki_key').notNull().unique(),
@@ -13,12 +14,11 @@ export const driversTable = pgTable('drivers', {
     .array()
     .$type<Championship[]>()
     .notNull(),
+  pictureUrl: text('picture_url').notNull(),
+  nationalityCountryCode: text('nationality_country_code').notNull(),
+  dateOfBirth: text('date_of_birth').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at')
     .notNull()
     .$onUpdate(() => new Date())
 });
-
-export type IInsertDBDriver = typeof driversTable.$inferInsert;
-export type IDBDriver = typeof driversTable.$inferSelect;
-export type IDriver = Omit<IDBDriver, 'updatedAt' | 'createdAt'>;

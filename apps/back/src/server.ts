@@ -28,3 +28,13 @@ export type Router = typeof router;
 serve({ fetch: app.fetch, port }, () =>
   console.log(`⚡️server listening on port ${port}\n`)
 );
+
+// const drivers = [
+//   {
+//     id: 'alex-albon',
+//     wikiKey: 'Alex_Albon',
+//     recordedChampionships: ['f1']
+//   }
+// ];
+
+// scrap(drivers as unknown as IDriver[]);
