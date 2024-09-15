@@ -6,3 +6,7 @@ export const isEmpty = (value: unknown): boolean =>
   (typeof value === 'object' && Object.keys(value).length === 0);
 
 export const isNotEmpty = (value: unknown): boolean => !isEmpty(value);
+
+export const isNull = (value: unknown): boolean => value === null;
+
+export const isNotNull = (value: unknown): boolean => !isNull(value);

@@ -6,7 +6,8 @@ import {
   IRawGroupedContent,
   TEAM_COLUMN_ID,
   WIKIPEDIA_URL,
-  YEAR_COLUMN_ID
+  YEAR_COLUMN_ID,
+  TRGRP_TYPE_NAME
 } from './scraper.models';
 import {
   Championship,
@@ -49,6 +50,8 @@ export const parsePageContent = (
     })
     .filter((el) => el !== null);
 
+  console.log(ungroupedElements);
+
   return groupTablesAndTitles(ungroupedElements);
 };
 
@@ -79,7 +82,7 @@ const formatTable =
     const { yearColumnIndex, teamColumnIndex, roundsColumnIndexes } =
       parseTableHeaders(tbody);
 
-    const lines = tbody?.children?.slice(1) || [];
+    const lines = extractLines(tbody, yearColumnIndex);
 
     const records = lines
       .map((line) =>
@@ -115,6 +118,24 @@ const formatTable =
 
     return records;
   };
+
+const extractLines = (tbody: IHtmlTag | undefined, yearColumnIndex: number) =>
+  (tbody?.children?.slice(1) || [])
+    .map((line) => {
+      if (line.type !== TRGRP_TYPE_NAME) return line;
+      if (!line.children) return null;
+
+      const yearCell = line.children?.[0]?.children?.[yearColumnIndex];
+      if (!yearCell) return null;
+
+      return line.children.map((tr) => {
+        const children = tr.children?.slice(0) || [];
+        children[yearColumnIndex] = yearCell;
+        return { ...tr, children };
+      });
+    })
+    .filter((el) => el !== null)
+    .flat();
 
 const getRacingRecordIndex = (elements: IHtmlTag[]) =>
   elements.findIndex((el) => el?.children?.[0]?.attrs?.id === 'Racing_record');

@@ -4,6 +4,7 @@ export const WIKIPEDIA_URL = 'https://en.wikipedia.org/wiki';
 
 export const YEAR_COLUMN_ID = 'year';
 export const TEAM_COLUMN_ID = 'entrant';
+export const TRGRP_TYPE_NAME = 'trgrp';
 
 export interface IHtmlTag {
   uid?: string;

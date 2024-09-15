@@ -1,5 +1,4 @@
 import { IDriver } from '@gordon/models';
-import { IGroupedContent } from './scraper.models';
 import {
   buildRecords,
   fetchWiki,
@@ -11,10 +10,7 @@ import { flattenedRecordsToRecords } from '@controllers/records/records.utils';
 export const scrap = (drivers: IDriver[]) =>
   drivers.map(({ wikiKey, recordedChampionships, id }) =>
     fetchWiki(wikiKey).then((elements) => {
-      const parsedContent: IGroupedContent[] = parsePageContent(
-        elements,
-        recordedChampionships
-      );
+      const parsedContent = parsePageContent(elements, recordedChampionships);
       const flattenedRecords = buildRecords(parsedContent, id);
       const records = flattenedRecordsToRecords(flattenedRecords);
 
