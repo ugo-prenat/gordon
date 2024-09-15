@@ -34,5 +34,4 @@ serve({ fetch: app.fetch, port }, () =>
 if (false) scrap(UNUSED_DRIVERS);
 
 //   - calcul du race round et race key
-//   - dupliquer en plus de la case year, la case entrant pour la team (perez 2015)
 //   - pbs -> HULK, RICCI

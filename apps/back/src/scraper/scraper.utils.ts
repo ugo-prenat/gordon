@@ -81,7 +81,7 @@ const formatTable =
     const { yearColumnIndex, teamColumnIndex, roundsColumnIndexes } =
       parseTableHeaders(tbody);
 
-    const lines = extractLines(tbody, yearColumnIndex);
+    const lines = extractLines(tbody);
 
     const records = lines
       .map((line) =>
@@ -122,23 +122,33 @@ const formatTable =
     return records;
   };
 
-const extractLines = (tbody: IHtmlTag | undefined, yearColumnIndex: number) =>
-  (tbody?.children?.slice(1) || [])
+const extractLines = (tbody: IHtmlTag | undefined) => {
+  const { yearColumnIndex, teamColumnIndex } = parseTableHeaders(tbody);
+  const lines = tbody?.children?.slice(1) || [];
+
+  return lines
     .map((line) => {
       if (line.type !== TRGRP_TYPE_NAME) return line;
       if (!line.children) return null;
 
       const yearCell = line.children?.[0]?.children?.[yearColumnIndex];
-      if (!yearCell) return null;
+      const teamCell = line.children?.[0]?.children?.[teamColumnIndex];
+
+      if (!yearCell || !teamCell) return null;
 
       return line.children.map((tr) => {
         const children = tr.children?.slice(0) || [];
         children[yearColumnIndex] = yearCell;
+
+        const team = getTeam(tr, teamColumnIndex);
+        if (!team) children[teamColumnIndex] = teamCell;
+
         return { ...tr, children };
       });
     })
     .filter((el) => el !== null)
     .flat();
+};
 
 const getRacingRecordIndex = (elements: IHtmlTag[]) =>
   elements.findIndex((el) => el?.children?.[0]?.attrs?.id === 'Racing_record');
