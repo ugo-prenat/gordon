@@ -4,6 +4,8 @@ import { serve } from '@hono/node-server';
 import { honoLogger } from '@gordon/utils';
 import { driversRouter } from '@controllers/drivers/drivers.routes';
 import { recordsRouter } from '@controllers/records/records.routes';
+import { scrap } from '@scraper/scraper.actions';
+import { UNUSED_DRIVERS } from '@scraper/scraper.models';
 
 const port = 4000;
 const app = new Hono();
@@ -29,12 +31,10 @@ serve({ fetch: app.fetch, port }, () =>
   console.log(`⚡️server listening on port ${port}\n`)
 );
 
-// const drivers = [
-//   {
-//     id: 'alex-albon',
-//     wikiKey: 'Alex_Albon',
-//     recordedChampionships: ['f1']
-//   }
-// ];
+if (false) scrap(UNUSED_DRIVERS);
 
-// scrap(drivers as unknown as IDriver[]);
+//   - calcul du race round et race key
+//   - limite à 5 années dans le passé
+//   - dupliquer en plus de la case year, la case entrant pour la team (perez 2015)
+//   - pbs -> HULK, RICCI
+//   - prendre le nom affiché de la team (sainz 2017,108 et piastri f2, Tsunoda VCARB)

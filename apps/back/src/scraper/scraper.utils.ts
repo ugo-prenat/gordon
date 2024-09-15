@@ -7,7 +7,8 @@ import {
   TEAM_COLUMN_ID,
   WIKIPEDIA_URL,
   YEAR_COLUMN_ID,
-  TRGRP_TYPE_NAME
+  TRGRP_TYPE_NAME,
+  MAX_YEARS_IN_PAST
 } from './scraper.models';
 import {
   Championship,
@@ -50,8 +51,6 @@ export const parsePageContent = (
     })
     .filter((el) => el !== null);
 
-  console.log(ungroupedElements);
-
   return groupTablesAndTitles(ungroupedElements);
 };
 
@@ -87,6 +86,9 @@ const formatTable =
     const records = lines
       .map((line) =>
         roundsColumnIndexes.map((roundIndex) => {
+          const year = getYear(line, yearColumnIndex);
+          const maxYear = new Date().getFullYear() - MAX_YEARS_IN_PAST;
+
           const raceCell = line.children?.[roundIndex]?.children;
           const raceData = raceCell?.[0]?.children?.filter(
             (el) => el.text !== '\n'
@@ -97,6 +99,7 @@ const formatTable =
           const result = getRaceResult(resultTags?.[1]);
 
           if (!result) return null;
+          if (year < maxYear) return null;
 
           const record: IFlattenedRecord = {
             result,
@@ -107,7 +110,7 @@ const formatTable =
             raceRound: 0, // temp value
             raceName: getRedactorTitle(raceCell?.[0]),
             circuitId: raceData?.[0]?.text!,
-            year: getYear(line, yearColumnIndex),
+            year,
             team: getTeam(line, teamColumnIndex) || ''
           };
           return record;
