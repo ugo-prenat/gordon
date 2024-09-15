@@ -106,15 +106,14 @@ const formatTable =
           if (year < maxYear) return null;
 
           const record: IFlattenedRecord = {
-            result,
-            raceKey,
+            year,
             driverId,
             championship,
             raceIndex: 0, // temp value
             raceRound: 0, // temp value
             raceName: getRedactorTitle(raceCell?.[0]),
             circuitId: raceData?.[0]?.text!,
-            year,
+            result,
             team: getTeam(line, teamColumnIndex) || ''
           };
           return record;

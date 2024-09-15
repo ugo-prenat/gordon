@@ -1,4 +1,4 @@
-import { Championship, RaceKey, RaceResult } from '@gordon/models';
+import { Championship, RaceResult } from '@gordon/models';
 import { text, serial, integer, pgTable, timestamp } from 'drizzle-orm/pg-core';
 
 export const recordsTable = pgTable('records', {
@@ -9,7 +9,6 @@ export const recordsTable = pgTable('records', {
   result: text('result').$type<RaceResult>().notNull(),
   circuitId: text('circuit_id').notNull(),
   championship: text('championship').$type<Championship>().notNull(),
-  raceKey: text('race_key').$type<RaceKey>().notNull(),
   raceName: text('race_name'),
   raceRound: integer('race_round').notNull(),
   raceIndex: integer('race_index').notNull(),
