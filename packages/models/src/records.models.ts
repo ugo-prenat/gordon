@@ -7,6 +7,7 @@ export interface IRecord {
   result: RaceResult;
   circuitId: string;
   championship: Championship;
+  score: number;
   race: {
     key: RaceKey;
     name?: string;

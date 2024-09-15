@@ -17,7 +17,8 @@ import {
   RaceResult,
   CHAMPIONSHIPS_CONF,
   IInsertDBRecord,
-  IFlattenedRecord
+  IFlattenedRecord,
+  CHAMPIONSHIPS_TOTAL_DRIVERS
 } from '@gordon/models';
 import fs from 'fs';
 import path from 'path';
@@ -118,6 +119,7 @@ const formatTable =
             raceIndex,
             raceRound,
             raceName: getRedactorTitle(raceCell?.[0]),
+            score: calculateScore(result, championship),
             circuitId: raceData?.[0]?.text!,
             team: getTeam(line, teamColumnIndex) || ''
           };
@@ -156,6 +158,19 @@ const extractLines = (tbody: IHtmlTag | undefined) => {
     })
     .filter((el) => el !== null)
     .flat();
+};
+
+const calculateScore = (
+  result: RaceResult,
+  championship: Championship
+): number => {
+  const totalDriversInChampionship = CHAMPIONSHIPS_TOTAL_DRIVERS[championship];
+
+  if (typeof result === 'number') {
+    const points = 100 - (90 * (result - 1)) / (totalDriversInChampionship - 1);
+    return Math.max(10, Math.round(points * 100) / 100);
+  }
+  return 5;
 };
 
 const getRaceData = (

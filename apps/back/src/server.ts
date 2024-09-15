@@ -31,6 +31,7 @@ serve({ fetch: app.fetch, port }, () =>
   console.log(`⚡️server listening on port ${port}\n`)
 );
 
-const toggle = false;
-// const toggle = true;
+const toggle =
+  //  true;
+  false;
 if (toggle) scrap(UNUSED_DRIVERS);

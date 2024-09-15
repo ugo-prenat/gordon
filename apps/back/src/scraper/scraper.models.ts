@@ -25,16 +25,16 @@ export interface IGroupedContent {
 export interface IRawGroupedContent extends Partial<IGroupedContent> {}
 
 export const UNUSED_DRIVERS: IInsertDBDriver[] = [
-  // {
-  //   id: 'Verstappen',
-  //   wikiKey: 'Max_Verstappen',
-  //   recordedChampionships: ['f1']
-  // },
-  // {
-  //   id: 'Norris',
-  //   wikiKey: 'Lando_Norris',
-  //   recordedChampionships: ['f1']
-  // },
+  {
+    id: 'Verstappen',
+    wikiKey: 'Max_Verstappen',
+    recordedChampionships: ['f1']
+  },
+  {
+    id: 'Norris',
+    wikiKey: 'Lando_Norris',
+    recordedChampionships: ['f1']
+  },
   // {
   //   id: 'Leclerc',
   //   wikiKey: 'Charles_Leclerc',
@@ -130,11 +130,11 @@ export const UNUSED_DRIVERS: IInsertDBDriver[] = [
   //   wikiKey: 'Oliver_Bearman',
   //   recordedChampionships: ['f1', 'f2']
   // }
-  {
-    id: 'Martins',
-    wikiKey: 'Victor_Martins',
-    recordedChampionships: ['f2']
-  },
+  // {
+  //   id: 'Martins',
+  //   wikiKey: 'Victor_Martins',
+  //   recordedChampionships: ['f2']
+  // },
   // {
   //   id: 'Browning',
   //   wikiKey: 'Luke_Browning',

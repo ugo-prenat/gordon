@@ -1,5 +1,12 @@
 import { Championship, RaceKey, RaceResult } from '@gordon/models';
-import { text, serial, integer, pgTable, timestamp } from 'drizzle-orm/pg-core';
+import {
+  text,
+  serial,
+  integer,
+  pgTable,
+  timestamp,
+  numeric
+} from 'drizzle-orm/pg-core';
 
 export const recordsTable = pgTable('records', {
   id: serial('id').primaryKey(),
@@ -13,6 +20,7 @@ export const recordsTable = pgTable('records', {
   raceName: text('race_name'),
   raceRound: integer('race_round').notNull(),
   raceIndex: integer('race_index').notNull(),
+  score: numeric('score', { precision: 5, scale: 2 }).notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at')
     .notNull()
