@@ -6,12 +6,14 @@ export const flattenedRecordsToRecords = (
 
 export const flattenedRecordToRecord = ({
   raceName,
+  raceKey,
   raceRound,
   raceIndex,
   ...record
 }: IFlattenedRecord): IRecord => ({
   ...record,
   race: {
+    key: raceKey,
     name: raceName,
     round: raceRound,
     index: raceIndex

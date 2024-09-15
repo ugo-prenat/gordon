@@ -8,6 +8,7 @@ export interface IRecord {
   circuitId: string;
   championship: Championship;
   race: {
+    key: RaceKey;
     name?: string;
     round: number; // en fonction de la saison
     index: number; // en fonction du weekend (SPR | FEA)
@@ -15,6 +16,7 @@ export interface IRecord {
 }
 
 export interface IFlattenedRecord extends Omit<IRecord, 'race'> {
+  raceKey: RaceKey;
   raceName?: string;
   raceRound: number;
   raceIndex: number;
@@ -26,6 +28,8 @@ export interface IDBRecord extends IFlattenedRecord {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type RaceKey = 'SPR' | 'FEA';
 
 // unwanted results:
 // C = Race cancelled

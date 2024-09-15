@@ -34,4 +34,3 @@ serve({ fetch: app.fetch, port }, () =>
 if (false) scrap(UNUSED_DRIVERS);
 
 //   - calcul du race round et race key
-//   - calcul du nombre du score
