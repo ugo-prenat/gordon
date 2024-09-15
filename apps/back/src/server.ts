@@ -31,6 +31,6 @@ serve({ fetch: app.fetch, port }, () =>
   console.log(`⚡️server listening on port ${port}\n`)
 );
 
-if (false) scrap(UNUSED_DRIVERS);
-
-//   - calcul du race round et race key
+const toggle = false;
+// const toggle = true;
+if (toggle) scrap(UNUSED_DRIVERS);

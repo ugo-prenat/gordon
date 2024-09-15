@@ -2,7 +2,7 @@ import { Championship, IInsertDBDriver } from '@gordon/models';
 
 export const WIKIPEDIA_URL = 'https://en.wikipedia.org/wiki';
 
-export const MAX_YEARS_IN_PAST = 3;
+export const MAX_YEARS_IN_PAST = 2;
 
 export const YEAR_COLUMN_ID = 'year';
 export const TEAM_COLUMN_ID = 'entrant';
@@ -44,7 +44,7 @@ export const UNUSED_DRIVERS: IInsertDBDriver[] = [
   //   id: 'Piastri',
   //   wikiKey: 'Oscar_Piastri',
   //   recordedChampionships: ['f1', 'f2']
-  // }
+  // },
   // {
   //   id: 'Sainz',
   //   wikiKey: 'Carlos_Sainz_Jr.',
@@ -59,7 +59,7 @@ export const UNUSED_DRIVERS: IInsertDBDriver[] = [
   //   id: 'Perez',
   //   wikiKey: 'Sergio_P%C3%A9rez',
   //   recordedChampionships: ['f1']
-  // }
+  // },
   // {
   //   id: 'Russell',
   //   wikiKey: 'George_Russell_(racing_driver)',
@@ -75,21 +75,21 @@ export const UNUSED_DRIVERS: IInsertDBDriver[] = [
   //   wikiKey: 'Lance_Stroll',
   //   recordedChampionships: ['f1']
   // },
-  {
-    id: 'Hulkenberg',
-    wikiKey: 'Nico_H%C3%BClkenberg',
-    recordedChampionships: ['f1']
-  }
+  // {
+  //   id: 'Hulkenberg',
+  //   wikiKey: 'Nico_H%C3%BClkenberg',
+  //   recordedChampionships: ['f1']
+  // },
   // {
   //   id: 'Tsunoda',
   //   wikiKey: 'Yuki_Tsunoda',
   //   recordedChampionships: ['f1']
-  // }
+  // },
   // {
   //   id: 'Ricciardo',
   //   wikiKey: 'Daniel_Ricciardo',
   //   recordedChampionships: ['f1']
-  // }
+  // },
   // {
   //   id: 'Gasly',
   //   wikiKey: 'Pierre_Gasly',
@@ -129,5 +129,35 @@ export const UNUSED_DRIVERS: IInsertDBDriver[] = [
   //   id: 'Bearman',
   //   wikiKey: 'Oliver_Bearman',
   //   recordedChampionships: ['f1', 'f2']
+  // }
+  {
+    id: 'Martins',
+    wikiKey: 'Victor_Martins',
+    recordedChampionships: ['f2']
+  },
+  // {
+  //   id: 'Browning',
+  //   wikiKey: 'Luke_Browning',
+  //   recordedChampionships: ['f2']
+  // },
+  // {
+  //   id: 'Minì',
+  //   wikiKey: 'Gabriele_Min%C3%AC',
+  //   recordedChampionships: ['f2']
+  // },
+  // {
+  //   id: 'Kimi-Antonelli',
+  //   wikiKey: 'Andrea_Kimi_Antonelli',
+  //   recordedChampionships: ['f1', 'f2']
+  // }
+  {
+    id: 'Hadjar',
+    wikiKey: 'Isack_Hadjar',
+    recordedChampionships: ['f2']
+  }
+  // {
+  //   id: 'Martí',
+  //   wikiKey: 'Pepe_Mart%C3%AD',
+  //   recordedChampionships: ['f2']
   // }
 ] as IInsertDBDriver[];

@@ -89,7 +89,7 @@ const formatTable =
 
     const records = lines
       .map((line) =>
-        roundsColumnIndexes.map((roundIndex) => {
+        roundsColumnIndexes.map((roundIndex, index) => {
           const year = getYear(line, yearColumnIndex);
           const maxYear = new Date().getFullYear() - MAX_YEARS_IN_PAST;
 
@@ -98,23 +98,27 @@ const formatTable =
             (el) => el.text !== '\n'
           );
 
-          const raceKey = raceData?.[1]?.text === 'SPR' ? 'SPR' : 'FEA';
           const resultTags = raceCell?.filter((el) => el.text !== '\n');
           const result = getRaceResult(resultTags?.[1]);
+          const { raceKey, raceIndex, raceRound } = getRaceData(
+            raceData,
+            championship,
+            index + 1
+          );
 
           if (!result) return null;
           if (year < maxYear) return null;
 
           const record: IFlattenedRecord = {
+            year,
             result,
-            raceKey,
             driverId,
             championship,
-            raceIndex: 0, // temp value
-            raceRound: 0, // temp value
+            raceKey,
+            raceIndex,
+            raceRound,
             raceName: getRedactorTitle(raceCell?.[0]),
             circuitId: raceData?.[0]?.text!,
-            year,
             team: getTeam(line, teamColumnIndex) || ''
           };
           return record;
@@ -153,6 +157,17 @@ const extractLines = (tbody: IHtmlTag | undefined) => {
     .filter((el) => el !== null)
     .flat();
 };
+
+const getRaceData = (
+  el: IHtmlTag[] | undefined,
+  championship: Championship,
+  roundIndex: number
+): Pick<IFlattenedRecord, 'raceKey' | 'raceIndex' | 'raceRound'> =>
+  championship === 'f1'
+    ? { raceKey: 'FEA', raceIndex: 0, raceRound: roundIndex }
+    : el?.[1]?.text === 'SPR'
+      ? { raceKey: 'SPR', raceIndex: 0, raceRound: Math.ceil(roundIndex / 2) }
+      : { raceKey: 'FEA', raceIndex: 1, raceRound: Math.ceil(roundIndex / 2) };
 
 const getRacingRecordIndex = (elements: IHtmlTag[]) =>
   elements.findIndex((el) => el?.children?.[0]?.attrs?.id === 'Racing_record');
