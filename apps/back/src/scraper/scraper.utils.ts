@@ -47,6 +47,10 @@ export const parsePageContent = (
         return { championship, table: undefined };
       }
       if (isTable(el)) return { table: el, championship: undefined };
+
+      const maybeNestedTable = el.children?.find(isTable);
+      if (maybeNestedTable)
+        return { table: maybeNestedTable, championship: undefined };
       return null;
     })
     .filter((el) => el !== null);
@@ -158,10 +162,7 @@ const isTableTitle = (el: IHtmlTag) => {
   const firstGrandChild = firstChild?.children?.[0]?.text;
 
   if (!firstChild || !firstGrandChild) return false;
-  return (
-    firstChild.type === 'h3' &&
-    el?.attrs?.['class-name'] === 'mw-heading mw-heading3'
-  );
+  return ['h3', 'h4'].includes(firstChild.type || '');
 };
 
 const isTable = (el: IHtmlTag) => el.attrs?.['class-name'] === 'wikitable';

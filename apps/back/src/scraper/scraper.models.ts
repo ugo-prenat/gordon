@@ -54,7 +54,7 @@ export const UNUSED_DRIVERS: IInsertDBDriver[] = [
   //   id: 'Hamilton',
   //   wikiKey: 'Lewis_Hamilton',
   //   recordedChampionships: ['f1']
-  // }
+  // },
   // {
   //   id: 'Perez',
   //   wikiKey: 'Sergio_P%C3%A9rez',
@@ -75,21 +75,21 @@ export const UNUSED_DRIVERS: IInsertDBDriver[] = [
   //   wikiKey: 'Lance_Stroll',
   //   recordedChampionships: ['f1']
   // },
-  // {
-  //   id: 'Hulkenberg',
-  //   wikiKey: 'Nico_H%C3%BClkenberg',
-  //   recordedChampionships: ['f1']
-  // },
+  {
+    id: 'Hulkenberg',
+    wikiKey: 'Nico_H%C3%BClkenberg',
+    recordedChampionships: ['f1']
+  }
   // {
   //   id: 'Tsunoda',
   //   wikiKey: 'Yuki_Tsunoda',
   //   recordedChampionships: ['f1']
   // }
-  {
-    id: 'Ricciardo',
-    wikiKey: 'Daniel_Ricciardo',
-    recordedChampionships: ['f1']
-  }
+  // {
+  //   id: 'Ricciardo',
+  //   wikiKey: 'Daniel_Ricciardo',
+  //   recordedChampionships: ['f1']
+  // }
   // {
   //   id: 'Gasly',
   //   wikiKey: 'Pierre_Gasly',
