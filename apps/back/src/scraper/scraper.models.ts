@@ -1,4 +1,4 @@
-import { Championship } from '@gordon/models';
+import { Championship, IInsertDBDriver } from '@gordon/models';
 
 export const WIKIPEDIA_URL = 'https://en.wikipedia.org/wiki';
 
@@ -24,8 +24,6 @@ export interface IGroupedContent {
 
 export interface IRawGroupedContent extends Partial<IGroupedContent> {}
 
-import { IInsertDBDriver } from '@gordon/models';
-
 export const UNUSED_DRIVERS: IInsertDBDriver[] = [
   // {
   //   id: 'Verstappen',
@@ -46,22 +44,22 @@ export const UNUSED_DRIVERS: IInsertDBDriver[] = [
   //   id: 'Piastri',
   //   wikiKey: 'Oscar_Piastri',
   //   recordedChampionships: ['f1', 'f2']
-  // },
-  // {
-  //   id: 'Sainz',
-  //   wikiKey: 'Carlos_Sainz_Jr.',
-  //   recordedChampionships: ['f1']
-  // },
+  // }
   {
-    id: 'Hamilton',
-    wikiKey: 'Lewis_Hamilton',
+    id: 'Sainz',
+    wikiKey: 'Carlos_Sainz_Jr.',
     recordedChampionships: ['f1']
-  }
+  },
+  // {
+  //   id: 'Hamilton',
+  //   wikiKey: 'Lewis_Hamilton',
+  //   recordedChampionships: ['f1']
+  // }
   // {
   //   id: 'Perez',
   //   wikiKey: 'Sergio_P%C3%A9rez',
   //   recordedChampionships: ['f1']
-  // },
+  // }
   // {
   //   id: 'Russell',
   //   wikiKey: 'George_Russell_(racing_driver)',
@@ -82,11 +80,11 @@ export const UNUSED_DRIVERS: IInsertDBDriver[] = [
   //   wikiKey: 'Nico_H%C3%BClkenberg',
   //   recordedChampionships: ['f1']
   // },
-  // {
-  //   id: 'Tsunoda',
-  //   wikiKey: 'Yuki_Tsunoda',
-  //   recordedChampionships: ['f1']
-  // },
+  {
+    id: 'Tsunoda',
+    wikiKey: 'Yuki_Tsunoda',
+    recordedChampionships: ['f1']
+  }
   // {
   //   id: 'Ricciardo',
   //   wikiKey: 'Daniel_Ricciardo',

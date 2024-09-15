@@ -34,7 +34,5 @@ serve({ fetch: app.fetch, port }, () =>
 if (false) scrap(UNUSED_DRIVERS);
 
 //   - calcul du race round et race key
-//   - limite à 5 années dans le passé
 //   - dupliquer en plus de la case year, la case entrant pour la team (perez 2015)
 //   - pbs -> HULK, RICCI
-//   - prendre le nom affiché de la team (sainz 2017,108 et piastri f2, Tsunoda VCARB)

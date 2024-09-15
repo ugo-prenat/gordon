@@ -179,7 +179,6 @@ const getYear = (el: IHtmlTag, yearColumnIndex: number) =>
   Number(el.children?.[yearColumnIndex]?.children?.[0]?.children?.[0]?.text);
 
 const getTeam = (el: IHtmlTag, teamColumnIndex: number) =>
-  getRedactorTitle(el.children?.[teamColumnIndex]?.children?.[0]) ||
   el.children?.[teamColumnIndex]?.children?.[0]?.children?.[0]?.text;
 
 const getRedactorTitle = (el: IHtmlTag | undefined): string | undefined =>
