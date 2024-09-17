@@ -4,6 +4,8 @@ export interface IDriver {
   id: string;
   fullName: string;
   tla: string;
+  value: number;
+  valueTrend: number;
   wikiKey: string;
   activeChampionship: Championship;
   recordedChampionships: Championship[];
@@ -13,7 +15,8 @@ export interface IDriver {
   isActive: boolean;
 }
 
-export interface IInsertDBDriver extends IDriver {}
+export interface IInsertDBDriver
+  extends Omit<IDriver, 'value' | 'valueTrend'> {}
 
 export interface IDBDriver extends IDriver {
   createdAt: Date;

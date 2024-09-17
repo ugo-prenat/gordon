@@ -1,6 +1,7 @@
 import { Championship } from '@gordon/models';
 import {
   boolean,
+  integer,
   pgTable,
   text,
   timestamp,
@@ -11,6 +12,8 @@ export const driversTable = pgTable('drivers', {
   id: text('id').primaryKey(),
   fullName: text('full_name').notNull(),
   tla: varchar('tla', { length: 3 }).notNull(),
+  value: integer('value').notNull().default(-1),
+  valueTrend: integer('value_trend').notNull().default(0),
   wikiKey: text('wiki_key').notNull().unique(),
   activeChampionship: text('active_championship')
     .$type<Championship>()
