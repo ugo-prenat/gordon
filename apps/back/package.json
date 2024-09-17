@@ -19,10 +19,10 @@
     "@gordon/utils": "workspace:*",
     "@hono/node-server": "^1.12.2",
     "@hono/zod-validator": "^0.2.2",
-    "@neondatabase/serverless": "^0.9.5",
     "drizzle-orm": "^0.33.0",
     "hono": "^4.5.11",
     "jsdom": "^25.0.0",
+    "postgres": "^3.4.4",
     "zod": "^3.23.8"
   },
   "devDependencies": {

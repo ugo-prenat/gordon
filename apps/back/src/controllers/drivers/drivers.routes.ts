@@ -27,7 +27,18 @@ export const driversRouter = new Hono()
   )
 
   .post('/', (c) => {
-    const driver = {} as IInsertDBDriver;
+    const driver: IInsertDBDriver = {
+      id: 'max-verstappen',
+      fullName: 'Max Verstappen',
+      wikiKey: 'Max_Verstappen',
+      recordedChampionships: ['f1'],
+      teamId: 'red-bull',
+      tla: 'VER',
+      activeChampionship: 'f1',
+      pictureUrl: 'vroom',
+      nationalityCountryCode: 'NL',
+      dateOfBirth: '1997-09-30'
+    };
 
     return createDBDriver(driver)
       .then((createdDriver) => {
