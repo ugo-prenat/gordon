@@ -1,6 +1,5 @@
 CREATE TABLE IF NOT EXISTS "drivers" (
 	"id" text PRIMARY KEY NOT NULL,
-	"team_id" text NOT NULL,
 	"full_name" text NOT NULL,
 	"tla" varchar(3) NOT NULL,
 	"wiki_key" text NOT NULL,
@@ -9,6 +8,7 @@ CREATE TABLE IF NOT EXISTS "drivers" (
 	"picture_url" text NOT NULL,
 	"nationality_country_code" text NOT NULL,
 	"date_of_birth" text NOT NULL,
+	"is_active" boolean NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp NOT NULL,
 	CONSTRAINT "drivers_wiki_key_unique" UNIQUE("wiki_key")

@@ -2,7 +2,6 @@ import { Championship } from './championships.models';
 
 export interface IDriver {
   id: string;
-  teamId: string;
   fullName: string;
   tla: string;
   wikiKey: string;
@@ -11,6 +10,7 @@ export interface IDriver {
   pictureUrl: string;
   nationalityCountryCode: string;
   dateOfBirth: string;
+  isActive: boolean;
 }
 
 export interface IInsertDBDriver extends IDriver {}
