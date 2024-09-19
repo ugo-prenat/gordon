@@ -12,7 +12,6 @@ import {
 } from './scraper.models';
 import {
   Championship,
-  IRecord,
   RACE_RESULTS,
   RaceResult,
   CHAMPIONSHIPS_CONF,
@@ -110,7 +109,7 @@ const formatTable =
           if (!result) return null;
           if (year < maxYear) return null;
 
-          const record: IFlattenedRecord = {
+          const record: IInsertDBRecord = {
             year,
             result,
             driverId,
@@ -163,14 +162,14 @@ const extractLines = (tbody: IHtmlTag | undefined) => {
 const calculateScore = (
   result: RaceResult,
   championship: Championship
-): number => {
+): string => {
   const totalDriversInChampionship = CHAMPIONSHIPS_TOTAL_DRIVERS[championship];
 
   if (typeof result === 'number') {
     const points = 100 - (90 * (result - 1)) / (totalDriversInChampionship - 1);
-    return Math.max(10, Math.round(points * 100) / 100);
+    return Math.max(10, Math.round(points * 100) / 100).toFixed(2);
   }
-  return 5;
+  return '5.00';
 };
 
 const getRaceData = (
@@ -258,7 +257,7 @@ const getChampionshipFromWikiName = (
       )?.championship
     : undefined;
 
-export const saveRecords = (records: IRecord[], id: string) => {
+export const saveRecords = (records: IInsertDBRecord[], id: string) => {
   const filename = `${id.replace(/\s+/g, '-').toLowerCase()}.json`;
 
   const exportDir = './exports';

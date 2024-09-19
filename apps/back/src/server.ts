@@ -4,8 +4,6 @@ import { serve } from '@hono/node-server';
 import { honoLogger } from '@gordon/utils';
 import { driversRouter } from '@controllers/drivers/drivers.routes';
 import { recordsRouter } from '@controllers/records/records.routes';
-import { scrap } from '@scraper/scraper.actions';
-import { UNUSED_DRIVERS } from '@scraper/scraper.models';
 
 const port = 4000;
 const app = new Hono();
@@ -30,8 +28,3 @@ export type Router = typeof router;
 serve({ fetch: app.fetch, port }, () =>
   console.log(`⚡️server listening on port ${port}\n`)
 );
-
-const toggle =
-  //  true;
-  false;
-if (toggle) scrap(UNUSED_DRIVERS);

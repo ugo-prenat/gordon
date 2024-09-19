@@ -1,6 +1,8 @@
+import { WithDate } from '../types/types';
 import { Championship } from './championships.models';
 
 export interface IRecord {
+  id: number;
   driverId: string;
   year: number;
   team: string;
@@ -23,12 +25,12 @@ export interface IFlattenedRecord extends Omit<IRecord, 'race'> {
   raceIndex: number;
 }
 
-export interface IInsertDBRecord extends IFlattenedRecord {}
-export interface IDBRecord extends IFlattenedRecord {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
+export interface IInsertDBRecord
+  extends Omit<IFlattenedRecord, 'id' | 'score'> {
+  score: string;
 }
+
+export interface IDBRecord extends WithDate<IFlattenedRecord> {}
 
 export type RaceKey = 'SPR' | 'FEA';
 

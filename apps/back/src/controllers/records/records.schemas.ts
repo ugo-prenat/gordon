@@ -16,13 +16,10 @@ export const recordsTable = pgTable('records', {
   result: text('result').$type<RaceResult>().notNull(),
   circuitId: text('circuit_id').notNull(),
   championship: text('championship').$type<Championship>().notNull(),
+  score: numeric('score', { precision: 5, scale: 2 }).notNull(),
   raceKey: text('race_key').$type<RaceKey>().notNull(),
   raceName: text('race_name'),
   raceRound: integer('race_round').notNull(),
   raceIndex: integer('race_index').notNull(),
-  score: numeric('score', { precision: 5, scale: 2 }).notNull(),
-  createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at')
-    .notNull()
-    .$onUpdate(() => new Date())
+  createdAt: timestamp('created_at').notNull().defaultNow()
 });
