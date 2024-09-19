@@ -12,23 +12,21 @@ export interface IRecord {
   score: number;
   race: {
     key: RaceKey;
-    name?: string;
+    name: string | null;
     round: number; // en fonction de la saison
     index: number; // en fonction du weekend (SPR | FEA)
   };
 }
 
-export interface IFlattenedRecord extends Omit<IRecord, 'race'> {
+export interface IFlattenedRecord extends Omit<IRecord, 'race' | 'score'> {
+  score: string;
   raceKey: RaceKey;
-  raceName?: string;
+  raceName: string | null;
   raceRound: number;
   raceIndex: number;
 }
 
-export interface IInsertDBRecord
-  extends Omit<IFlattenedRecord, 'id' | 'score'> {
-  score: string;
-}
+export interface IInsertDBRecord extends Omit<IFlattenedRecord, 'id'> {}
 
 export interface IDBRecord extends WithDate<IFlattenedRecord> {}
 

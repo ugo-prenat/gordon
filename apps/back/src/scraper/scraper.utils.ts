@@ -19,8 +19,6 @@ import {
   IFlattenedRecord,
   CHAMPIONSHIPS_TOTAL_DRIVERS
 } from '@gordon/models';
-import fs from 'fs';
-import path from 'path';
 
 export const fetchWiki = (wikiKey: string): Promise<IHtmlTag[]> =>
   fetch(`${WIKIPEDIA_URL}/${wikiKey}`)
@@ -221,8 +219,8 @@ const getYear = (el: IHtmlTag, yearColumnIndex: number) =>
 const getTeam = (el: IHtmlTag, teamColumnIndex: number) =>
   el.children?.[teamColumnIndex]?.children?.[0]?.children?.[0]?.text;
 
-const getRedactorTitle = (el: IHtmlTag | undefined): string | undefined =>
-  (el?.attrs?.['redactor-attributes'] as { title?: string })?.title;
+const getRedactorTitle = (el: IHtmlTag | undefined): string | null =>
+  (el?.attrs?.['redactor-attributes'] as { title?: string })?.title || null;
 
 const getRaceResult = (el: IHtmlTag | undefined): RaceResult | undefined => {
   if (!el || !el.text || el.text === '') return undefined;
@@ -256,17 +254,3 @@ const getChampionshipFromWikiName = (
         wikiName.toLowerCase().includes(champ.wikiName.toLowerCase())
       )?.championship
     : undefined;
-
-export const saveRecords = (records: IInsertDBRecord[], id: string) => {
-  const filename = `${id.replace(/\s+/g, '-').toLowerCase()}.json`;
-
-  const exportDir = './exports';
-  if (!fs.existsSync(exportDir)) fs.mkdirSync(exportDir, { recursive: true });
-
-  fs.writeFileSync(
-    path.join(exportDir, filename),
-    JSON.stringify(records, null, 2)
-  );
-
-  console.log(`Records saved to ./exports/${filename}`);
-};
