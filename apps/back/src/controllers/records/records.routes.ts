@@ -31,8 +31,8 @@ export const recordsRouter = new Hono()
     getDBDrivers()
       .then(scrapRecords)
       .then(createDBRecords)
-      .then((ids) =>
-        c.json({ msg: `Successfully created ${ids.length} records` }, 201)
+      .then(({ inputRecordsNb, insertedRecordsNb }) =>
+        c.json({ scrapedRecordsNb: inputRecordsNb, insertedRecordsNb }, 201)
       )
       .catch((error) => {
         console.error(error);

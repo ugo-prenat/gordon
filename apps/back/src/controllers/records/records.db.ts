@@ -5,7 +5,7 @@ import { db } from '@db';
 
 export const createDBRecords = (
   records: IInsertDBRecord[]
-): Promise<number[]> =>
+): Promise<{ inputRecordsNb: number; insertedRecordsNb: number }> =>
   db
     .insert(recordsTable)
     .values(records)
@@ -18,7 +18,10 @@ export const createDBRecords = (
       ]
     })
     .returning({ id: recordsTable.id })
-    .then((ids) => ids.map(({ id }) => id));
+    .then((ids) => ({
+      inputRecordsNb: records.length,
+      insertedRecordsNb: ids.length
+    }));
 
 export const getDBRecords = (): Promise<IDBRecord[]> =>
   db.select().from(recordsTable);

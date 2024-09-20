@@ -1,17 +1,18 @@
-import { IFlattenedRecord, IRecord } from '@gordon/models';
+import { IDBRecord, IRecord } from '@gordon/models';
 
-export const flattenedRecordsToRecords = (
-  flattenedRecords: IFlattenedRecord[]
-): IRecord[] => flattenedRecords.map(flattenedRecordToRecord);
+export const dbRecordsToRecords = (dbRecords: IDBRecord[]) =>
+  dbRecords.map(dbRecordToRecord);
 
-export const flattenedRecordToRecord = ({
+export const dbRecordToRecord = ({
   raceName,
   raceKey,
   raceRound,
   raceIndex,
+  createdAt,
   ...record
-}: IFlattenedRecord): IRecord => ({
+}: IDBRecord): IRecord => ({
   ...record,
+  score: Number(record.score),
   race: {
     key: raceKey,
     name: raceName,

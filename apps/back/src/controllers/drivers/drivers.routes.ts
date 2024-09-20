@@ -3,6 +3,7 @@ import { isEmpty } from '@gordon/utils';
 import { createDBDriver, getDBDriver, getDBDrivers } from './drivers.db';
 import { IInsertDBDriver } from '@gordon/models';
 import { getDBRecordsByDriverId } from '@controllers/records/records.db';
+import { dbRecordsToRecords } from '@controllers/records/records.utils';
 
 export const driversRouter = new Hono()
   .get('/', (c) =>
@@ -30,7 +31,12 @@ export const driversRouter = new Hono()
   .get('/:id/records', (c) => {
     const driverId = c.req.param('id');
     return getDBRecordsByDriverId(driverId)
-      .then((records) => c.json({ total: records.length, records }))
+      .then((records) =>
+        c.json({
+          total: records.length,
+          records: dbRecordsToRecords(records)
+        })
+      )
       .catch((error) => {
         console.error(error);
         return c.json({ error: 'error getting records' }, 500);
