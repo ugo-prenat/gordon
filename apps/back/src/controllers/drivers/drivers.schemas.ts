@@ -1,4 +1,6 @@
+import { recordsTable } from '@controllers/records/records.schemas';
 import { Championship } from '@gordon/models';
+import { relations } from 'drizzle-orm';
 import {
   boolean,
   integer,
@@ -31,3 +33,7 @@ export const driversTable = pgTable('drivers', {
     .notNull()
     .$onUpdate(() => new Date())
 });
+
+export const driversRelations = relations(driversTable, ({ many }) => ({
+  records: many(recordsTable)
+}));

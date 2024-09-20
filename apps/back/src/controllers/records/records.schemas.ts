@@ -1,4 +1,6 @@
+import { driversTable } from '@controllers/drivers/drivers.schemas';
 import { Championship, RaceKey, RaceResult } from '@gordon/models';
+import { relations } from 'drizzle-orm';
 import {
   text,
   serial,
@@ -35,3 +37,10 @@ export const recordsTable = pgTable(
     )
   })
 );
+
+export const recordsRelations = relations(recordsTable, ({ one }) => ({
+  driver: one(driversTable, {
+    fields: [recordsTable.driverId],
+    references: [driversTable.id]
+  })
+}));

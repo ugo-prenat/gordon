@@ -2,6 +2,7 @@ import { Hono } from 'hono';
 import { isEmpty } from '@gordon/utils';
 import { createDBDriver, getDBDriver, getDBDrivers } from './drivers.db';
 import { IInsertDBDriver } from '@gordon/models';
+import { getDBRecordsByDriverId } from '@controllers/records/records.db';
 
 export const driversRouter = new Hono()
   .get('/', (c) =>
@@ -26,17 +27,27 @@ export const driversRouter = new Hono()
       })
   )
 
+  .get('/:id/records', (c) => {
+    const driverId = c.req.param('id');
+    return getDBRecordsByDriverId(driverId)
+      .then((records) => c.json({ total: records.length, records }))
+      .catch((error) => {
+        console.error(error);
+        return c.json({ error: 'error getting records' }, 500);
+      });
+  })
+
   .post('/', (c) => {
     const driver: IInsertDBDriver = {
-      id: 'max-verstappen',
-      fullName: 'Max Verstappen',
-      tla: 'VER',
-      wikiKey: 'Max_Verstappen',
+      id: 'pierre-gasly',
+      fullName: 'Pierre Gasly',
+      tla: 'GAS',
+      wikiKey: 'Pierre_Gasly',
       activeChampionship: 'f1',
       recordedChampionships: ['f1'],
       pictureUrl: 'vroom',
-      nationalityCountryCode: 'NL',
-      dateOfBirth: '1997-09-30',
+      nationalityCountryCode: 'FR',
+      dateOfBirth: '1996-02-07',
       isActive: true
     };
 
