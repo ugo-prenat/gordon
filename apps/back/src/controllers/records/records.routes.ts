@@ -1,7 +1,8 @@
 import { Hono } from 'hono';
 import { createDBRecords, getDBRecord, getDBRecords } from './records.db';
 import { isEmpty } from '@gordon/utils';
-import { IInsertDBRecord } from '@gordon/models';
+import { getDBDrivers } from '@controllers/drivers/drivers.db';
+import { scrapRecords } from '@scraper/scraper.actions';
 
 export const recordsRouter = new Hono()
   .get('/', (c) =>
@@ -12,6 +13,7 @@ export const recordsRouter = new Hono()
         return c.json({ error: 'error getting records' }, 500);
       })
   )
+
   .get('/:id', (c) =>
     getDBRecord(Number(c.req.param('id')))
       .then((records) =>
@@ -25,15 +27,18 @@ export const recordsRouter = new Hono()
       })
   )
 
-  .post('/', (c) => {
-    const records: IInsertDBRecord[] = [];
-
-    return createDBRecords(records)
-      .then((createdRecords) =>
-        c.json({ msg: `created ${createdRecords.length} records` }, 201)
+  .post('/', (c) =>
+    getDBDrivers()
+      .then((drivers) => scrapRecords(drivers))
+      .then((records) => {
+        console.log(`found ${records.length} records`);
+        return createDBRecords(records);
+      })
+      .then((ids) =>
+        c.json({ msg: `Successfully created ${ids.length} records` }, 201)
       )
       .catch((error) => {
         console.error(error);
-        return c.json({ error: 'error creating records' }, 500);
-      });
-  });
+        return c.json({ msg: 'error creating records', error }, 500);
+      })
+  );

@@ -3,9 +3,8 @@ import { buildRecords, fetchWiki, parsePageContent } from './scraper.utils';
 import fs from 'fs';
 import path from 'path';
 
-export const scrapRecords = (
-  drivers: IDriver[]
-): Promise<IInsertDBRecord[][]> => Promise.all(drivers.map(getDriverRecords));
+export const scrapRecords = (drivers: IDriver[]): Promise<IInsertDBRecord[]> =>
+  Promise.all(drivers.map(getDriverRecords)).then((records) => records.flat());
 
 const getDriverRecords = ({ wikiKey, recordedChampionships, id }: IDriver) =>
   fetchWiki(wikiKey).then((elements) => {

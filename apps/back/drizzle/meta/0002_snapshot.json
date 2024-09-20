@@ -1,0 +1,220 @@
+{
+  "id": "bccdbc63-a502-459e-b200-a521026022dd",
+  "prevId": "4b89e53c-5ca7-4eec-a5dc-9eaf46202108",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.drivers": {
+      "name": "drivers",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "full_name": {
+          "name": "full_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tla": {
+          "name": "tla",
+          "type": "varchar(3)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "value": {
+          "name": "value",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": -1
+        },
+        "value_trend": {
+          "name": "value_trend",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "wiki_key": {
+          "name": "wiki_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "active_championship": {
+          "name": "active_championship",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "recorded_championships": {
+          "name": "recorded_championships",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "picture_url": {
+          "name": "picture_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nationality_country_code": {
+          "name": "nationality_country_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date_of_birth": {
+          "name": "date_of_birth",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "drivers_wiki_key_unique": {
+          "name": "drivers_wiki_key_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "wiki_key"
+          ]
+        }
+      }
+    },
+    "public.records": {
+      "name": "records",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "driver_id": {
+          "name": "driver_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "year": {
+          "name": "year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "team": {
+          "name": "team",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "result": {
+          "name": "result",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "circuit_id": {
+          "name": "circuit_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "championship": {
+          "name": "championship",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "score": {
+          "name": "score",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "race_key": {
+          "name": "race_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "race_name": {
+          "name": "race_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "race_round": {
+          "name": "race_round",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "race_index": {
+          "name": "race_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "unique_record": {
+          "name": "unique_record",
+          "nullsNotDistinct": false,
+          "columns": [
+            "year",
+            "race_round",
+            "race_index"
+          ]
+        }
+      }
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

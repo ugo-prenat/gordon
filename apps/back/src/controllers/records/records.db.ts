@@ -9,6 +9,13 @@ export const createDBRecords = (
   db
     .insert(recordsTable)
     .values(records)
+    .onConflictDoNothing({
+      target: [
+        recordsTable.year,
+        recordsTable.raceRound,
+        recordsTable.raceIndex
+      ]
+    })
     .returning({ id: recordsTable.id })
     .then((ids) => ids.map(({ id }) => id));
 
