@@ -28,6 +28,7 @@ export const recordsTable = pgTable(
   },
   (table) => ({
     unq: unique('unique_record').on(
+      table.driverId,
       table.year,
       table.raceRound,
       table.raceIndex

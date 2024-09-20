@@ -11,6 +11,7 @@ export const createDBRecords = (
     .values(records)
     .onConflictDoNothing({
       target: [
+        recordsTable.driverId,
         recordsTable.year,
         recordsTable.raceRound,
         recordsTable.raceIndex

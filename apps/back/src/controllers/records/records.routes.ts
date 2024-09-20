@@ -29,11 +29,8 @@ export const recordsRouter = new Hono()
 
   .post('/', (c) =>
     getDBDrivers()
-      .then((drivers) => scrapRecords(drivers))
-      .then((records) => {
-        console.log(`found ${records.length} records`);
-        return createDBRecords(records);
-      })
+      .then(scrapRecords)
+      .then(createDBRecords)
       .then((ids) =>
         c.json({ msg: `Successfully created ${ids.length} records` }, 201)
       )
