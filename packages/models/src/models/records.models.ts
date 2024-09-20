@@ -36,15 +36,15 @@ export type RaceKey = 'SPR' | 'FEA';
 // C = Race cancelled
 // PO = Practiced only
 // TD = Thursday/Friday test driver (from 2003 onwards)
+// DNS = Did not start
+// DNQ = Did not qualify
+// DNP = Did not practice
+// DNPQ = Did not pre-qualify
 export const RACE_RESULTS = [
   'EX', // Excluded
   'WD', // Withdrawn
   'DSQ', // Disqualified
-  'DNS', // Did not start
   'DNA', // Did not arrive
-  'DNQ', // Did not qualify
-  'DNP', // Did not practice
-  'DNPQ', // Did not pre-qualify
   'Ret', // Not classified, retired
   'NC' // Not classified, finished
 ] as const;
