@@ -1,5 +1,5 @@
 import { IDriverWithRecords } from '@controllers/records/records.models';
-import { IInsertDBRecord } from '@gordon/models';
+import { CHAMPIONSHIPS_MULTIPLIERS, IInsertDBRecord } from '@gordon/models';
 import { updateDBDriver } from './drivers.db';
 
 export const updateDriversValues = (
@@ -15,15 +15,20 @@ export const updateDriversValues = (
   ).then((results) => results.flat());
 
 const updateDriverValue = ({ driver, records }: IDriverWithRecords) =>
-  updateDBDriver({ id: driver.id, value: calculateDriverValue(records) });
+  updateDBDriver({
+    id: driver.id,
+    value: calculateDriverValue(records)
+  }).then(() => console.log(`${driver.id} value updated`));
 
 const calculateDriverValue = (records: IInsertDBRecord[]) => {
   const currentYear = new Date().getFullYear();
   const activeYearRecords = records.filter(({ year }) => year === currentYear);
 
   const totalScore = activeYearRecords.reduce(
-    (sum, record) => sum + Number(record.score),
+    (sum, record) =>
+      sum +
+      Number(record.score) * CHAMPIONSHIPS_MULTIPLIERS[record.championship],
     0
   );
-  return totalScore / activeYearRecords.length;
+  return Number(((totalScore / activeYearRecords.length) * 1000).toFixed());
 };

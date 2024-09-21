@@ -2,6 +2,7 @@ import { IDBRecord, IRecord } from '@gordon/models';
 import { ICreateRecordsResponse, IDriverWithRecords } from './records.models';
 import { createDBRecords } from './records.db';
 import { updateDriversValues } from '@controllers/drivers/drivers.utils';
+import { isEmpty } from '@gordon/utils';
 
 export const createRecords = (
   driversWithRecords: IDriverWithRecords[]
@@ -9,14 +10,26 @@ export const createRecords = (
   const records = driversWithRecords.flatMap(({ records }) => records);
 
   return createDBRecords(records).then(
-    ({ insertedRecordsNb, updatedRecordsDriverIds }) =>
-      updateDriversValues(driversWithRecords, updatedRecordsDriverIds).then(
-        () => ({
-          insertedRecordsNb,
-          scrapedRecordsNb: records.length,
-          driversNb: driversWithRecords.length
-        })
-      )
+    ({ insertedRecordsNb, updatedRecordsDriverIds }) => {
+      console.log(
+        `${records.length} records scraped, ${insertedRecordsNb} inserted`
+      );
+      console.log(
+        `updated drivers: ${updatedRecordsDriverIds.join(', ')}`,
+        updatedRecordsDriverIds.length
+      );
+
+      if (isEmpty(updatedRecordsDriverIds)) console.log('no drivers updated');
+
+      return updateDriversValues(
+        driversWithRecords,
+        updatedRecordsDriverIds
+      ).then(() => ({
+        insertedRecordsNb,
+        scrapedRecordsNb: records.length,
+        driversNb: driversWithRecords.length
+      }));
+    }
   );
 };
 
