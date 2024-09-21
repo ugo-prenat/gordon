@@ -1,8 +1,9 @@
 import { Hono } from 'hono';
-import { createDBRecords, getDBRecord, getDBRecords } from './records.db';
+import { getDBRecord, getDBRecords } from './records.db';
 import { isEmpty } from '@gordon/utils';
 import { getDBDrivers } from '@controllers/drivers/drivers.db';
 import { scrapRecords } from '@scraper/scraper.actions';
+import { createRecords } from './records.utils';
 
 export const recordsRouter = new Hono()
   .get('/', (c) =>
@@ -30,10 +31,8 @@ export const recordsRouter = new Hono()
   .post('/', (c) =>
     getDBDrivers()
       .then(scrapRecords)
-      .then(createDBRecords)
-      .then(({ inputRecordsNb, insertedRecordsNb }) =>
-        c.json({ scrapedRecordsNb: inputRecordsNb, insertedRecordsNb }, 201)
-      )
+      .then(createRecords)
+      .then((res) => c.json(res, 201))
       .catch((error) => {
         console.error(error);
         return c.json({ msg: 'error creating records', error }, 500);

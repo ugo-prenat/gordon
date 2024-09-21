@@ -2,10 +2,11 @@ import { eq } from 'drizzle-orm';
 import { IDBRecord, IInsertDBRecord, PartialWithId } from '@gordon/models';
 import { recordsTable } from './records.schemas';
 import { db } from '@db';
+import { unique } from '@gordon/utils';
 
 export const createDBRecords = (
   records: IInsertDBRecord[]
-): Promise<{ inputRecordsNb: number; insertedRecordsNb: number }> =>
+): Promise<{ updatedRecordsDriverIds: string[]; insertedRecordsNb: number }> =>
   db
     .insert(recordsTable)
     .values(records)
@@ -17,10 +18,11 @@ export const createDBRecords = (
         recordsTable.raceIndex
       ]
     })
-    .returning({ id: recordsTable.id })
-    .then((ids) => ({
-      inputRecordsNb: records.length,
-      insertedRecordsNb: ids.length
+    .returning({ id: recordsTable.driverId })
+    .then((driverIds) => driverIds.map(({ id }) => id))
+    .then((driverIds) => ({
+      updatedRecordsDriverIds: unique(driverIds),
+      insertedRecordsNb: driverIds.length
     }));
 
 export const getDBRecords = (): Promise<IDBRecord[]> =>

@@ -10,3 +10,5 @@ export const isNotEmpty = (value: unknown): boolean => !isEmpty(value);
 export const isNull = (value: unknown): boolean => value === null;
 
 export const isNotNull = (value: unknown): boolean => !isNull(value);
+
+export const unique = <T>(array: T[]): T[] => [...new Set(array)];

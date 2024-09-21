@@ -16,8 +16,16 @@ export const getDBDrivers = (): Promise<IDBDriver[]> =>
 export const getDBDriver = (id: string): Promise<IDBDriver[]> =>
   db.select().from(driversTable).where(eq(driversTable.id, id));
 
-export const updateDBDriver = (driver: PartialWithId<IDBDriver>) =>
-  db.update(driversTable).set(driver).where(eq(driversTable.id, driver.id));
+export const updateDBDriver = ({
+  id,
+  ...driver
+}: PartialWithId<IDBDriver>): Promise<string[]> =>
+  db
+    .update(driversTable)
+    .set(driver)
+    .where(eq(driversTable.id, id))
+    .returning({ id: driversTable.id })
+    .then((ids) => ids.map(({ id }) => id));
 
 export const deleteDBDriver = (id: string) =>
   db.delete(driversTable).where(eq(driversTable.id, id));

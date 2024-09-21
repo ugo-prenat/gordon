@@ -2,14 +2,19 @@ import { IDriver, IInsertDBRecord } from '@gordon/models';
 import { buildRecords, fetchWiki, parsePageContent } from './scraper.utils';
 import fs from 'fs';
 import path from 'path';
+import { IDriverWithRecords } from '@controllers/records/records.models';
 
-export const scrapRecords = (drivers: IDriver[]): Promise<IInsertDBRecord[]> =>
-  Promise.all(drivers.map(getDriverRecords)).then((records) => records.flat());
+export const scrapRecords = (
+  drivers: IDriver[]
+): Promise<IDriverWithRecords[]> => Promise.all(drivers.map(getDriverRecords));
 
-const getDriverRecords = ({ wikiKey, recordedChampionships, id }: IDriver) =>
-  fetchWiki(wikiKey).then((elements) => {
+const getDriverRecords = (driver: IDriver): Promise<IDriverWithRecords> =>
+  fetchWiki(driver.wikiKey).then((elements) => {
+    const { recordedChampionships, id } = driver;
+
     const parsedRecords = parsePageContent(elements, recordedChampionships);
-    return buildRecords(parsedRecords, id);
+    const records = buildRecords(parsedRecords, id);
+    return { driver, records };
   });
 
 export const saveRecords = (records: IInsertDBRecord[], id: string) => {
