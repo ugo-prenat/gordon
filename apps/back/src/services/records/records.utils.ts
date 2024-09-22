@@ -1,7 +1,7 @@
 import { IDBRecord, IRecord } from '@gordon/models';
 import { ICreateRecordsResponse, IDriverWithRecords } from './records.models';
 import { createDBRecords } from './records.db';
-import { updateDriversValues } from '@controllers/drivers/drivers.utils';
+import { updateDriversValues } from '@services/drivers/drivers.utils';
 import { isEmpty } from '@gordon/utils';
 
 export const createRecords = (

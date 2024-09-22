@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { getDBRecord, getDBRecords } from './records.db';
 import { isEmpty } from '@gordon/utils';
-import { getDBDrivers } from '@controllers/drivers/drivers.db';
+import { getDBDrivers } from '@services/drivers/drivers.db';
 import { scrapRecords } from '@scraper/scraper.actions';
 import { createRecords } from './records.utils';
 

@@ -1,4 +1,4 @@
-import { driversTable } from '@controllers/drivers/drivers.schemas';
+import { driversTable } from '@services/drivers/drivers.schemas';
 import { Championship, RaceKey, RaceResult } from '@gordon/models';
 import { relations } from 'drizzle-orm';
 import {

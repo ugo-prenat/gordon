@@ -1,4 +1,4 @@
-import { IDriverWithRecords } from '@controllers/records/records.models';
+import { IDriverWithRecords } from '@services/records/records.models';
 import { CHAMPIONSHIPS_MULTIPLIERS, IInsertDBRecord } from '@gordon/models';
 import { updateDBDriver } from './drivers.db';
 

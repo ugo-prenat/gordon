@@ -1,4 +1,4 @@
-import { recordsTable } from '@controllers/records/records.schemas';
+import { recordsTable } from '@services/records/records.schemas';
 import { Championship } from '@gordon/models';
 import { relations } from 'drizzle-orm';
 import {

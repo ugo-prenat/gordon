@@ -1,6 +1,6 @@
 import { IDriver } from '@gordon/models';
 import { buildRecords, fetchWiki, parsePageContent } from './scraper.utils';
-import { IDriverWithRecords } from '@controllers/records/records.models';
+import { IDriverWithRecords } from '@services/records/records.models';
 
 export const scrapRecords = (
   drivers: IDriver[]

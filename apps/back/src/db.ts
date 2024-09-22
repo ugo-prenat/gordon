@@ -1,5 +1,5 @@
-import { driversTable } from '@controllers/drivers/drivers.schemas';
-import { recordsTable } from '@controllers/records/records.schemas';
+import { driversTable } from '@services/drivers/drivers.schemas';
+import { recordsTable } from '@services/records/records.schemas';
 import { drizzle } from 'drizzle-orm/postgres-js/driver';
 import postgres from 'postgres';
 

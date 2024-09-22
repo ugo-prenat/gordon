@@ -2,8 +2,8 @@ import { Hono } from 'hono';
 import { isEmpty } from '@gordon/utils';
 import { createDBDriver, getDBDriver, getDBDrivers } from './drivers.db';
 import { IInsertDBDriver } from '@gordon/models';
-import { getDBRecordsByDriverId } from '@controllers/records/records.db';
-import { dbRecordsToRecords } from '@controllers/records/records.utils';
+import { getDBRecordsByDriverId } from '@services/records/records.db';
+import { dbRecordsToRecords } from '@services/records/records.utils';
 
 export const driversRouter = new Hono()
   .get('/', (c) =>

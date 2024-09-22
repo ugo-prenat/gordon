@@ -1,5 +1,5 @@
 import { db } from '@db';
-import { driversTable } from '@controllers/drivers/drivers.schemas';
+import { driversTable } from '@services/drivers/drivers.schemas';
 import { eq } from 'drizzle-orm';
 import { IDBDriver, IInsertDBDriver, PartialWithId } from '@gordon/models';
 
