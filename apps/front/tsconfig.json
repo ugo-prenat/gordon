@@ -12,7 +12,8 @@
       "@utils/*": ["./src/utils/*"],
       "@assets/*": ["./src/assets/*"],
       "@services/*": ["./src/services/*"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@gordon/back/*": ["../back/dist/*"]
     }
   }
 }

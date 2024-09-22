@@ -38,3 +38,6 @@ yarn-error.log*
 *.pem
 
 notes.txt
+
+# TypeScript build info files
+*.tsbuildinfo

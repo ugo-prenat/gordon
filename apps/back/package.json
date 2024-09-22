@@ -1,5 +1,5 @@
 {
-  "name": "back",
+  "name": "@gordon/back",
   "private": true,
   "version": "0.0.0",
   "type": "module",

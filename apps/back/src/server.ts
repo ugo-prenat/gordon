@@ -23,7 +23,7 @@ app.notFound((c) => {
 
 app.onError((err, c) => c.json({ error: err.message }, 500));
 
-export type Router = typeof router;
+export type ApiRouter = typeof router;
 
 serve({ fetch: app.fetch, port }, () =>
   console.log(`⚡️server listening on port ${port}\n`)
