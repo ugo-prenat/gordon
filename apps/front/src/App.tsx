@@ -1,7 +1,10 @@
+import { router } from '@services/router/index.router';
+import { RouterProvider } from '@tanstack/react-router';
+
 export const App = () => {
   return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <>
+      <RouterProvider router={router} />
+    </>
   );
 };
