@@ -1,28 +1,14 @@
 import { IDriver } from '@gordon/models';
 import { DriverCard } from '../drivers/components/DriverCard';
 import { Page } from '@/components/nav/Page';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useTranslation } from '@/services/i18n/i18n.hooks';
 
 export const MarketPage = () => {
+  const t = useTranslation();
+
   return (
-    <Page title="Market">
-      <div className="flex flex-col gap-4">
-        {drivers.map((driver) => (
-          <DriverCard key={driver.id} driver={driver} />
-        ))}
-        <Card className="w-[1200px]">
-          <CardHeader>
-            <CardTitle>Driver</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-lg font-semibold">
-              {'400000'.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-            </p>
-          </CardContent>
-        </Card>
-        {drivers.map((driver) => (
-          <DriverCard key={driver.id} driver={driver} />
-        ))}
+    <Page title={t('page.market.title')}>
+      <div className="flex gap-4">
         {drivers.map((driver) => (
           <DriverCard key={driver.id} driver={driver} />
         ))}

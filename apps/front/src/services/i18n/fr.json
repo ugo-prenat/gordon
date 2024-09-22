@@ -1,0 +1,16 @@
+{
+  "settings": "Paramètres",
+
+  "theme": "Thème",
+  "theme.dark": "Sombre",
+  "theme.light": "Clair",
+  "theme.system": "Système",
+
+  "language": "Langue",
+  "language.fr": "Français",
+  "language.en": "English",
+
+  "page.market.title": "Marché",
+
+  "page.admin.title": "Admin"
+}
