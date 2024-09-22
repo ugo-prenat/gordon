@@ -7,7 +7,7 @@ import {
 
 import { AdminPage } from '@pages/admin/Admin.pages';
 import { LandingPage } from '@pages/landing/Landing.pages';
-import { DriverPage } from '@pages/driver/Driver.pages';
+import { DriverPage } from '@/pages/drivers/Driver.pages';
 import { MarketPage } from '@pages/market/Market.pages';
 import { NavRoute } from '@components/nav/NavRoute';
 import { OnboardingPage } from '@pages/onboarding/Onboarding.pages';

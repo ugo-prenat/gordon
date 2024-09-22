@@ -3,15 +3,16 @@
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }],
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": ".",
     "jsx": "react-jsx",
     "paths": {
-      "@pages/*": ["pages/*"],
-      "@hooks/*": ["hooks/*"],
-      "@utils/*": ["utils/*"],
-      "@assets/*": ["assets/*"],
-      "@services/*": ["services/*"],
-      "@components/*": ["components/*"]
+      "@/*": ["./src/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@services/*": ["./src/services/*"],
+      "@components/*": ["./src/components/*"]
     }
   }
 }
