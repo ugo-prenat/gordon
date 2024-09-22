@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { useSettings } from '../store/settings/settings.store';
+import { useSettings } from '../store/settings/settings.stores';
 
 import en from './en.json';
 import fr from './fr.json';

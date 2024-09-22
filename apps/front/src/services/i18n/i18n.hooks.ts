@@ -1,5 +1,5 @@
 import { useTranslation as useI18nTranslation } from 'react-i18next';
-import { useSettings } from '../store/settings/settings.store';
+import { useSettings } from '../store/settings/settings.stores';
 import { fr as fnsFrLocale } from 'date-fns/locale';
 
 export const useTranslation = () => useI18nTranslation().t;

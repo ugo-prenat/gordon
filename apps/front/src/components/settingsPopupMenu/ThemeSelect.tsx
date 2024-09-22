@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
 import { Theme } from '@/services/store/settings/settings.models';
-import { useSettings } from '@/services/store/settings/settings.store';
+import { useSettings } from '@/services/store/settings/settings.stores';
 import { cn } from '@/utils/tailwind.utils';
 
 interface IThemeSelect {

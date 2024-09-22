@@ -21,11 +21,12 @@ export const useSettings = create<ISettingsStore>()(
   persist(
     (set) => ({
       theme: DEFAULT_THEME,
+      lang: DEFAULT_LANG,
+
       setTheme: (theme) => {
         updateRootElement(theme);
         set({ theme });
       },
-      lang: DEFAULT_LANG,
       setLang: (lang) => {
         i18next.changeLanguage(lang);
         set({ lang });
