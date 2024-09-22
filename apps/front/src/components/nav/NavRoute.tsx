@@ -3,9 +3,9 @@ import { Header } from './Header';
 import { FC } from 'react';
 
 export const NavRoute: FC = () => (
-  <div id="app" className="h-full flex flex-col">
+  <div id="navRoute" className="h-full w-full max-w-full flex flex-col">
     <Header />
-    <div className="flex-1 flex">
+    <div id="outlet" className="flex-1 flex overflow-auto">
       <Outlet />
     </div>
   </div>

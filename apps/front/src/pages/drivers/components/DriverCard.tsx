@@ -1,11 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { IDriver } from '@gordon/models';
+import { FC } from 'react';
 
 interface IDriverCardProps {
   driver: IDriver;
 }
 
-export const DriverCard = ({ driver }: IDriverCardProps) => {
+export const DriverCard: FC<IDriverCardProps> = ({ driver }) => {
   const { fullName, value } = driver;
   return (
     <Card>
