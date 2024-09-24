@@ -41,3 +41,5 @@ notes.txt
 
 # TypeScript build info files
 *.tsbuildinfo
+
+*.log

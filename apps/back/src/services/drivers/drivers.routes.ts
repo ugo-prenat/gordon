@@ -4,7 +4,7 @@ import { createDBDriver, getDBDriver, getDBDrivers } from './drivers.db';
 import { IInsertDBDriver } from '@gordon/models';
 import { getDBRecordsByDriverId } from '@services/records/records.db';
 import { dbRecordsToRecords } from '@services/records/records.utils';
-import { handleError } from '@utils/api.utils';
+import { handleError } from '@utils/api/api.utils';
 
 export const driversRouter = new Hono()
   .onError(handleError('DRR-1'))
