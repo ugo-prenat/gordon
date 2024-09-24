@@ -13,5 +13,8 @@
     "@gordon/tsconfig": "workspace:*",
     "tsup": "^8.2.4",
     "typescript": "latest"
+  },
+  "dependencies": {
+    "hono": "^4.5.11"
   }
 }
