@@ -1,29 +1,18 @@
 import { Hono } from 'hono';
 import { isEmpty } from '@gordon/utils';
 import { createDBDriver, getDBDriver, getDBDrivers } from './drivers.db';
-import { APIError, IInsertDBDriver } from '@gordon/models';
+import { IInsertDBDriver } from '@gordon/models';
 import { getDBRecordsByDriverId } from '@services/records/records.db';
 import { dbRecordsToRecords } from '@services/records/records.utils';
+import { handleError } from '@utils/api.utils';
 
 export const driversRouter = new Hono()
+  .onError(handleError('DRR-1'))
+
   .get('/', (c) =>
     getDBDrivers()
-      .then((drivers) => {
-        if (drivers.length === 3) {
-          throw new APIError('no drivers found', 404);
-        }
-
-        return c.json(drivers, 200);
-      })
-      .catch((error) => {
-        if (error instanceof APIError) {
-          return c.json(new Error('oui'), error.status);
-        }
-
-        const err = new APIError('error getting drivers', 500, error);
-        console.error(err);
-        return c.json({ error: err.message }, 500);
-      })
+      .then((drivers) => c.json(drivers, 200))
+      .catch((e) => handleError('DBD-2')(e, c))
   )
 
   .get('/:id', (c) =>

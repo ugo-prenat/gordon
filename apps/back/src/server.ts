@@ -4,6 +4,7 @@ import { serve } from '@hono/node-server';
 import { honoLogger } from '@gordon/utils';
 import { driversRouter } from '@services/drivers/drivers.routes';
 import { recordsRouter } from '@services/records/records.routes';
+import { handleError } from '@utils/api.utils';
 
 const port = 4000;
 const app = new Hono();
@@ -21,9 +22,9 @@ app.notFound((c) => {
   return c.json({ error: `route ${method} ${path} not found` }, 404);
 });
 
-app.onError((err, c) => c.json({ error: err.message }, 500));
+app.onError(handleError('IDX-1'));
 
-export type ApiRouter = typeof router;
+export type APIRouter = typeof router;
 
 serve({ fetch: app.fetch, port }, () =>
   console.log(`⚡️server listening on port ${port}\n`)

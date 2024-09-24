@@ -1,15 +1,19 @@
-import { APIError } from '@gordon/models';
-import { ensureError } from '@gordon/utils';
+import { APIError, IAPIError } from '@gordon/models';
 import { ClientResponse } from 'hono/client';
 import { StatusCode } from 'hono/utils/http-status';
 
-export const handleResponse = <T>(
-  res: ClientResponse<T, StatusCode>
-): Promise<T> => {
-  if (res.ok) return res.json() as Promise<T>;
+export const handleRes = <T>(
+  res: ClientResponse<T | IAPIError, StatusCode>
+): Promise<T> =>
+  res
+    .json()
+    .then((data) => {
+      if (res.ok) return data as T;
 
-  return res.json().then((err) => {
-    if (err instanceof APIError) throw err;
-    throw new APIError(res.statusText, res.status, ensureError(err));
-  });
-};
+      const err = data as IAPIError;
+      throw new APIError(err.error, err.code, err.status);
+    })
+    .catch((err) => {
+      if (err instanceof APIError) throw err;
+      throw new APIError(err.message, 'FDA-1', 500, err);
+    });
