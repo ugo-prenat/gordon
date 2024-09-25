@@ -1,10 +1,10 @@
 import { client } from '@/services/api/api';
 import { handleRes } from '@/services/api/api.utils';
-import { APIError, IDriver } from '@gordon/models';
+import { IAPIError, IDriver } from '@gordon/models';
 import { useQuery } from '@tanstack/react-query';
 
 export const useDrivers = () =>
-  useQuery<IDriver[], APIError>({
+  useQuery<IDriver[], IAPIError>({
     queryKey: ['drivers'],
     queryFn: () => fetchDrivers(),
     retry: false

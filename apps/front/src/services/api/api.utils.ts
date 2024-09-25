@@ -11,7 +11,7 @@ export const handleRes = <T>(
       if (res.ok) return data as T;
 
       const err = data as IAPIError;
-      throw new APIError(err.error, err.code, err.status);
+      throw new APIError(err.message, err.code, err.status);
     })
     .catch((err) => {
       if (err instanceof APIError) throw err;

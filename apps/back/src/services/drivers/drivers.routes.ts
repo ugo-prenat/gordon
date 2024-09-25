@@ -7,12 +7,12 @@ import { dbRecordsToRecords } from '@services/records/records.utils';
 import { handleError } from '@utils/api/api.utils';
 
 export const driversRouter = new Hono()
-  .onError(handleError('DRR-1'))
+  .onError((e, c) => handleError(c, 'DRR-1')(e))
 
   .get('/', (c) =>
     getDBDrivers()
       .then((drivers) => c.json(drivers, 200))
-      .catch((e) => handleError('DBD-2')(e, c))
+      .catch(handleError(c, 'DRR-2'))
   )
 
   .get('/:id', (c) =>
@@ -44,18 +44,7 @@ export const driversRouter = new Hono()
   })
 
   .post('/', (c) => {
-    const driver: IInsertDBDriver = {
-      id: 'pierre-gasly',
-      fullName: 'Pierre Gasly',
-      tla: 'GAS',
-      wikiKey: 'Pierre_Gasly',
-      activeChampionship: 'f1',
-      recordedChampionships: ['f1'],
-      pictureUrl: 'vroom',
-      nationalityCountryCode: 'FR',
-      dateOfBirth: '1996-02-07',
-      isActive: true
-    };
+    const driver = {} as IInsertDBDriver;
 
     return createDBDriver(driver)
       .then((createdDriver) => {

@@ -5,6 +5,7 @@ import { honoLogger, logger } from '@utils/logger/logger.index';
 import { driversRouter } from '@services/drivers/drivers.routes';
 import { recordsRouter } from '@services/records/records.routes';
 import { handleError } from '@utils/api/api.utils';
+import { APIError } from '@gordon/models';
 
 const port = 4000;
 const app = new Hono();
@@ -16,11 +17,16 @@ const router = app
   .route('/drivers', driversRouter)
   .route('/records', recordsRouter);
 
-app.notFound((c) =>
-  c.json({ error: `route ${c.req.method} ${c.req.path} not found` }, 404)
-);
+app.notFound((c) => {
+  const err = new APIError(
+    `route ${c.req.method} ${c.req.path} does not exist`,
+    'IDX-2',
+    404
+  );
+  return handleError(c, 'IDX-2')(err);
+});
 
-app.onError(handleError('IDX-1'));
+app.onError((e, c) => handleError(c, 'IDX-1')(e));
 
 export type APIRouter = typeof router;
 

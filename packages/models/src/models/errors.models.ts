@@ -1,5 +1,4 @@
 import { StatusCode } from 'hono/utils/http-status';
-import { ErrorObject } from 'serialize-error';
 
 export class APIError extends Error {
   code: string;
@@ -23,5 +22,16 @@ export interface IAPIError {
   code: string;
   message: string;
   status: StatusCode;
-  originalError?: ErrorObject;
 }
+
+export interface ICompleteAPIError extends IAPIError {
+  originalError: SerializedError;
+}
+
+export type SerializedError = {
+  name?: string;
+  message?: string;
+  stack?: string;
+  cause?: unknown;
+  code?: string;
+};
