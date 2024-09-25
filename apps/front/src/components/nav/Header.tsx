@@ -8,11 +8,11 @@ export const Header = () => {
 
   return (
     <div id="header" className="p-3 border-b flex justify-between">
-      <div className="flex gap-x-4">
-        <Link to="/market">
+      <div className="flex gap-x-4 pl-3">
+        <Link to="/market" className="flex items-center">
           <Button variant="link">{t('page.market.title')}</Button>
         </Link>
-        <Link to="/admin">
+        <Link to="/admin" className="flex items-center">
           <Button variant="link">{t('page.admin.title')}</Button>
         </Link>
       </div>

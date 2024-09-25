@@ -17,7 +17,7 @@ export const Page: FC<IPageProps> = ({
     <div
       id="page"
       className={cn(
-        'w-full max-w-full h-full max-h-full flex flex-col p-6',
+        'w-full max-w-full h-full max-h-full flex flex-col',
         className
       )}
       {...props}

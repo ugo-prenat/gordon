@@ -10,6 +10,10 @@
   "language.fr": "Français",
   "language.en": "English",
 
+  "page.driver.tab.overview": "Aperçu",
+  "page.driver.tab.records": "Records",
+  "page.driver.tab.cards": "Cartes",
+
   "page.market.title": "Marché",
 
   "page.admin.title": "Admin"

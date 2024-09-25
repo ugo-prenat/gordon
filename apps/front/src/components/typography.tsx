@@ -12,7 +12,7 @@ export const Title: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   className,
   ...props
 }) => (
-  <h2 className={cn('text-2xl font-bold tracking-tight', className)} {...props}>
+  <h2 className={cn('text-3xl font-bold tracking-tight', className)} {...props}>
     {children}
   </h2>
 );

@@ -5,13 +5,13 @@ import {
   Navigate
 } from '@tanstack/react-router';
 
-import { AdminPage } from '@pages/admin/Admin.pages';
-import { LandingPage } from '@pages/landing/Landing.pages';
+import { AdminPage } from '@/pages/admin/Admin.pages';
+import { LandingPage } from '@/pages/landing/Landing.pages';
 import { DriverPage } from '@/pages/drivers/Driver.pages';
-import { MarketPage } from '@pages/market/Market.pages';
+import { MarketPage } from '@/pages/market/Market.pages';
 import { NavRoute } from '@components/nav/NavRoute';
-import { OnboardingPage } from '@pages/onboarding/Onboarding.pages';
-import { ChassisPage } from '@pages/chassis/Chassis.pages';
+import { OnboardingPage } from '@/pages/onboarding/Onboarding.pages';
+import { ChassisPage } from '@/pages/chassis/Chassis.pages';
 
 export const rootRoute = createRootRoute();
 

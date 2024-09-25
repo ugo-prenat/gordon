@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { isEmpty } from '@gordon/utils';
 import { createDBDriver, getDBDriver, getDBDrivers } from './drivers.db';
-import { IInsertDBDriver } from '@gordon/models';
+import { APIError, IInsertDBDriver } from '@gordon/models';
 import { getDBRecordsByDriverId } from '@services/records/records.db';
 import { dbRecordsToRecords } from '@services/records/records.utils';
 import { handleError } from '@utils/api/api.utils';
@@ -17,30 +17,19 @@ export const driversRouter = new Hono()
 
   .get('/:id', (c) =>
     getDBDriver(c.req.param('id'))
-      .then((drivers) =>
-        isEmpty(drivers)
-          ? c.json({ error: 'no driver found' }, 404)
-          : c.json(drivers[0])
-      )
-      .catch((error) => {
-        console.error(error);
-        return c.json({ error: 'error getting driver' }, 500);
+      .then((drivers) => {
+        if (isEmpty(drivers))
+          throw new APIError('no driver found', 'DRR-4', 404);
+        return c.json(drivers[0]);
       })
+      .catch(handleError(c, 'DRR-3'))
   )
 
   .get('/:id/records', (c) => {
     const driverId = c.req.param('id');
     return getDBRecordsByDriverId(driverId)
-      .then((records) =>
-        c.json({
-          total: records.length,
-          records: dbRecordsToRecords(records)
-        })
-      )
-      .catch((error) => {
-        console.error(error);
-        return c.json({ error: 'error getting records' }, 500);
-      });
+      .then((records) => c.json(dbRecordsToRecords(records)))
+      .catch(handleError(c, 'DRR-5'));
   })
 
   .post('/', (c) => {

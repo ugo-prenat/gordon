@@ -1,7 +1,8 @@
-import { DriverCard } from '../drivers/components/DriverCard';
 import { Page } from '@/components/nav/Page';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
 import { useDrivers } from '../drivers/drivers.api';
+import { Link } from '@tanstack/react-router';
+import { Button } from '@/components/ui/button';
 
 export const MarketPage = () => {
   const t = useTranslation();
@@ -19,9 +20,12 @@ export const MarketPage = () => {
 
   return (
     <Page title={t('page.market.title')}>
-      <div className="flex gap-4">
+      <p>temp drivers</p>
+      <div className="flex flex-col">
         {drivers.map((driver) => (
-          <DriverCard key={driver.id} driver={driver} />
+          <Link to={`/drivers/${driver.id}`}>
+            <Button variant="link">{driver.id}</Button>
+          </Link>
         ))}
       </div>
     </Page>
