@@ -1,4 +1,4 @@
-import { APIError } from '@gordon/models';
+import { APIError, IAPIError } from '@gordon/models';
 import { logger } from '@utils/logger/logger.index';
 import { Context } from 'hono';
 import { HTTPResponseError } from 'hono/types';
@@ -9,11 +9,14 @@ export const handleError =
     const { message, code, status } =
       e instanceof APIError ? e : new APIError(e.message, backupCode, 500, e);
 
-    logger.error({
+    const error: IAPIError = {
       code,
       status,
-      error: message,
+      message,
       originalError: serializeError(e)
-    });
-    return c.json({ error: message, code, status }, status);
+    };
+
+    logger.error(error);
+    const { originalError, ...rest } = error;
+    return c.json(rest, status);
   };

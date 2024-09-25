@@ -226,6 +226,9 @@ importers:
       hono:
         specifier: ^4.5.11
         version: 4.5.11
+      serialize-error:
+        specifier: ^11.0.3
+        version: 11.0.3
     devDependencies:
       '@gordon/tsconfig':
         specifier: workspace:*

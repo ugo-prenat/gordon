@@ -15,6 +15,7 @@
     "typescript": "latest"
   },
   "dependencies": {
-    "hono": "^4.5.11"
+    "hono": "^4.5.11",
+    "serialize-error": "^11.0.3"
   }
 }

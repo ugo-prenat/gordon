@@ -1,4 +1,5 @@
 import { StatusCode } from 'hono/utils/http-status';
+import { ErrorObject } from 'serialize-error';
 
 export class APIError extends Error {
   code: string;
@@ -19,7 +20,8 @@ export class APIError extends Error {
 }
 
 export interface IAPIError {
-  error: string;
   code: string;
+  message: string;
   status: StatusCode;
+  originalError?: ErrorObject;
 }
