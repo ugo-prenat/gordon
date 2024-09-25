@@ -46,10 +46,10 @@ export const DriverPage = () => {
           <DriverOverviewTab driver={driver} />
         </TabsContent>
         <TabsContent value={DRIVER_RECORDS_TAB}>
-          <DriverRecordsTab id={id} />
+          <DriverRecordsTab />
         </TabsContent>
         <TabsContent value={DRIVER_CARDS_TAB}>
-          <DriverCardsTab id={id} />
+          <DriverCardsTab />
         </TabsContent>
       </Tabs>
     </Page>

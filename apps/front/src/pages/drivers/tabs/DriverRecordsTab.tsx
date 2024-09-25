@@ -1,10 +1,13 @@
+import { driverRoute } from '@/services/router/routes.router';
 import { useDriverRecords } from '../drivers.api';
 
-export const DriverRecordsTab = ({ id }: { id: string }) => {
-  const { data: records, isLoading, isError, error } = useDriverRecords(id);
+export const DriverRecordsTab = () => {
+  const { id } = driverRoute.useParams();
+
+  const { data: records, isPending, isError, error } = useDriverRecords(id);
   console.log('RecordsTab rendered');
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isPending) return <div>Loading...</div>;
   if (isError)
     return (
       <div>
@@ -14,7 +17,7 @@ export const DriverRecordsTab = ({ id }: { id: string }) => {
   return (
     <div>
       DriverRecordsTab
-      <p>found {records?.length ?? 0} records</p>
+      <p>found {records.length} records</p>
     </div>
   );
 };
