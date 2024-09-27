@@ -1,5 +1,4 @@
 import { Page } from '@/components/nav/Page';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
 import { DriverCardsTab } from './tabs/DriverCardsTab';
 import { DriverOverviewTab } from './tabs/DriverOverviewTab';
@@ -9,35 +8,32 @@ import {
   DRIVER_OVERVIEW_TAB,
   DRIVER_RECORDS_TAB
 } from './drivers.models';
+import { ITab, SlidingTabs } from '@/components/SlidingTabs';
 
 export const DriverPage = () => {
   const t = useTranslation();
 
+  const tabs: ITab[] = [
+    {
+      value: DRIVER_OVERVIEW_TAB,
+      content: <DriverOverviewTab />,
+      label: t('page.driver.tab.overview')
+    },
+    {
+      value: DRIVER_RECORDS_TAB,
+      content: <DriverRecordsTab />,
+      label: t('page.driver.tab.records')
+    },
+    {
+      value: DRIVER_CARDS_TAB,
+      content: <DriverCardsTab />,
+      label: t('page.driver.tab.cards')
+    }
+  ];
+
   return (
     <Page>
-      <Tabs defaultValue={DRIVER_OVERVIEW_TAB}>
-        <TabsList className="border-b w-full justify-start">
-          <TabsTrigger value={DRIVER_OVERVIEW_TAB} className="ml-3">
-            {t('page.driver.tab.overview')}
-          </TabsTrigger>
-          <TabsTrigger value={DRIVER_RECORDS_TAB}>
-            {t('page.driver.tab.records')}
-          </TabsTrigger>
-          <TabsTrigger value={DRIVER_CARDS_TAB}>
-            {t('page.driver.tab.cards')}
-          </TabsTrigger>
-        </TabsList>
-
-        <TabsContent value={DRIVER_OVERVIEW_TAB}>
-          <DriverOverviewTab />
-        </TabsContent>
-        <TabsContent value={DRIVER_RECORDS_TAB}>
-          <DriverRecordsTab />
-        </TabsContent>
-        <TabsContent value={DRIVER_CARDS_TAB}>
-          <DriverCardsTab />
-        </TabsContent>
-      </Tabs>
+      <SlidingTabs tabs={tabs} defaultTab={DRIVER_OVERVIEW_TAB} />
     </Page>
   );
 };

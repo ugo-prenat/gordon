@@ -13,7 +13,7 @@ import {
   navRoute,
   onboardingRoute,
   rootRoute
-} from './routes.router';
+} from './router.routes';
 
 const routeTree = rootRoute.addChildren([
   fullscreenRoute.addChildren([landingRoute, onboardingRoute]),

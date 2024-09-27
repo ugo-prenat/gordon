@@ -1,4 +1,4 @@
-import { driverRoute } from '@/services/router/routes.router';
+import { driverRoute } from '@/services/router/router.routes';
 import { useDriverRecords } from '../drivers.api';
 
 export const DriverRecordsTab = () => {

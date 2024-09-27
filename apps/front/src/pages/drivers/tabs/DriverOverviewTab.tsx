@@ -1,6 +1,6 @@
 import { DriverHero } from '../components/hero/DriverHero';
 import { useDriver } from '../drivers.api';
-import { driverRoute } from '@/services/router/routes.router';
+import { driverRoute } from '@/services/router/router.routes';
 
 export const DriverOverviewTab = () => {
   const { id } = driverRoute.useParams();

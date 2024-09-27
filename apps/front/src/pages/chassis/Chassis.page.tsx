@@ -1,4 +1,4 @@
-import { chassisRoute } from '@services/router/routes.router';
+import { chassisRoute } from '@/services/router/router.routes';
 
 export const ChassisPage = () => {
   const { id } = chassisRoute.useParams();

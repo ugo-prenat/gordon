@@ -1,4 +1,4 @@
-import { router } from '@services/router/index.router';
+import { router } from '@/services/router/router';
 import { RouterProvider } from '@tanstack/react-router';
 import { updateRootElement } from './services/store/settings/settings.utils';
 import { useEffect } from 'react';

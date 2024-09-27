@@ -1,4 +1,4 @@
-import { driverRoute } from '@/services/router/routes.router';
+import { driverRoute } from '@/services/router/router.routes';
 
 export const DriverCardsTab = () => {
   const { id } = driverRoute.useParams();
