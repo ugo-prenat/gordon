@@ -5,12 +5,14 @@ import { Title } from '../typography';
 
 interface IPageProps extends PropsWithChildren, HTMLAttributes<HTMLDivElement> {
   title?: string;
+  padding?: boolean;
 }
 
 export const Page: FC<IPageProps> = ({
   children,
   className,
   title,
+  padding = false,
   ...props
 }) => {
   return (
@@ -18,7 +20,8 @@ export const Page: FC<IPageProps> = ({
       id="page"
       className={cn(
         'w-full max-w-full h-full max-h-full flex flex-col',
-        className
+        className,
+        { 'p-6': padding }
       )}
       {...props}
     >

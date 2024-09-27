@@ -19,9 +19,8 @@ export const MarketPage = () => {
     );
 
   return (
-    <Page title={t('page.market.title')}>
-      <p>temp drivers</p>
-      <div className="flex flex-col">
+    <Page title={t('page.market.title')} padding>
+      <div className="flex flex-col gap-y-2">
         {drivers.map((driver) => (
           <Link to={`/drivers/${driver.id}`}>
             <Button variant="link">{driver.id}</Button>

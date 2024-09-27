@@ -1,6 +1,6 @@
 import { createRouter } from '@tanstack/react-router';
 
-import { NotFoundPage } from '@/pages/NotFound.pages';
+import { NotFoundPage } from '@/pages/NotFound.page';
 import {
   adminRoute,
   driverRoute,
