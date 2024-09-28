@@ -6,14 +6,22 @@ import { DriverRecordsTab } from './tabs/DriverRecordsTab';
 import {
   DRIVER_CARDS_TAB,
   DRIVER_OVERVIEW_TAB,
-  DRIVER_RECORDS_TAB
+  DRIVER_RECORDS_TAB,
+  DriverPageTab
 } from './drivers.models';
 import { ITab, SlidingTabs } from '@/components/SlidingTabs';
+import { driverRoute } from '@/services/router/router.routes';
 
 export const DriverPage = () => {
   const t = useTranslation();
+  const { tab } = driverRoute.useSearch();
+  const navigate = driverRoute.useNavigate();
 
-  const tabs: ITab[] = [
+  const defaultTab = tab || DRIVER_OVERVIEW_TAB;
+
+  const handleTabClick = (tab: DriverPageTab) => navigate({ search: { tab } });
+
+  const tabs: ITab<DriverPageTab>[] = [
     {
       value: DRIVER_OVERVIEW_TAB,
       content: <DriverOverviewTab />,
@@ -33,7 +41,11 @@ export const DriverPage = () => {
 
   return (
     <Page>
-      <SlidingTabs tabs={tabs} defaultTab={DRIVER_OVERVIEW_TAB} />
+      <SlidingTabs
+        tabs={tabs}
+        defaultTab={defaultTab}
+        onClick={handleTabClick}
+      />
     </Page>
   );
 };

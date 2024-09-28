@@ -12,6 +12,12 @@ import { MarketPage } from '@/pages/market/Market.page';
 import { NavRoute } from '@components/nav/NavRoute';
 import { OnboardingPage } from '@/pages/onboarding/Onboarding.page';
 import { ChassisPage } from '@/pages/chassis/Chassis.page';
+import {
+  DRIVER_OVERVIEW_TAB,
+  DRIVER_PAGE_TABS
+} from '@/pages/drivers/drivers.models';
+import { z } from 'zod';
+import { zodSearchValidator, fallback } from '@tanstack/router-zod-adapter';
 
 export const rootRoute = createRootRoute();
 
@@ -48,7 +54,10 @@ export const driversListRoute = createRoute({
 export const driverRoute = createRoute({
   path: '/drivers/$id',
   component: DriverPage,
-  getParentRoute: () => navRoute
+  getParentRoute: () => navRoute,
+  validateSearch: zodSearchValidator(
+    z.object({ tab: fallback(z.enum(DRIVER_PAGE_TABS), DRIVER_OVERVIEW_TAB) })
+  )
 });
 
 export const chassisListRoute = createRoute({

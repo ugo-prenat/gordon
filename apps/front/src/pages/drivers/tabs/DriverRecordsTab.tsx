@@ -5,7 +5,6 @@ export const DriverRecordsTab = () => {
   const { id } = driverRoute.useParams();
 
   const { data: records, isPending, isError, error } = useDriverRecords(id);
-  console.log('RecordsTab rendered');
 
   if (isPending) return <div>Loading...</div>;
   if (isError)
