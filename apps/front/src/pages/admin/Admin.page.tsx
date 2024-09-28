@@ -5,11 +5,7 @@ export const AdminPage = () => {
   const t = useTranslation();
 
   return (
-    <Page
-      padding
-      title={t('page.admin.title')}
-      tabTitle={t('page.admin.title')}
-    >
+    <Page padding tabTitle={t('admin')}>
       <p>🤙</p>
     </Page>
   );

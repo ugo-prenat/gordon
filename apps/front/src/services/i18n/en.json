@@ -10,12 +10,16 @@
   "language.fr": "Français",
   "language.en": "English",
 
-  "page.driver.tabTitle": "Driver profile",
-  "page.driver.tab.overview": "Overview",
-  "page.driver.tab.records": "Records",
-  "page.driver.tab.cards": "Cards",
+  "market": "Market",
+  "drivers": "Drivers",
+  "chassis": "Chassis",
+  "overview": "Overview",
+  "records": "Records",
+  "cards": "Cards",
+  "admin": "Admin",
 
-  "page.market.title": "Market",
+  "page.market.tabTitle.drivers": "Drivers market",
+  "page.market.tabTitle.chassis": "Chassis market",
 
-  "page.admin.title": "Admin"
+  "page.driver.tabTitle": "Driver profile"
 }

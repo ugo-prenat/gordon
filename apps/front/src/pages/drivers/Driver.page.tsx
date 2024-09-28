@@ -19,23 +19,26 @@ export const DriverPage = () => {
 
   const defaultTab = tab || DRIVER_OVERVIEW_TAB;
 
-  const handleTabClick = (tab: DriverPageTab) => navigate({ search: { tab } });
+  const handleTabClick = (newTab: DriverPageTab) =>
+    navigate({
+      search: { tab: newTab === DRIVER_OVERVIEW_TAB ? undefined : newTab }
+    });
 
   const tabs: ITab<DriverPageTab>[] = [
     {
+      label: t('overview'),
       value: DRIVER_OVERVIEW_TAB,
-      content: <DriverOverviewTab />,
-      label: t('page.driver.tab.overview')
+      content: <DriverOverviewTab />
     },
     {
+      label: t('records'),
       value: DRIVER_RECORDS_TAB,
-      content: <DriverRecordsTab />,
-      label: t('page.driver.tab.records')
+      content: <DriverRecordsTab />
     },
     {
+      label: t('cards'),
       value: DRIVER_CARDS_TAB,
-      content: <DriverCardsTab />,
-      label: t('page.driver.tab.cards')
+      content: <DriverCardsTab />
     }
   ];
 

@@ -10,12 +10,16 @@
   "language.fr": "Français",
   "language.en": "English",
 
-  "page.driver.tabTitle": "Profil de pilote",
-  "page.driver.tab.overview": "Aperçu",
-  "page.driver.tab.records": "Records",
-  "page.driver.tab.cards": "Cartes",
+  "market": "Marché",
+  "drivers": "Pilotes",
+  "chassis": "Châssis",
+  "overview": "Aperçu",
+  "records": "Records",
+  "cards": "Cartes",
+  "admin": "Admin",
 
-  "page.market.title": "Marché",
+  "page.market.tabTitle.drivers": "Marché des pilotes",
+  "page.market.tabTitle.chassis": "Marché des châssis",
 
-  "page.admin.title": "Admin"
+  "page.driver.tabTitle": "Profil de pilote"
 }

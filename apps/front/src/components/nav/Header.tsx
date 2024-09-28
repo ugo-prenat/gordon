@@ -17,7 +17,7 @@ export const Header = () => {
               className: 'opacity-100'
             }}
           >
-            {t('page.market.title')}
+            {t('market')}
           </Link>
         </Button>
         <Button variant="link">
@@ -28,7 +28,7 @@ export const Header = () => {
               className: 'opacity-100'
             }}
           >
-            {t('page.admin.title')}
+            {t('admin')}
           </Link>
         </Button>
       </div>

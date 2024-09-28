@@ -19,8 +19,7 @@ export const Page: FC<IPageProps> = ({
 }) => {
   useEffect(() => {
     if (tabTitle) document.title = `${tabTitle} • Gordon`;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [tabTitle]);
 
   return (
     <div

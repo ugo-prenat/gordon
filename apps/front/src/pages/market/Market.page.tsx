@@ -1,32 +1,51 @@
 import { Page } from '@/components/nav/Page';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
-import { useDrivers } from '../drivers/drivers.api';
-import { Link } from '@tanstack/react-router';
-import { Button } from '@/components/ui/button';
+import { ITab, SlidingTabs } from '@/components/SlidingTabs';
+import {
+  MARKET_CHASSIS_TAB,
+  MARKET_DRIVERS_TAB,
+  MarketTab
+} from './market.models';
+import { MarketDriversTab } from './tabs/MarketDriversTab';
+import { MarketChassisTab } from './tabs/MarketChassisTab';
+import { marketRoute } from '@/services/router/router.routes';
+import { useState } from 'react';
+import { buildTabTitle } from './market.utils';
 
 export const MarketPage = () => {
   const t = useTranslation();
+  const { tab } = marketRoute.useSearch();
+  const navigate = marketRoute.useNavigate();
 
-  const { data: drivers, isPending, isError, error } = useDrivers();
+  const defaultTab = tab || MARKET_DRIVERS_TAB;
+  const [tabTitle, setTabTitle] = useState(t(buildTabTitle(defaultTab)));
 
-  if (isPending) return <div>Loading drivers...</div>;
+  const handleTabClick = (newTab: MarketTab) => {
+    const tab = newTab === MARKET_DRIVERS_TAB ? undefined : newTab;
+    navigate({ search: { tab } });
+    setTabTitle(t(buildTabTitle(newTab)));
+  };
 
-  if (isError)
-    return (
-      <div>
-        Error: {error.message} code: {error.code}
-      </div>
-    );
+  const tabs: ITab<MarketTab>[] = [
+    {
+      label: t('drivers'),
+      value: MARKET_DRIVERS_TAB,
+      content: <MarketDriversTab />
+    },
+    {
+      label: t('chassis'),
+      value: MARKET_CHASSIS_TAB,
+      content: <MarketChassisTab />
+    }
+  ];
 
   return (
-    <Page padding tabTitle={t('page.market.title')}>
-      <div className="flex flex-col gap-y-2">
-        {drivers.map((driver) => (
-          <Link to={`/drivers/${driver.id}`} key={driver.id}>
-            <Button variant="link">{driver.id}</Button>
-          </Link>
-        ))}
-      </div>
+    <Page tabTitle={tabTitle}>
+      <SlidingTabs
+        tabs={tabs}
+        defaultTab={defaultTab}
+        onClick={handleTabClick}
+      />
     </Page>
   );
 };

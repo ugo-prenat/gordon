@@ -12,17 +12,10 @@ import { MarketPage } from '@/pages/market/Market.page';
 import { NavRoute } from '@components/nav/NavRoute';
 import { OnboardingPage } from '@/pages/onboarding/Onboarding.page';
 import { ChassisPage } from '@/pages/chassis/Chassis.page';
-import {
-  DRIVER_OVERVIEW_TAB,
-  DRIVER_PAGE_TABS
-} from '@/pages/drivers/drivers.models';
+import { DRIVER_PAGE_TABS } from '@/pages/drivers/drivers.models';
 import { z } from 'zod';
-import { zodSearchValidator, fallback } from '@tanstack/router-zod-adapter';
-import {
-  MARKET_CHASSIS_TAB,
-  MARKET_DRIVERS_TAB,
-  MARKET_TABS
-} from '@/pages/market/market.models';
+import { zodSearchValidator } from '@tanstack/router-zod-adapter';
+import { MARKET_CHASSIS_TAB, MARKET_TABS } from '@/pages/market/market.models';
 
 export const rootRoute = createRootRoute();
 
@@ -49,15 +42,13 @@ export const marketRoute = createRoute({
   component: MarketPage,
   getParentRoute: () => navRoute,
   validateSearch: zodSearchValidator(
-    z.object({ tab: fallback(z.enum(MARKET_TABS), MARKET_DRIVERS_TAB) })
+    z.object({ tab: z.enum(MARKET_TABS).optional() })
   )
 });
 
 export const driversListRoute = createRoute({
   path: '/drivers',
-  component: () => (
-    <Navigate to="/market" search={{ tab: MARKET_DRIVERS_TAB }} />
-  ),
+  component: () => <Navigate to="/market" />,
   getParentRoute: () => navRoute
 });
 
@@ -66,7 +57,7 @@ export const driverRoute = createRoute({
   component: DriverPage,
   getParentRoute: () => navRoute,
   validateSearch: zodSearchValidator(
-    z.object({ tab: fallback(z.enum(DRIVER_PAGE_TABS), DRIVER_OVERVIEW_TAB) })
+    z.object({ tab: z.enum(DRIVER_PAGE_TABS).optional() })
   )
 });
 
