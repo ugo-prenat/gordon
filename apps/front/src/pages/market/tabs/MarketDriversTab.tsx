@@ -1,6 +1,5 @@
-import { Link } from '@tanstack/react-router';
-import { Button } from '@/components/ui/button';
 import { useDrivers } from '@/pages/drivers/drivers.api';
+import { DriversList } from '@/pages/drivers/DriversList';
 
 export const MarketDriversTab = () => {
   const { data: drivers, isPending, isError, error } = useDrivers();
@@ -15,13 +14,7 @@ export const MarketDriversTab = () => {
 
   return (
     <div className="p-6">
-      <div className="flex flex-col gap-y-2">
-        {drivers.map((driver) => (
-          <Link to={`/drivers/${driver.id}`} key={driver.id}>
-            <Button variant="link">{driver.id}</Button>
-          </Link>
-        ))}
-      </div>
+      <DriversList drivers={drivers} />
     </div>
   );
 };
