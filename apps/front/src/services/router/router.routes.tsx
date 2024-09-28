@@ -18,6 +18,11 @@ import {
 } from '@/pages/drivers/drivers.models';
 import { z } from 'zod';
 import { zodSearchValidator, fallback } from '@tanstack/router-zod-adapter';
+import {
+  MARKET_CHASSIS_TAB,
+  MARKET_DRIVERS_TAB,
+  MARKET_TABS
+} from '@/pages/market/market.models';
 
 export const rootRoute = createRootRoute();
 
@@ -42,12 +47,17 @@ export const landingRoute = createRoute({
 export const marketRoute = createRoute({
   path: '/market',
   component: MarketPage,
-  getParentRoute: () => navRoute
+  getParentRoute: () => navRoute,
+  validateSearch: zodSearchValidator(
+    z.object({ tab: fallback(z.enum(MARKET_TABS), MARKET_DRIVERS_TAB) })
+  )
 });
 
 export const driversListRoute = createRoute({
   path: '/drivers',
-  component: () => <Navigate to="/market" />,
+  component: () => (
+    <Navigate to="/market" search={{ tab: MARKET_DRIVERS_TAB }} />
+  ),
   getParentRoute: () => navRoute
 });
 
@@ -62,7 +72,9 @@ export const driverRoute = createRoute({
 
 export const chassisListRoute = createRoute({
   path: '/chassis',
-  component: () => <Navigate to="/market" search={{ tab: 'chassis' }} />,
+  component: () => (
+    <Navigate to="/market" search={{ tab: MARKET_CHASSIS_TAB }} />
+  ),
   getParentRoute: () => navRoute
 });
 

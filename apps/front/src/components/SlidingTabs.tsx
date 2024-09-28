@@ -76,7 +76,7 @@ export const SlidingTabs = <T extends string>({
           style={{ width, left }}
           className={cn(
             { 'transition-all duration-300': isAnimate },
-            'absolute bottom-0 bg-primary h-[3px] w-10 rounded-sm'
+            'absolute bottom-[-1px] bg-primary h-[2px] w-10 rounded-sm'
           )}
         />
       </TabsList>

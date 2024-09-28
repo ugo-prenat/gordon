@@ -19,10 +19,10 @@ export const MarketPage = () => {
     );
 
   return (
-    <Page title={t('page.market.title')} padding>
+    <Page padding tabTitle={t('page.market.title')}>
       <div className="flex flex-col gap-y-2">
         {drivers.map((driver) => (
-          <Link to={`/drivers/${driver.id}`}>
+          <Link to={`/drivers/${driver.id}`} key={driver.id}>
             <Button variant="link">{driver.id}</Button>
           </Link>
         ))}

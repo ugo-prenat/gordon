@@ -40,7 +40,7 @@ export const DriverPage = () => {
   ];
 
   return (
-    <Page>
+    <Page tabTitle={t('page.driver.tabTitle')}>
       <SlidingTabs
         tabs={tabs}
         defaultTab={defaultTab}

@@ -4,7 +4,6 @@ import { updateRootElement } from './services/store/settings/settings.utils';
 import { useEffect } from 'react';
 import { useSettings } from './services/store/settings/settings.stores';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { queryClient } from './services/api/api';
 
 export const App = () => {
@@ -17,7 +16,7 @@ export const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools />
+      {/* <ReactQueryDevtools /> */}
       <RouterProvider router={router} />
     </QueryClientProvider>
   );
