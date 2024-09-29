@@ -45,6 +45,7 @@ export const DriverPage = () => {
   return (
     <Page tabTitle={t('page.driver.tabTitle')}>
       <SlidingTabs
+        sticky
         tabs={tabs}
         defaultTab={defaultTab}
         onClick={handleTabClick}

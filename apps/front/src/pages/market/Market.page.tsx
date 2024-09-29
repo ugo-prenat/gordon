@@ -42,6 +42,7 @@ export const MarketPage = () => {
   return (
     <Page tabTitle={tabTitle}>
       <SlidingTabs
+        sticky
         tabs={tabs}
         defaultTab={defaultTab}
         onClick={handleTabClick}
