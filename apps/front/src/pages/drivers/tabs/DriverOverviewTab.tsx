@@ -1,5 +1,5 @@
 import { DriverHero } from '../components/hero/DriverHero';
-import { DriverRecordsChart } from '../components/records/DriverRecordsChart';
+import { DriverRecordsChart } from '../components/records/chart/DriverRecordsChart';
 import { useDriver } from '../drivers.api';
 import { driverRoute } from '@/services/router/router.routes';
 

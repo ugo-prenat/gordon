@@ -30,10 +30,14 @@ const config = {
     },
     extend: {
       colors: {
-        main: 'hsl(var(--main))',
-        twitch: 'hsl(var(--twitch))',
-        twitter: 'hsl(var(--twitter))',
-
+        score: {
+          veryLow: 'hsl(var(--score-veryLow))',
+          low: 'hsl(var(--score-low))',
+          mediumLow: 'hsl(var(--score-mediumLow))',
+          medium: 'hsl(var(--score-medium))',
+          mediumHigh: 'hsl(var(--score-mediumHigh))',
+          high: 'hsl(var(--score-high))'
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
