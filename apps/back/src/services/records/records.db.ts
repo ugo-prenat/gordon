@@ -35,7 +35,8 @@ export const getDBRecordsByDriverId = (
   driverId: string
 ): Promise<IDBRecord[]> =>
   db.query.recordsTable.findMany({
-    where: eq(recordsTable.driverId, driverId)
+    where: eq(recordsTable.driverId, driverId),
+    orderBy: (records, { desc }) => [desc(records.id)]
   });
 
 export const updateDBRecord = (record: PartialWithId<IDBRecord>) =>
