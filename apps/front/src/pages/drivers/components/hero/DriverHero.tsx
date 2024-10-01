@@ -35,6 +35,10 @@ export const DriverHero = ({ driver }: { driver: IDriver }) => {
           alt={`${id}-picture`}
           className="relative left-10 top-1/3 scale-[1.8]"
         />
+        <div
+          id="gradient"
+          className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-b from-transparent to-background z-10"
+        ></div>
       </div>
     </div>
   );
