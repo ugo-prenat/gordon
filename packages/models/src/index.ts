@@ -1,3 +1,4 @@
+export * from './models/cards.models';
 export * from './models/users.models';
 export * from './models/common.models';
 export * from './models/errors.models';

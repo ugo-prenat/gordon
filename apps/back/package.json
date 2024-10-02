@@ -22,6 +22,7 @@
     "drizzle-orm": "^0.33.0",
     "hono": "^4.5.11",
     "jsdom": "^25.0.0",
+    "nanoid": "^5.0.7",
     "pino": "^9.4.0",
     "pino-pretty": "^11.2.2",
     "postgres": "^3.4.4",
