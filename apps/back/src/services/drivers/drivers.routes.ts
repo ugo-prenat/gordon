@@ -10,7 +10,7 @@ export const driversRouter = new Hono()
 
   .get('/', (c) =>
     getDBDrivers()
-      .then((drivers) => c.json(drivers, 200))
+      .then((drivers) => c.json(formatToFront(drivers), 200))
       .catch(handleError(c, 'DRR-2'))
   )
 

@@ -26,10 +26,12 @@ export const createDBRecords = (
     }));
 
 export const getDBRecords = (): Promise<IDBRecord[]> =>
-  db.select().from(recordsTable);
+  db.query.recordsTable.findMany();
 
-export const getDBRecord = (id: number): Promise<IDBRecord[]> =>
-  db.select().from(recordsTable).where(eq(recordsTable.id, id));
+export const getDBRecord = (id: number): Promise<IDBRecord | undefined> =>
+  db.query.recordsTable.findFirst({
+    where: eq(recordsTable.id, id)
+  });
 
 export const getDBRecordsByDriverId = (
   driverId: string

@@ -28,10 +28,7 @@ export const driversTable = pgTable('drivers', {
   nationalityCountryCode: text('nationality_country_code').notNull(),
   dateOfBirth: text('date_of_birth').notNull(),
   isActive: boolean('is_active').notNull(),
-  createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at')
-    .notNull()
-    .$onUpdate(() => new Date())
+  createdAt: timestamp('created_at').notNull().defaultNow()
 });
 
 export const driversRelations = relations(driversTable, ({ many }) => ({
