@@ -11,10 +11,12 @@ export const createDBDriver = (driver: IInsertDBDriver): Promise<string[]> =>
     .then((ids) => ids.map(({ id }) => id));
 
 export const getDBDrivers = (): Promise<IDBDriver[]> =>
-  db.select().from(driversTable);
+  db.query.driversTable.findMany();
 
-export const getDBDriver = (id: string): Promise<IDBDriver[]> =>
-  db.select().from(driversTable).where(eq(driversTable.id, id));
+export const getDBDriver = (id: string): Promise<IDBDriver | undefined> =>
+  db.query.driversTable.findFirst({
+    where: eq(driversTable.id, id)
+  });
 
 export const updateDBDriver = ({
   id,

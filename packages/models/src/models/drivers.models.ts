@@ -10,7 +10,7 @@ export interface IDriver {
   activeChampionship: Championship;
   recordedChampionships: Championship[];
   pictureUrl: string;
-  numberLogoUrl?: string;
+  numberLogoUrl: string | null;
   nationalityCountryCode: string;
   dateOfBirth: string;
   isActive: boolean;

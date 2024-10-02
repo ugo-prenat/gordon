@@ -3,11 +3,12 @@ import { cors } from 'hono/cors';
 import { serve } from '@hono/node-server';
 import { honoLogger, logger } from '@utils/logger/logger.index';
 import { APIError } from '@gordon/models';
-import { handleError } from '@utils/api/api.utils';
+import { handleError } from '@utils/api.utils';
 
 import { driversRouter } from '@services/drivers/drivers.routes';
 import { recordsRouter } from '@services/records/records.routes';
 import { cardsRouter } from '@services/cards/cards.routes';
+import { driverCardsRouter } from '@services/driverCards/driverCards.routes';
 
 const port = 4000;
 const app = new Hono();
@@ -18,7 +19,9 @@ app.use('*', honoLogger());
 const router = app
   .route('/drivers', driversRouter)
   .route('/records', recordsRouter)
+
   .route('/cards', cardsRouter)
+  .route('/driver-cards', driverCardsRouter)
 
   .notFound((c) => {
     const err = new APIError(

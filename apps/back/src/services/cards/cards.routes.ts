@@ -1,11 +1,11 @@
 import { Hono } from 'hono';
-import { handleError } from '@utils/api/api.utils';
+import { formatToFront, handleError } from '@utils/api.utils';
 import {
   APIError,
-  CHASSIS_CARDS_PREFIX,
-  DRIVER_CARDS_PREFIX,
-  USER_CHASSIS_CARDS_PREFIX,
-  USER_DRIVER_CARDS_PREFIX
+  CHASSIS_CARDS_ID_PREFIX,
+  DRIVER_CARDS_ID_PREFIX,
+  USER_CHASSIS_CARDS_ID_PREFIX,
+  USER_DRIVER_CARDS_ID_PREFIX
 } from '@gordon/models';
 import {
   getDBDriverCard,
@@ -29,13 +29,16 @@ export const cardsRouter = new Hono()
 
     const getPromise = () => {
       switch (prefix) {
-        case DRIVER_CARDS_PREFIX:
-          return getDBDriverCard(id);
-        case CHASSIS_CARDS_PREFIX:
+        case DRIVER_CARDS_ID_PREFIX:
+          return getDBDriverCard(id).then((card) => {
+            if (!card) throw new APIError('Card not found', 'CAR-5', 404);
+            return formatToFront(card);
+          });
+        case CHASSIS_CARDS_ID_PREFIX:
           return Promise.resolve({});
-        case USER_DRIVER_CARDS_PREFIX:
+        case USER_DRIVER_CARDS_ID_PREFIX:
           return Promise.resolve({});
-        case USER_CHASSIS_CARDS_PREFIX:
+        case USER_CHASSIS_CARDS_ID_PREFIX:
           return Promise.resolve({});
         default:
           throw new APIError('Invalid card id', 'CAR-3', 400);

@@ -1,4 +1,4 @@
-import { APIError, ICompleteAPIError } from '@gordon/models';
+import { APIError, ICompleteAPIError, WithDate } from '@gordon/models';
 import { logger } from '@utils/logger/logger.index';
 import { Context } from 'hono';
 import { serializeError } from 'serialize-error';
@@ -12,3 +12,12 @@ export const handleError = (c: Context, backupCode: string) => (e: Error) => {
 
   return c.json({ code, message, status }, status);
 };
+
+export const formatToFront = <
+  T extends WithDate<unknown> | WithDate<unknown>[]
+>(
+  input: T
+) =>
+  Array.isArray(input)
+    ? input.map(({ createdAt, ...rest }) => rest)
+    : (({ createdAt, ...rest }) => rest)(input);
