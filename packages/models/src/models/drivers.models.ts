@@ -19,3 +19,5 @@ export interface IDriver {
 export interface IInsertDBDriver extends Omit<IDriver, 'value'> {}
 
 export interface IDBDriver extends WithDate<IDriver> {}
+
+export type WithDriver<T> = T & { driver: IDriver };
