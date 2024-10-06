@@ -1,3 +1,5 @@
-export const buildCardId = (prefix: string) =>
-  `${prefix}-${crypto.randomUUID()}`;
-// `${prefix}-${Math.random().toString(16).slice(2)}`;
+export const buildCardId = (cardTypeId: string) => {
+  const uuid = crypto.randomUUID().split('-');
+  uuid.splice(1, 1, cardTypeId);
+  return uuid.join('-');
+};

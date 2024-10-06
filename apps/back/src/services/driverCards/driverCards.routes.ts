@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { handleError } from '@utils/api.utils';
-import { DRIVER_CARDS_ID_PREFIX, IInsertDBDriverCard } from '@gordon/models';
+import { DRIVER_CARDS_TYPE_ID, IInsertDBDriverCard } from '@gordon/models';
 import { createDBDriverCard } from './driverCards.db';
 import { buildCardId } from '@utils/cards.utils';
 
@@ -12,7 +12,7 @@ export const driverCardsRouter = new Hono()
 
   .post('/', (c) => {
     const driverCard: IInsertDBDriverCard = {
-      id: buildCardId(DRIVER_CARDS_ID_PREFIX),
+      id: buildCardId(DRIVER_CARDS_TYPE_ID),
       driverId: 'pierre-gasly',
       teamId: 'VCARB',
       type: 'common',

@@ -1,7 +1,7 @@
-export const DRIVER_CARDS_ID_PREFIX = 'dcp';
-export const USER_DRIVER_CARDS_ID_PREFIX = 'udcp';
-export const CHASSIS_CARDS_ID_PREFIX = 'ccp';
-export const USER_CHASSIS_CARDS_ID_PREFIX = 'uccp';
+export const DRIVER_CARDS_TYPE_ID = 'dcp1';
+export const USER_DRIVER_CARDS_TYPE_ID = 'udcp';
+export const CHASSIS_CARDS_TYPE_ID = 'ccp1';
+export const USER_CHASSIS_CARDS_TYPE_ID = 'uccp';
 
 export const COMMON_CARD_TYPE = 'common';
 export const RARE_CARD_TYPE = 'rare';
