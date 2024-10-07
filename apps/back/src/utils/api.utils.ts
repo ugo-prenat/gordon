@@ -17,7 +17,10 @@ export const formatToFront = <
   T extends WithDate<unknown> | WithDate<unknown>[]
 >(
   input: T
-) =>
-  Array.isArray(input)
-    ? input.map(({ createdAt, ...rest }) => rest)
-    : (({ createdAt, ...rest }) => rest)(input);
+) => {
+  if (Array.isArray(input))
+    return input.map(({ createdAt, ...rest }) => rest) as T;
+
+  const { createdAt, ...rest } = input;
+  return rest;
+};
