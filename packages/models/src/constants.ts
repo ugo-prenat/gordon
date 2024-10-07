@@ -1,1 +1,2 @@
-export const MY_CONSTANT = 'gordon baby';
+export const IMAGES_CDN_URL =
+  'https://res.cloudinary.com/gordon-assests/image/upload';
