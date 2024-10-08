@@ -24,9 +24,10 @@ export const teamsRoutes = new Hono()
 
   .post('/', (c) => {
     const team: IInsertDBTeam = {
-      id: 'red-bull-racing',
-      name: 'Oracle Red Bull Racing',
-      logoPath: '/v1728415571/red-bull-racing-logo_ell9h2.png'
+      id: 'alpine',
+      wikiNames: ['BWT Alpine F1 Team'],
+      name: 'BWT Alpine F1 Team',
+      logoPath: '/v1728417729/alpine_xav3di.png'
     };
 
     return createDBTeam(team)

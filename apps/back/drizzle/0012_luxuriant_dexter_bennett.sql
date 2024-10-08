@@ -1,0 +1,1 @@
+ALTER TABLE "teams" ALTER COLUMN "wiki_names" DROP DEFAULT;

@@ -3,6 +3,7 @@ import { WithDate } from '../types/types';
 export interface ITeam {
   id: string;
   name: string;
+  wikiNames: string[];
   logoPath: string;
 }
 

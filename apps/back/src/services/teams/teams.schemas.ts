@@ -6,6 +6,7 @@ export const teamsTable = pgTable('teams', {
   id: text('id').primaryKey(),
   name: text('name').notNull(),
   logoPath: text('logo_path').notNull(),
+  wikiNames: text('wiki_names').array().notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow()
 });
 

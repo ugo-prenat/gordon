@@ -1,0 +1,1 @@
+ALTER TABLE "teams" ADD COLUMN "wiki_names" text[] DEFAULT '{}' NOT NULL;
