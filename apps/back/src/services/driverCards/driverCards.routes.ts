@@ -16,7 +16,7 @@ export const driverCardsRouter = new Hono()
       driverId: 'pierre-gasly',
       teamId: 'VCARB',
       type: 'common',
-      pictureUrl: 'vroom',
+      picturePath: 'vroom',
       description: null,
       season: 2024
     };

@@ -26,7 +26,7 @@ const temptUser: IUser = {
   id: 'ougo',
   email: 'ougou@gmail.com',
   name: 'ougo dev',
-  pictureUrl: 'vroom'
+  picturePath: 'vroom'
 };
 
 const tempToken = "c'est safe";

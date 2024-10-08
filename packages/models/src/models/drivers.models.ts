@@ -9,7 +9,7 @@ export interface IDriver {
   wikiKey: string;
   activeChampionship: Championship;
   recordedChampionships: Championship[];
-  pictureUrl: string;
+  picturePath: string;
   numberLogoUrl: string | null;
   nationalityCountryCode: string;
   dateOfBirth: string;

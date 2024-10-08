@@ -10,7 +10,7 @@ export const driverCardsTable = pgTable('driver_cards', {
     .references(() => driversTable.id),
   teamId: text('team_id').notNull(),
   type: text('type').$type<DriverCardType>().notNull(),
-  pictureUrl: text('picture_url').notNull(),
+  picturePath: text('picture_path').notNull(),
   description: text('description'),
   season: integer('season').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow()

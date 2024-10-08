@@ -6,7 +6,7 @@ export interface IDriverCard {
   driverId: string;
   teamId: string;
   type: DriverCardType;
-  pictureUrl: string;
+  picturePath: string;
   description: string | null;
   season: number;
 }

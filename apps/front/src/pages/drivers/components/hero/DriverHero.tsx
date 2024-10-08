@@ -5,7 +5,7 @@ export const DriverHero = ({ driver }: { driver: IDriver }) => {
   const {
     id,
     fullName,
-    pictureUrl,
+    picturePath,
     numberLogoUrl,
     dateOfBirth,
     activeChampionship,
@@ -31,7 +31,7 @@ export const DriverHero = ({ driver }: { driver: IDriver }) => {
       </div>
       <div className="overflow-hidden relative">
         <img
-          src={pictureUrl}
+          src={picturePath}
           alt={`${id}-picture`}
           className="relative left-10 top-1/3 scale-[1.8]"
         />

@@ -4,7 +4,7 @@ export interface IUser {
   id: string;
   email: string;
   name: string;
-  pictureUrl: string;
+  picturePath: string;
 }
 
 // add lastLogin
