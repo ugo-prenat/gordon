@@ -10,6 +10,7 @@ import {
   driverCardsRelations,
   driverCardsTable
 } from '@services/driverCards/driverCards.schemas';
+import { teamsRelations, teamsTable } from '@services/teams/teams.schemas';
 
 export default {
   driversTable,
@@ -19,5 +20,8 @@ export default {
   recordsRelations,
 
   driverCardsTable,
-  driverCardsRelations
+  driverCardsRelations,
+
+  teamsTable,
+  teamsRelations
 };

@@ -35,8 +35,5 @@ export const driversRouter = new Hono()
 
     return createDBDriver(driver)
       .then((createdDriver) => c.json({ driver: createdDriver }, 201))
-      .catch((error) => {
-        console.error(error);
-        return c.json({ error: 'error creating driver' }, 500);
-      });
+      .catch(handleError(c, 'DRR-6'));
   });
