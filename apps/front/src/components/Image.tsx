@@ -6,22 +6,24 @@ interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 }
 
 export const Image = ({ src, ...props }: ImageProps) => {
-  const srcSet = [400, 800, 1200, 1600, 2000].map(
-    (width) => `${buildUrl(src, width)} ${width}w`
-  );
-
   return (
     <img
-      {...props}
       loading="lazy"
       src={buildUrl(src)}
-      srcSet={srcSet.join(', ')}
+      srcSet={`
+      ${buildUrl(src, 400)} 400w,
+      ${buildUrl(src, 800)} 800w,
+      ${buildUrl(src, 1200)} 1200w,
+      ${buildUrl(src, 1600)} 1600w,
+      ${buildUrl(src, 2000)} 2000w
+      `}
+      {...props}
     />
   );
 };
 
 const buildUrl = (url: string, width?: number) => {
   const defaultParams = 'f_auto,q_auto';
-  const resize = width ? `c_fill,w_${width},${defaultParams}` : defaultParams;
+  const resize = width ? `c_scale,w_${width},${defaultParams}` : defaultParams;
   return `${IMAGES_CDN_URL}/${resize}${url}`;
 };
