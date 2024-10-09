@@ -10,3 +10,5 @@ export interface ITeam {
 export interface IInsertDBTeam extends ITeam {}
 
 export interface IDBTeam extends WithDate<ITeam> {}
+
+export type WithTeam<T> = T & { team: ITeam };

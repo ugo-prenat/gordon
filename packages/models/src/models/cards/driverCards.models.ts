@@ -4,7 +4,7 @@ import { DriverCardType } from './cards.models';
 export interface IDriverCard {
   id: string;
   driverId: string;
-  teamId: string;
+  teamName: string;
   type: DriverCardType;
   picturePath: string;
   description: string | null;

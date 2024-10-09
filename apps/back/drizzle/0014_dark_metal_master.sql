@@ -1,0 +1,1 @@
+ALTER TABLE "drivers" ALTER COLUMN "team_id" DROP DEFAULT;
