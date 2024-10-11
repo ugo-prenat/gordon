@@ -1,11 +1,11 @@
 import { ImgHTMLAttributes } from 'react';
 import { IMAGES_CDN_URL } from '@gordon/models';
 
-interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+interface IDriverCardImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   src: string;
 }
 
-export const Image = ({ src, ...props }: ImageProps) => {
+export const DriverCardImage = ({ src, ...props }: IDriverCardImageProps) => {
   return (
     <img
       loading="lazy"
@@ -24,6 +24,8 @@ export const Image = ({ src, ...props }: ImageProps) => {
 
 const buildUrl = (url: string, width?: number) => {
   const defaultParams = 'f_auto,q_auto';
-  const resize = width ? `c_scale,w_${width},${defaultParams}` : defaultParams;
+  const resize = width
+    ? `c_fill,w_${width},ar_4:5,${defaultParams}`
+    : defaultParams;
   return `${IMAGES_CDN_URL}/${resize}${url}`;
 };

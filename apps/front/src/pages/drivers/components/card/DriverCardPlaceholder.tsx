@@ -1,4 +1,4 @@
-import { Image } from '@/components/Image';
+import { DriverCardImage } from '@/components/images/DriverCardImage';
 import { Card, CardContent } from '@/components/ui/card';
 
 export const DriverCardPlaceholder = () => {
@@ -6,7 +6,7 @@ export const DriverCardPlaceholder = () => {
     <div className="w-full sm:w-1/3 lg:w-1/4 xl:w-1/5 p-2 opacity-80">
       <Card>
         <div className="relative">
-          <Image
+          <DriverCardImage
             src="/v1728366207/driver-placeholder_bc3lai.png"
             alt="driver-placeholder"
             className="w-full h-auto opacity-40"

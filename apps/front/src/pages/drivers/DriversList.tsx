@@ -9,7 +9,7 @@ interface IDriversListProps {
 
 export const DriversList: FC<IDriversListProps> = ({ drivers }) => {
   return (
-    <div className="flex flex-wrap -mx-2">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
       {drivers.map((driver) => (
         <DriverCard key={driver.id} driver={driver} />
       ))}
