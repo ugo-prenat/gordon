@@ -1,5 +1,5 @@
 import { useDrivers } from '@/pages/drivers/drivers.api';
-import { DriversList } from '@/pages/drivers/DriversList';
+import { DriverCardsList } from '@/components/cards/drivers/DriverCardsList';
 
 export const MarketDriversTab = () => {
   const { data: drivers, isPending, isError, error } = useDrivers();
@@ -14,7 +14,7 @@ export const MarketDriversTab = () => {
 
   return (
     <div className="p-6">
-      <DriversList drivers={drivers} />
+      <DriverCardsList drivers={drivers} />
     </div>
   );
 };

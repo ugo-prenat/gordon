@@ -1,8 +1,8 @@
-import { DriverCardImage } from '@/components/images/DriverCardImage';
 import { Card, CardContent } from '@/components/ui/card';
 import { IDriver } from '@gordon/models';
 import { Link } from '@tanstack/react-router';
 import { FC } from 'react';
+import { buildImgUrl } from '@/utils/images.utils';
 
 interface IDriverCardProps {
   driver: IDriver;
@@ -14,8 +14,8 @@ export const DriverCard: FC<IDriverCardProps> = ({ driver }) => {
     <Link to={`/drivers/${id}`} className="w-full">
       <Card>
         <div className="relative mb-2">
-          <DriverCardImage
-            src={picturePath}
+          <img
+            src={buildImgUrl(picturePath, `c_fill,w_400,ar_4:5`)}
             alt={`${id}-picture`}
             className="w-full h-auto"
           />

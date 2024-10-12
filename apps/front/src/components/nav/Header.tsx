@@ -14,7 +14,7 @@ export const Header = () => {
             to="/market"
             className="flex items-center opacity-60 text-2xl font-bold transition-opacity ease-in-out hover:opacity-100"
             activeProps={{
-              className: 'opacity-100'
+              className: '!opacity-100'
             }}
           >
             {t('market')}
@@ -25,7 +25,7 @@ export const Header = () => {
             to="/admin"
             className="flex items-center opacity-60 text-2xl font-bold transition-opacity ease-in-out hover:opacity-100"
             activeProps={{
-              className: 'opacity-100'
+              className: '!opacity-100'
             }}
           >
             {t('admin')}
