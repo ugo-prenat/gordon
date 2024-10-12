@@ -1,17 +1,17 @@
 import { api } from '@/services/api/api';
 import { handleRes } from '@/services/api/api.utils';
-import { IAPIError, IDriver, IRecord } from '@gordon/models';
+import { IAPIError, IDriver, IMarketDriverCard, IRecord } from '@gordon/models';
 import { useQuery } from '@tanstack/react-query';
 import ms from 'ms';
 
-export const useDrivers = () =>
-  useQuery<IDriver[], IAPIError>({
-    queryKey: ['drivers'],
-    queryFn: () => fetchDrivers(),
+export const useMarketDrivers = () =>
+  useQuery<IMarketDriverCard[], IAPIError>({
+    queryKey: ['marketDrivers'],
+    queryFn: () => fetchMarketDrivers(),
     staleTime: ms('10m')
   });
 
-const fetchDrivers = () => api.drivers.$get().then(handleRes);
+const fetchMarketDrivers = () => api.market.drivers.$get().then(handleRes);
 
 export const useDriver = (id: string) =>
   useQuery<IDriver, IAPIError>({
