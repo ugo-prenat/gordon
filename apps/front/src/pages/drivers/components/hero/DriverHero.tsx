@@ -6,7 +6,7 @@ export const DriverHero = ({ driver }: { driver: IDriver }) => {
     id,
     fullName,
     picturePath,
-    numberLogoUrl,
+    numberLogoPath,
     dateOfBirth,
     activeChampionship,
     nationalityCountryCode
@@ -15,7 +15,7 @@ export const DriverHero = ({ driver }: { driver: IDriver }) => {
   return (
     <div id="driver-hero" className="flex justify-between border-b">
       <div className="flex flex-col justify-end p-10">
-        <NumberLogo numberLogoUrl={numberLogoUrl} id={id} />
+        <NumberLogo numberLogoPath={numberLogoPath} id={id} />
         <h3 className="text-9xl font-extrabold mb-2">{fullName}</h3>
         <div className="flex gap-6">
           <Description>
@@ -45,9 +45,9 @@ export const DriverHero = ({ driver }: { driver: IDriver }) => {
 };
 
 const NumberLogo = ({
-  numberLogoUrl,
+  numberLogoPath,
   id
-}: Pick<IDriver, 'numberLogoUrl' | 'id'>) =>
-  numberLogoUrl ? (
-    <img src={numberLogoUrl} className="w-24" alt={`${id}-number-logo`} />
+}: Pick<IDriver, 'numberLogoPath' | 'id'>) =>
+  numberLogoPath ? (
+    <img src={numberLogoPath} className="w-24" alt={`${id}-number-logo`} />
   ) : null;

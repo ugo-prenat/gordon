@@ -134,6 +134,13 @@
       "when": 1728749071868,
       "tag": "0018_fuzzy_switch",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1728750616604,
+      "tag": "0019_striped_stone_men",
+      "breakpoints": true
     }
   ]
 }
