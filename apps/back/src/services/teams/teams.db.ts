@@ -9,9 +9,7 @@ export const getDBTeams = (): Promise<IDBTeam[]> =>
 export const getDBTeam = (id: string): Promise<IDBTeam | undefined> =>
   db.query.teamsTable.findFirst({
     where: eq(teamsTable.id, id),
-    with: {
-      parentTeam: true
-    }
+    with: { parentTeam: true }
   });
 
 export const createDBTeam = (team: IInsertDBTeam): Promise<string[]> =>

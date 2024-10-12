@@ -1,4 +1,4 @@
-import { DriverCardType } from '@gordon/models';
+import { Championship, DriverCardType } from '@gordon/models';
 import { driversTable } from '@services/drivers/drivers.schemas';
 import { teamsTable } from '@services/teams/teams.schemas';
 import { relations } from 'drizzle-orm';
@@ -16,6 +16,7 @@ export const driverCardsTable = pgTable('driver_cards', {
   picturePath: text('picture_path').notNull(),
   description: text('description'),
   season: integer('season').notNull(),
+  championship: text('championship').$type<Championship>().notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow()
 });
 

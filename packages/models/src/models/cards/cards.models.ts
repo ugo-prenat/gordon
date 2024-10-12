@@ -27,3 +27,11 @@ export const CHASSIS_CARD_TYPES = [
 ] as const;
 
 export type ChassisCardType = (typeof CHASSIS_CARD_TYPES)[number];
+
+export const CARD_TYPES_MULTIPLIERS: Record<DriverCardType, number> = {
+  [COMMON_CARD_TYPE]: 0.7,
+  [RARE_CARD_TYPE]: 1,
+  [UNIQUE_CARD_TYPE]: 1.5,
+  [CHAMPION_CARD_TYPE]: 3,
+  [VINTAGE_CARD_TYPE]: 1
+};

@@ -1,19 +1,26 @@
 import {
   IDBDriverCard,
   IInsertDBDriverCard,
-  PartialWithId
+  PartialWithId,
+  WithDriver,
+  WithTeam
 } from '@gordon/models';
 import { driverCardsTable } from './driverCards.schemas';
 import { eq } from 'drizzle-orm';
 import { db } from '@db';
-export const getDBDriverCards = (): Promise<IDBDriverCard[]> =>
-  db.query.driverCardsTable.findMany();
+export const getDBDriverCards = (): Promise<
+  WithDriver<WithTeam<IDBDriverCard>>[]
+> =>
+  db.query.driverCardsTable.findMany({
+    with: { driver: true, team: true }
+  });
 
 export const getDBDriverCard = (
   id: string
-): Promise<IDBDriverCard | undefined> =>
+): Promise<WithDriver<IDBDriverCard> | undefined> =>
   db.query.driverCardsTable.findFirst({
-    where: eq(driverCardsTable.id, id)
+    where: eq(driverCardsTable.id, id),
+    with: { driver: true, team: true }
   });
 
 export const createDBDriverCard = (

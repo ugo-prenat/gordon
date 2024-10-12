@@ -22,7 +22,7 @@ const router = app
   .route('/records', recordsRouter)
 
   .route('/cards', cardsRouter)
-  .route('/driver-cards', driverCardsRouter)
+  .route('/market/drivers', driverCardsRouter)
 
   .route('/teams', teamsRoutes)
 
