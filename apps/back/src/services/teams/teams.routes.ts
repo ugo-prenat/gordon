@@ -24,10 +24,17 @@ export const teamsRoutes = new Hono()
 
   .post('/', (c) => {
     const team: IInsertDBTeam = {
-      id: 'trident',
-      wikiNames: ['Trident'],
-      name: 'Trident',
-      logoPath: '/v1728448746/trident_fsp7ew.png'
+      id: 'prout',
+      wikiNames: [
+        'Scuderia Toro Rosso',
+        'Red Bull Toro Rosso Honda',
+        'Scuderia AlphaTauri',
+        'Visa Cash App RB F1 Team'
+      ],
+      name: 'Visa Cash App RB Formula One Team',
+      lightLogoPath: '/v1728748262/rb_vokkkc.png',
+      darkLogoPath: '/v1728748262/rb_vokkkc.png',
+      parentTeamId: 'parout-parent'
     };
 
     return createDBTeam(team)
