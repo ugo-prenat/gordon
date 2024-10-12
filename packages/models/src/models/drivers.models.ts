@@ -6,11 +6,12 @@ export interface IDriver {
   fullName: string;
   tla: string;
   value: number;
+  teamId: string;
   wikiKey: string;
   activeChampionship: Championship;
   recordedChampionships: Championship[];
   picturePath: string;
-  numberLogoUrl: string | null;
+  numberLogoPath: string | null;
   nationalityCountryCode: string;
   dateOfBirth: string;
   isActive: boolean;

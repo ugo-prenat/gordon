@@ -25,7 +25,7 @@ export const driversTable = pgTable('drivers', {
     .$type<Championship[]>()
     .notNull(),
   picturePath: text('picture_path').notNull(),
-  numberLogoUrl: text('number_logo_url'),
+  numberLogoPath: text('number_logo_path'),
   nationalityCountryCode: text('nationality_country_code').notNull(),
   dateOfBirth: text('date_of_birth').notNull(),
   isActive: boolean('is_active').notNull(),
