@@ -1,6 +1,7 @@
-import { IMarketDriverCard } from '@gordon/models';
 import { FC } from 'react';
-import { Prout } from '../prout';
+import { IMarketDriverCard } from '@gordon/models';
+import { CardContainer } from '../CardContainer';
+import { buildImgUrl } from '@/utils/images.utils';
 
 interface IDriverCardProps {
   card: IMarketDriverCard;
@@ -13,16 +14,17 @@ export const DriverCard: FC<IDriverCardProps> = ({
 }) => {
   const { driver, picturePath } = card;
   const { id: driverId } = driver;
-  // const { id: teamId, name: teamName } = team;
 
-  return <Prout />;
-  // return (
-  //   <CardContainer disableHover={disableHover}>
-  //     <img
-  //       src={buildImgUrl(picturePath, `c_fill,w_500,ar_4:5`)}
-  //       alt={`${driverId}-picture`}
-  //       className="w-full h-auto"
-  //     />
-  //   </CardContainer>
-  // );
+  return (
+    <>
+      <CardContainer disableHover={disableHover}>
+        <div className="">
+          <img
+            src={buildImgUrl(picturePath, `c_fill,w_500,ar_4:5`)}
+            alt={`${driverId}-picture`}
+          />
+        </div>
+      </CardContainer>
+    </>
+  );
 };

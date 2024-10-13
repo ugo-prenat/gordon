@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import './test.css';
 import { buildImgUrl } from '@/utils/images.utils';
 
 export const Prout = () => {
@@ -36,6 +35,9 @@ export const Prout = () => {
     '--bg-y': `${bgY}%`,
     '--r-x': `${rX}deg`,
     '--r-y': `${rY}deg`,
+    '--step': '5%',
+    '--pattern':
+      "url('http://allyourhtml.club/carousel/pattern.webp') center / 75%",
     '--rainbow': `repeating-linear-gradient(
       0deg,
       rgb(255, 119, 115) calc(var(--step) * 1),
@@ -75,10 +77,6 @@ export const Prout = () => {
               )}
               className="absolute inset-0 z-50"
             />
-            {/* <img
-              src="https://images.pokemontcg.io/swsh12/49_hires.png"
-              alt=""
-            /> */}
             <img src="http://allyourhtml.club/carousel/image.webp" alt="" />
           </div>
           <div className="card__layer1"></div>

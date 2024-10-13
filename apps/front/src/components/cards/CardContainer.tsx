@@ -1,6 +1,8 @@
 import { FC, PropsWithChildren } from 'react';
 import { useCardPosition } from './cards.hooks';
 
+import './cards.css';
+
 interface ICardContainerProps extends PropsWithChildren {
   disableHover?: boolean;
 }
@@ -12,32 +14,38 @@ export const CardContainer: FC<ICardContainerProps> = ({
   const {
     cardRef,
     containerStyle,
-    gradientStyle,
+    cardLayer1Style,
+    cardLayer2Style,
     handleMouseMove,
-    handleMouseLeave,
-    moreStyle
+    handleMouseLeave
   } = useCardPosition(disableHover);
 
   return (
     <div
       ref={cardRef}
       id="driver-card"
-      style={{ ...containerStyle }}
+      style={containerStyle as React.CSSProperties}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="max-w-[400px] bg-muted rounded-lg relative overflow-hidden"
+      className="relative max-w-[400px] bg-background rounded-lg overflow-hidden"
     >
+      <div className="z-50 relative">
+        <div>{children}</div>
+        <div className="inset-0 z-10"></div>
+      </div>
+
       <div
         id="gradient"
-        style={gradientStyle}
-        className="absolute inset-0 mix-blend-soft-light z-20"
+        style={cardLayer1Style as React.CSSProperties}
+        className="card__layer1"
+        // className="absolute inset-0 mix-blend-soft-light z-20"
       />
       <div
         id="pattern"
-        style={moreStyle as React.CSSProperties}
-        className="absolute inset-0 z-30"
+        style={cardLayer2Style as React.CSSProperties}
+        className="card__layer2"
+        // className="absolute inset-0 z-30"
       />
-      {children}
     </div>
   );
 };
