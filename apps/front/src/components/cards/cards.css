@@ -2,7 +2,7 @@
   position: absolute;
   inset: 0;
   z-index: 20;
-  mix-blend-mode: darken;
+  mix-blend-mode: soft-light;
   background: radial-gradient(
     farthest-corner circle at var(--x) var(--y),
     rgba(255, 255, 255, 0.8) 10%,
@@ -17,7 +17,7 @@
   mix-blend-mode: color-dodge;
   will-change: background;
   transition-property: opacity;
-  background-blend-mode: hue, saturation, hard-light, overlay;
+  background-blend-mode: hue, hue, hard-light, overlay;
   background: var(--pattern), var(--rainbow), var(--diagonal);
   background-size:
     250%,
@@ -29,7 +29,7 @@
   position: absolute;
   inset: 0;
   background: var(--pattern), var(--rainbow), var(--diagonal), var(--shade);
-  mix-blend-mode: color-dodge;
+  mix-blend-mode: hard-light;
   background-size:
     120%,
     200% 400%,
@@ -40,7 +40,7 @@
     0% var(--bg-y),
     calc(var(--bg-x) * -1) calc(var(--bg-y) * -1),
     var(--bg-x) var(--bg-y);
-  background-blend-mode: multiply, hue, hard-light;
+  background-blend-mode: soft-light, hue, hard-light;
 }
 
 /* une bonne conf : */
@@ -91,6 +91,58 @@
     var(--bg-x) var(--bg-y);
   background-blend-mode: soft-light, hue, hard-light;
 }
+
+*/
+
+/*
+
+chill aussi
+
+#gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  mix-blend-mode: soft-light;
+  background: radial-gradient(
+    farthest-corner circle at var(--x) var(--y),
+    rgba(255, 255, 255, 0.8) 10%,
+    rgba(255, 255, 255, 0.65) 20%,
+    rgba(255, 255, 255, 0) 90%
+  );
+}
+#pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  mix-blend-mode: color-dodge;
+  will-change: background;
+  transition-property: opacity;
+  background-blend-mode: hue, hue, hard-light, overlay;
+  background: var(--pattern), var(--rainbow), var(--diagonal);
+  background-size:
+    250%,
+    200% 400%,
+    800%;
+}
+#pattern:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--pattern), var(--rainbow), var(--diagonal), var(--shade);
+  mix-blend-mode: luminosity || hard-light;
+  background-size:
+    120%,
+    200% 400%,
+    500%,
+    200%;
+  background-position:
+    center,
+    0% var(--bg-y),
+    calc(var(--bg-x) * -1) calc(var(--bg-y) * -1),
+    var(--bg-x) var(--bg-y);
+  background-blend-mode: soft-light, hue, hard-light;
+}
+
 
 */
 

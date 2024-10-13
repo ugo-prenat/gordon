@@ -66,7 +66,7 @@ export const useCardPosition = (disableHover: boolean) => {
       rgba(120, 148, 255, 1) calc(var(--step) * 5),
       rgb(216, 117, 255) calc(var(--step) * 6),
       rgb(255, 119, 115) calc(var(--step) * 7)
-    ) 0% var(--bg-y) / 200% 700%`,
+    )0% var(--bg-y) / 200% 700%`,
     '--diagonal': `repeating-linear-gradient(
       128deg,
       #0e152e 0%,
@@ -75,13 +75,15 @@ export const useCardPosition = (disableHover: boolean) => {
       hsl(180, 10%, 60%) 5.2%,
       #0e152e 10%,
       #0e152e 12%
-    ) var(--bg-x) var(--bg-y) / 300%`,
+    )
+    var(--bg-x) var(--bg-y) / 300%`,
     '--shade': `radial-gradient(
       farthest-corner circle at var(--x) var(--y),
       rgba(255, 255, 255, 0.1) 12%,
       rgba(255, 255, 255, 0.15) 20%,
       rgba(255, 255, 255, 0.25) 120%
-    ) var(--bg-x) var(--bg-y) / 300%`
+    )
+    var(--bg-x) var(--bg-y) / 300%`
   };
 
   const containerStyle = {
