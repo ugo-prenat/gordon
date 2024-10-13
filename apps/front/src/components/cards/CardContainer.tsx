@@ -11,14 +11,8 @@ export const CardContainer: FC<ICardContainerProps> = ({
   disableHover = false,
   children
 }) => {
-  const {
-    cardRef,
-    containerStyle,
-    cardLayer1Style,
-    cardLayer2Style,
-    handleMouseMove,
-    handleMouseLeave
-  } = useCardPosition(disableHover);
+  const { cardRef, containerStyle, handleMouseMove, handleMouseLeave } =
+    useCardPosition(disableHover);
 
   return (
     <div
@@ -27,25 +21,13 @@ export const CardContainer: FC<ICardContainerProps> = ({
       style={containerStyle as React.CSSProperties}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative max-w-[400px] bg-background rounded-lg overflow-hidden"
+      className="relative max-w-[400px] bg-[hsl(224,71.4%,4.1%)] rounded-lg overflow-hidden"
     >
       <div className="z-50 relative">
         <div>{children}</div>
-        <div className="inset-0 z-10"></div>
       </div>
-
-      <div
-        id="gradient"
-        style={cardLayer1Style as React.CSSProperties}
-        className="card__layer1"
-        // className="absolute inset-0 mix-blend-soft-light z-20"
-      />
-      <div
-        id="pattern"
-        style={cardLayer2Style as React.CSSProperties}
-        className="card__layer2"
-        // className="absolute inset-0 z-30"
-      />
+      <div id="gradient" /> {/* see cards.css */}
+      <div id="pattern">{/* see cards.css */}</div>
     </div>
   );
 };

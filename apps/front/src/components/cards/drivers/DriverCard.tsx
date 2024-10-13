@@ -18,7 +18,7 @@ export const DriverCard: FC<IDriverCardProps> = ({
   return (
     <>
       <CardContainer disableHover={disableHover}>
-        <div className="">
+        <div>
           <img
             src={buildImgUrl(picturePath, `c_fill,w_500,ar_4:5`)}
             alt={`${driverId}-picture`}
