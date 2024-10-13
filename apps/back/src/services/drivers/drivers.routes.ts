@@ -31,7 +31,20 @@ export const driversRouter = new Hono()
   })
 
   .post('/', (c) => {
-    const driver = {} as IInsertDBDriver;
+    const driver: IInsertDBDriver = {
+      id: 'andrea-kimi-antonelli',
+      fullName: 'Andrea Kimi Antonelli',
+      tla: 'ANT',
+      teamId: 'prema-racing',
+      wikiKey: 'Andrea_Kimi_Antonelli',
+      activeChampionship: 'f2',
+      recordedChampionships: ['f2'],
+      dateOfBirth: '2006-08-25',
+      nationalityCountryCode: 'ITA',
+      picturePath: '/v1728813492/andrea_kimi_antonelli_24_rtthoe.png',
+      numberLogoPath: null,
+      isActive: true
+    };
 
     return createDBDriver(driver)
       .then((createdDriver) => c.json({ driver: createdDriver }, 201))

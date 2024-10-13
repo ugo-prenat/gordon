@@ -1,8 +1,9 @@
 import { Hono } from 'hono';
 import { handleError } from '@utils/api.utils';
-import { IInsertDBDriverCard } from '@gordon/models';
+import { DRIVER_CARDS_TYPE_ID, IInsertDBDriverCard } from '@gordon/models';
 import { createDBDriverCard, getDBDriverCards } from './driverCards.db';
 import { formatToMarketDriverCards } from './driverCards.utils';
+import { buildCardId } from '@utils/cards.utils';
 
 export const driverCardsRouter = new Hono()
   .onError((e, c) => handleError(c, 'DCR-1')(e))
@@ -15,16 +16,16 @@ export const driverCardsRouter = new Hono()
   )
 
   .post('/', (c) => {
-    const driverCard = {} as IInsertDBDriverCard;
-    // const driverCard: IInsertDBDriverCard = {
-    //   id: buildCardId(DRIVER_CARDS_TYPE_ID),
-    //   driverId: 'leonardo-fornaroli',
-    //   teamId: 'trident',
-    //   type: 'common',
-    //   season: 2024,
-    //   description: null,
-    //   picturePath: '/v1728767412/leonardo_formaroli_24_rqntf6.png'
-    // };
+    const driverCard: IInsertDBDriverCard = {
+      id: buildCardId(DRIVER_CARDS_TYPE_ID),
+      driverId: 'andrea-kimi-antonelli',
+      teamId: 'prema-racing',
+      type: 'common',
+      season: 2024,
+      championship: 'f2',
+      description: null,
+      picturePath: '/v1728813492/andrea_kimi_antonelli_24_rtthoe.png'
+    };
 
     return createDBDriverCard(driverCard)
       .then((createdDriverCard) =>

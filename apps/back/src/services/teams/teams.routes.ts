@@ -24,17 +24,12 @@ export const teamsRoutes = new Hono()
 
   .post('/', (c) => {
     const team: IInsertDBTeam = {
-      id: 'prout',
-      wikiNames: [
-        'Scuderia Toro Rosso',
-        'Red Bull Toro Rosso Honda',
-        'Scuderia AlphaTauri',
-        'Visa Cash App RB F1 Team'
-      ],
-      name: 'Visa Cash App RB Formula One Team',
-      lightLogoPath: '/v1728748262/rb_vokkkc.png',
-      darkLogoPath: '/v1728748262/rb_vokkkc.png',
-      parentTeamId: 'parout-parent'
+      id: 'prema-racing',
+      wikiNames: ['Prema Racing'],
+      name: 'Prema Racing',
+      lightLogoPath: '/v1728813629/prema-racing_ellnls.png',
+      darkLogoPath: '/v1728813629/prema-racing_ellnls.png',
+      parentTeamId: null
     };
 
     return createDBTeam(team)

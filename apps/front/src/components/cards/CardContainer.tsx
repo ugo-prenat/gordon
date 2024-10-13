@@ -21,7 +21,7 @@ export const CardContainer: FC<ICardContainerProps> = ({
       style={containerStyle as React.CSSProperties}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative max-w-[400px] bg-[hsl(224,71.4%,4.1%)] rounded-lg overflow-hidden"
+      className="relative max-w-[400px] bg-foreground dark:bg-background rounded-lg overflow-hidden border border-border/50"
     >
       <div className="z-50 relative">
         <div>{children}</div>
