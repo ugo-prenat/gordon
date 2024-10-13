@@ -17,7 +17,7 @@ export const getDBDriverCards = (): Promise<
 
 export const getDBDriverCard = (
   id: string
-): Promise<WithDriver<IDBDriverCard> | undefined> =>
+): Promise<WithDriver<WithTeam<IDBDriverCard>> | undefined> =>
   db.query.driverCardsTable.findFirst({
     where: eq(driverCardsTable.id, id),
     with: { driver: true, team: true }

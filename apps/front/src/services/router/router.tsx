@@ -12,7 +12,8 @@ import {
   marketRoute,
   navRoute,
   onboardingRoute,
-  rootRoute
+  rootRoute,
+  cardRoute
 } from './router.routes';
 
 const routeTree = rootRoute.addChildren([
@@ -26,7 +27,8 @@ const routeTree = rootRoute.addChildren([
     chassisListRoute,
     chassisRoute,
 
-    adminRoute
+    adminRoute,
+    cardRoute
   ])
 ]);
 

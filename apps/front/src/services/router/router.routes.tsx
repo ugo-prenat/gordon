@@ -16,6 +16,7 @@ import { DRIVER_PAGE_TABS } from '@/pages/drivers/drivers.models';
 import { z } from 'zod';
 import { zodSearchValidator } from '@tanstack/router-zod-adapter';
 import { MARKET_CHASSIS_TAB, MARKET_TABS } from '@/pages/market/market.models';
+import { CardPage } from '@/pages/cards/Card.page';
 
 export const rootRoute = createRootRoute();
 
@@ -66,6 +67,12 @@ export const chassisListRoute = createRoute({
   component: () => (
     <Navigate to="/market" search={{ tab: MARKET_CHASSIS_TAB }} />
   ),
+  getParentRoute: () => navRoute
+});
+
+export const cardRoute = createRoute({
+  path: '/cards/$id',
+  component: CardPage,
   getParentRoute: () => navRoute
 });
 
