@@ -77,6 +77,16 @@ export const useCardPosition = (disableHover: boolean) => {
       #0e152e 12%
     )
     var(--bg-x) var(--bg-y) / 300%`,
+    '--another-diagonal': `repeating-linear-gradient(
+      128deg,
+      rgba(14, 21, 46, 0.5) 0%,
+      hsla(180, 10%, 60%, 0.8) 3.8%,
+      hsla(180, 10%, 60%, 0.8) 4.5%,
+      hsla(180, 10%, 60%, 0.8) 5.2%,
+      rgba(14, 21, 46, 0.5) 10%,
+      rgba(14, 21, 46, 0.5) 12%
+    )
+    var(--bg-x) var(--bg-y) / 300%`,
     '--shade': `radial-gradient(
       farthest-corner circle at var(--x) var(--y),
       rgba(255, 255, 255, 0.1) 12%,

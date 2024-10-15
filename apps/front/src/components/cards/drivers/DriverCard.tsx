@@ -22,7 +22,7 @@ export const DriverCard: FC<IDriverCardProps> = ({
     <CardContainer disableHover={disableHover}>
       <div>
         <img
-          src={buildImgUrl(picturePath, `c_fill,w_500,ar_4:5`)}
+          src={buildImgUrl(picturePath, `c_fill,w_800,ar_4:5`)}
           alt={`${driverId}-picture`}
         />
         <div className="absolute inset-0 flex flex-col items-center justify-end mb-2 text-background dark:text-foreground z-10">
