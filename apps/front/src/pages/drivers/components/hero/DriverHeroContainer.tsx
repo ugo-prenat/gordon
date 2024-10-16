@@ -9,25 +9,47 @@ export const DriverHeroContainer = ({
   children,
   picturePath
 }: IDriverHeroContainerProps) => {
-  const pictureUrl = buildImgUrl(picturePath, 'c_fill,h_700,ar_4:5');
-
   return (
     <div
       id="driver-hero-container"
-      className={`w-full h-[450px] flex justify-between border-b`}
-      // after:absolute after:top-0 after:w-full after:h-full after:bg-inherit after:blur-md
-      // className={`relative h-[450px] flex justify-between border-b after:absolute after:top-0 after:w-full after:h-full after:bg-inherit after:blur-md`}
+      className="relative w-full h-[450px] flex justify-between border-b"
     >
-      <div
-        className="w-full h-full bg-right-top bg-no-repeat"
-        style={{
-          backgroundImage: `url(${pictureUrl})`
-        }}
-      >
-        <div className="h-full bg-gradient-to-t from-background via-transparent via-60% lg:via-40% to-transparent">
+      <DriverPictureBackground picturePath={picturePath}>
+        <div className="h-full bg-gradient-to-t from-background via-transparent dark:via-60% via-40% lg:via-40% to-transparent">
           {children}
         </div>
-      </div>
+      </DriverPictureBackground>
+    </div>
+  );
+};
+
+const DriverPictureBackground = ({
+  children,
+  picturePath
+}: PropsWithChildren & { picturePath: string }) => {
+  const pictureUrl = buildImgUrl(picturePath, 'c_fill,h_1000,ar_4:5');
+
+  return (
+    <div
+      style={{ backgroundImage: `url(${pictureUrl})` }}
+      className="backlight w-full h-full relative bg-no-repeat bg-right-top bg-[length:550px] overflow-hidden"
+    >
+      <style>
+        {`
+          .backlight:after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            background: inherit;
+            opacity: 0.6;
+            filter: blur(80px);
+            z-index: -1;
+          }
+        `}
+      </style>
+      {children}
     </div>
   );
 };
