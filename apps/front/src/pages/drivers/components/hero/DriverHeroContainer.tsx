@@ -24,7 +24,7 @@ export const DriverHeroContainer = ({
           backgroundImage: `url(${pictureUrl})`
         }}
       >
-        <div className="h-full bg-gradient-to-t from-background via-transparent via-40% to-transparent">
+        <div className="h-full bg-gradient-to-t from-background via-transparent via-60% lg:via-40% to-transparent">
           {children}
         </div>
       </div>

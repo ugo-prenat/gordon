@@ -24,8 +24,10 @@ export const DriverHero = ({ driver }: { driver: IDriver }) => {
           <NumberLogo numberLogoPath={numberLogoPath} id={id} />
         )}
         <div>
-          <div className="w-2/3">
-            <h3 className="text-9xl font-extrabold mb-2">{fullName}</h3>
+          <div className="w-full lg:w-2/3 xl:w-2/3 2xl:w-4/5">
+            <h3 className="text-4xl sm:text-7xl lg:text-9xl font-extrabold mb-2">
+              {fullName}
+            </h3>
           </div>
           <div className="flex gap-6">
             <Description>
