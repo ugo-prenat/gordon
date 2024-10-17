@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import { IMarketDriverCard } from '@gordon/models';
 import { CardContainer } from '../CardContainer';
-import { buildImgUrl } from '@/utils/images.utils';
+import { buildPictureUrl } from '@/utils/images.utils';
+import { DriverPicture } from '@/components/pictures/DriverPicture';
 
 interface IDriverCardProps {
   card: IMarketDriverCard;
@@ -21,9 +22,9 @@ export const DriverCard: FC<IDriverCardProps> = ({
   return (
     <CardContainer disableHover={disableHover}>
       <div>
-        <img
-          src={buildImgUrl(picturePath, `c_fill,w_800,ar_4:5`)}
-          alt={`${driverId}-picture`}
+        <DriverPicture
+          id={driverId}
+          pictureUrl={buildPictureUrl(picturePath, `c_fill,w_800,ar_4:5`)}
         />
         <div className="absolute inset-0 flex flex-col items-center justify-end mb-2 text-background dark:text-foreground z-10">
           <p className="font-medium text-sm tracking-tight leading-none">

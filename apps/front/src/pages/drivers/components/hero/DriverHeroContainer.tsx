@@ -1,4 +1,4 @@
-import { buildImgUrl } from '@/utils/images.utils';
+import { buildPictureUrl } from '@/utils/images.utils';
 import { PropsWithChildren } from 'react';
 
 interface IDriverHeroContainerProps extends PropsWithChildren {
@@ -27,7 +27,7 @@ const DriverPictureBackground = ({
   children,
   picturePath
 }: PropsWithChildren & { picturePath: string }) => {
-  const pictureUrl = buildImgUrl(picturePath, 'c_fill,h_1000,ar_4:5');
+  const pictureUrl = buildPictureUrl(picturePath, 'c_fill,h_1000,ar_4:5');
 
   return (
     <div
