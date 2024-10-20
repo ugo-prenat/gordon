@@ -1,11 +1,11 @@
 import { Championship, IDriver, ITeam, WithDate } from '../..';
-import { DriverCardType } from './cards.models';
+import { CardType } from './cards.models';
 
 export interface IDriverCard {
   id: string;
   driverId: string;
   teamId: string;
-  type: DriverCardType;
+  type: CardType;
   picturePath: string;
   description: string | null;
   season: number;

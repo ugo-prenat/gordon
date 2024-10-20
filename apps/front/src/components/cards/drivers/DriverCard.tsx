@@ -13,14 +13,14 @@ export const DriverCard: FC<IDriverCardProps> = ({
   card,
   disableHover = false
 }) => {
-  const { driver, picturePath } = card;
+  const { driver, picturePath, type } = card;
   const { id: driverId, fullName } = driver;
 
   const [firstName, ...rest] = fullName.split(' ');
   const lastName = rest.join(' ');
 
   return (
-    <CardContainer disableHover={disableHover}>
+    <CardContainer disableHover={disableHover} type={type}>
       <div>
         <DriverPicture
           id={driverId}

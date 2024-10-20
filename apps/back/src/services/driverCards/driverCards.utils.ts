@@ -2,7 +2,7 @@ import {
   CARD_TYPES_MULTIPLIERS,
   Championship,
   CHAMPIONSHIPS_MULTIPLIERS,
-  DriverCardType,
+  CardType,
   IDBDriverCard,
   IMarketDriverCard,
   WithDriver,
@@ -36,7 +36,7 @@ export const formatToMarketDriverCard = (
 
 const calculateValue = (
   driverValue: number,
-  cardType: DriverCardType,
+  cardType: CardType,
   championship: Championship
 ) =>
   Number(
