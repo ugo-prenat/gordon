@@ -15,9 +15,7 @@ const config = {
     'bg-warning',
     'text-success',
     'text-destructive',
-    'text-warning',
-    'text-twitter',
-    'bg-twitter'
+    'text-warning'
   ],
   prefix: '',
   theme: {
@@ -81,7 +79,12 @@ const config = {
         },
         card: {
           DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))'
+          foreground: 'hsl(var(--card-foreground))',
+          common: 'hsl(var(--card-common))',
+          rare: 'hsl(var(--card-rare))',
+          unique: 'hsl(var(--card-unique))',
+          champion: 'hsl(var(--card-champion))',
+          vintage: 'hsl(var(--card-vintage))'
         }
       },
       borderRadius: {

@@ -3,6 +3,7 @@ import { useCardPosition } from './cards.hooks';
 
 import './cards.css';
 import { CardType } from '@gordon/models';
+import { cn } from '@/utils/tailwind.utils';
 
 interface ICardContainerProps extends PropsWithChildren {
   type: CardType;
@@ -31,7 +32,16 @@ export const CardContainer: FC<ICardContainerProps> = ({
       style={rotPositions}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative max-w-[400px] bg-foreground dark:bg-background rounded-lg overflow-hidden border border-border/50"
+      className={cn(
+        'relative max-w-[400px] rounded-lg overflow-hidden border border-border/50',
+        {
+          'bg-card-rare': type === 'rare',
+          'bg-card-common': type === 'common',
+          'bg-card-unique': type === 'unique',
+          'bg-card-vintage': type === 'vintage',
+          'bg-card-champion': type === 'champion'
+        }
+      )}
     >
       <div className="z-50 relative">
         <div>{children}</div>

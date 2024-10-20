@@ -49,6 +49,12 @@
     --score-medium: 74, 68%, 52%;
     --score-mediumHigh: 170, 59%, 65%;
     --score-high: 149, 60%, 50%;
+
+    --card-common: 0, 0%, 4%;
+    --card-rare: 224 71.4% 3.5%;
+    --card-unique: 276, 71%, 4%;
+    --card-champion: 50, 71%, 3%;
+    --card-vintage: 366, 70%, 3%;
   }
 
   .dark {
@@ -97,6 +103,12 @@
     --score-medium: 74, 68%, 52%;
     --score-mediumHigh: 170, 59%, 65%;
     --score-high: 149, 60%, 50%;
+
+    --card-common: 0, 0%, 4%;
+    --card-rare: 224 71.4% 3.5%;
+    --card-unique: 276, 71%, 4%;
+    --card-champion: 50, 71%, 3%;
+    --card-vintage: 366, 70%, 3%;
   }
 }
 
