@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CallStatus } from '@gordon/models';
 import { loadPicture } from '@/utils/images.utils';
+import { cn } from '@/utils/tailwind.utils';
 
 interface IDriverPictureProps {
   id: string;
@@ -21,15 +22,19 @@ export const DriverPicture = ({ id, pictureUrl }: IDriverPictureProps) => {
     handleLoad();
   }, []);
 
-  if (status === 'error') return <p>toast</p>;
+  const DriverPlaceholder = () => {
+    return (
+      <img
+        alt="driver-placeholder"
+        src="../../../public/assets/driver-placeholder.png"
+        className={cn({ 'animate-breath duration-4000': status === 'pending' })}
+      />
+    );
+  };
 
-  if (status === 'success') {
-    return <img src={pictureUrl} alt={`${id}-picture`} />;
-  }
-
-  return <DriverPlaceholder />;
-};
-
-const DriverPlaceholder = () => {
-  return <div>DriverPlaceholder</div>;
+  return status === 'success' ? (
+    <img src={pictureUrl} alt={`${id}-picture`} />
+  ) : (
+    <DriverPlaceholder />
+  );
 };

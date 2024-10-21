@@ -102,7 +102,7 @@ const config = {
           to: { height: '0' }
         },
         breath: {
-          '50%': { opacity: '0.5' }
+          '50%': { opacity: '0.4' }
         },
         throb: {
           '0%': {
@@ -120,6 +120,9 @@ const config = {
             transform: 'scale(1)'
           }
         }
+      },
+      transitionDuration: {
+        4000: '4000ms'
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',

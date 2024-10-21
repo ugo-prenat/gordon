@@ -4,6 +4,7 @@ import { useCardPosition } from './cards.hooks';
 import './cards.css';
 import { CardType } from '@gordon/models';
 import { cn } from '@/utils/tailwind.utils';
+import { AspectRatio } from '../ui/aspect-ratio';
 
 interface ICardContainerProps extends PropsWithChildren {
   type: CardType;
@@ -33,7 +34,7 @@ export const CardContainer: FC<ICardContainerProps> = ({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        'relative max-w-[400px] rounded-lg overflow-hidden border border-border/50',
+        'relative rounded-lg overflow-hidden border border-border/50',
         {
           'bg-card-rare': type === 'rare',
           'bg-card-common': type === 'common',
@@ -43,20 +44,22 @@ export const CardContainer: FC<ICardContainerProps> = ({
         }
       )}
     >
-      <div className="z-50 relative">
-        <div>{children}</div>
-      </div>
-      <div id="gradient" style={mousePositions} />
-      <div
-        id="pattern"
-        style={
-          {
-            ...bgPositions,
-            ...mousePositions,
-            '--pattern': `url('/assets/cards/${type}-pattern.png')`
-          } as CSSProperties
-        }
-      />
+      <AspectRatio ratio={4 / 5}>
+        <div className="z-50 relative">
+          <div>{children}</div>
+        </div>
+        <div id="gradient" style={mousePositions} />
+        <div
+          id="pattern"
+          style={
+            {
+              ...bgPositions,
+              ...mousePositions,
+              '--pattern': `url('/assets/cards/${type}-pattern.png')`
+            } as CSSProperties
+          }
+        />
+      </AspectRatio>
     </div>
   );
 };
