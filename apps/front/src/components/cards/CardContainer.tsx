@@ -34,7 +34,7 @@ export const CardContainer: FC<ICardContainerProps> = ({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        'relative rounded-lg overflow-hidden border border-border/50',
+        'relative rounded-lg overflow-hidden border border-border/50 transition-transform duration-300 ease-out',
         {
           'bg-card-rare': type === 'rare',
           'bg-card-common': type === 'common',

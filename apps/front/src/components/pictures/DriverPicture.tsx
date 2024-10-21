@@ -33,7 +33,11 @@ export const DriverPicture = ({ id, pictureUrl }: IDriverPictureProps) => {
   };
 
   return status === 'success' ? (
-    <img src={pictureUrl} alt={`${id}-picture`} />
+    <img
+      src={pictureUrl}
+      alt={`${id}-picture`}
+      className="animate-fade-in duration-300"
+    />
   ) : (
     <DriverPlaceholder />
   );
