@@ -4,12 +4,13 @@ import { useDriverCard } from './cards.api';
 import { DriverCard } from '@/components/cards/drivers/DriverCard';
 import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
+import { CardPageSkeleton } from './CardPageSkeleton';
 
 export const CardPage = () => {
   const { id } = cardRoute.useParams();
   const { data: card, isPending, isError, error } = useDriverCard(id);
 
-  if (isPending) return <div>Loading card...</div>;
+  if (isPending) return <CardPageSkeleton />;
 
   if (isError)
     return (

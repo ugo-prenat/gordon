@@ -6,9 +6,14 @@ import { cn } from '@/utils/tailwind.utils';
 interface IDriverPictureProps {
   id: string;
   pictureUrl: string;
+  placeholder?: boolean;
 }
 
-export const DriverPicture = ({ id, pictureUrl }: IDriverPictureProps) => {
+export const DriverPicture = ({
+  id,
+  pictureUrl,
+  placeholder = false
+}: IDriverPictureProps) => {
   const [status, setStatus] = useState<CallStatus>('idle');
 
   const handleLoad = () => {
@@ -19,7 +24,7 @@ export const DriverPicture = ({ id, pictureUrl }: IDriverPictureProps) => {
   };
 
   useEffect(() => {
-    handleLoad();
+    if (!placeholder) handleLoad();
   }, []);
 
   const DriverPlaceholder = () => {
@@ -27,7 +32,9 @@ export const DriverPicture = ({ id, pictureUrl }: IDriverPictureProps) => {
       <img
         alt="driver-placeholder"
         src="../../../public/assets/driver-placeholder.png"
-        className={cn({ 'animate-breath duration-4000': status === 'pending' })}
+        className={cn({
+          'animate-breath duration-4000': status === 'pending' || placeholder
+        })}
       />
     );
   };

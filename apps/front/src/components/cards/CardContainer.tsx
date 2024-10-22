@@ -7,7 +7,7 @@ import { cn } from '@/utils/tailwind.utils';
 import { AspectRatio } from '../ui/aspect-ratio';
 
 interface ICardContainerProps extends PropsWithChildren {
-  type: CardType;
+  type?: CardType;
   disableHover?: boolean;
 }
 
@@ -34,7 +34,7 @@ export const CardContainer: FC<ICardContainerProps> = ({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        'relative rounded-lg overflow-hidden border border-border/50 transition-transform duration-300 ease-out',
+        'relative rounded-lg overflow-hidden border border-border/50 transition-transform duration-300 ease-out bg-background',
         {
           'bg-card-rare': type === 'rare',
           'bg-card-common': type === 'common',
