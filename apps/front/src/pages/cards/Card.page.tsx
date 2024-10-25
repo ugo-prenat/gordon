@@ -5,6 +5,7 @@ import { DriverCard } from '@/components/cards/drivers/DriverCard';
 import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { CardPageSkeleton } from './CardPageSkeleton';
+import { Alert } from '@/components/Alert';
 
 export const CardPage = () => {
   const { id } = cardRoute.useParams();
@@ -14,8 +15,12 @@ export const CardPage = () => {
 
   if (isError)
     return (
-      <div>
-        Error: {error.message} code: {error.code}
+      <div className="w-full p-4">
+        <Alert
+          severity="error"
+          text={`Error: ${error.message} code: ${error.code}`}
+          error={error}
+        />
       </div>
     );
 
