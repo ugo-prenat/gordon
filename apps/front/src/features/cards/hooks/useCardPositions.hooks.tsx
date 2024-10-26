@@ -2,7 +2,7 @@ import { useState, useRef, MouseEvent, CSSProperties } from 'react';
 
 type Position = { x: number; y: number };
 
-export const useCardPosition = (disableHover: boolean) => {
+export const useCardPositions = (disableHover: boolean) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const [positions, setPositions] = useState<{

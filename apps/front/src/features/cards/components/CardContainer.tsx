@@ -1,17 +1,19 @@
 import { CSSProperties, FC, PropsWithChildren } from 'react';
-import { useCardPosition } from './cards.hooks';
-
-import './cards.css';
-import { CardType } from '@gordon/models';
+import { CardType, Resource } from '@gordon/models';
 import { cn } from '@/utils/tailwind.utils';
-import { AspectRatio } from '../ui/aspect-ratio';
+import { AspectRatio } from '../../../components/ui/aspect-ratio';
+import { useCardPositions } from '@/features/cards/hooks/useCardPositions.hooks';
+
+import '../cards.css';
 
 interface ICardContainerProps extends PropsWithChildren {
+  resource: Resource;
   type?: CardType;
   disableHover?: boolean;
 }
 
 export const CardContainer: FC<ICardContainerProps> = ({
+  resource,
   type,
   disableHover = false,
   children
@@ -23,13 +25,13 @@ export const CardContainer: FC<ICardContainerProps> = ({
     mousePositions,
     handleMouseMove,
     handleMouseLeave
-  } = useCardPosition(disableHover);
+  } = useCardPositions(disableHover);
 
   // see cards.css
   return (
     <div
       ref={cardRef}
-      id="driver-card"
+      id={`${resource}-card`}
       style={rotPositions}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

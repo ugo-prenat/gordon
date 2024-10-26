@@ -1,8 +1,8 @@
 import { Page } from '@/components/nav/Page';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
-import { DriverCardsTab } from './tabs/DriverCardsTab';
-import { DriverOverviewTab } from './tabs/DriverOverviewTab';
-import { DriverRecordsTab } from './tabs/DriverRecordsTab';
+import { DriverCardsTab } from './tabs/cards/DriverCardsTab';
+import { DriverOverviewTab } from './tabs/overview/DriverOverviewTab';
+import { DriverRecordsTab } from './tabs/records/DriverRecordsTab';
 import {
   DRIVER_CARDS_TAB,
   DRIVER_OVERVIEW_TAB,

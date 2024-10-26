@@ -6,8 +6,8 @@ import {
   MARKET_DRIVERS_TAB,
   MarketTab
 } from './market.models';
-import { MarketDriversTab } from './tabs/drivers/MarketDriversTab';
-import { MarketChassisTab } from './tabs/chassis/MarketChassisTab';
+import { MarketDriversTab } from './tabs/MarketDriversTab';
+import { MarketChassisTab } from './tabs/MarketChassisTab';
 import { marketRoute } from '@/services/router/router.routes';
 import { useState } from 'react';
 import { buildTabTitle } from './market.utils';

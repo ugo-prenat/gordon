@@ -1,4 +1,4 @@
-import { DriverCardSkeleton } from '@/components/cards/drivers/DriverCardSkeleton';
+import { DriverCardSkeleton } from '@/features/cards/components/drivers/DriverCardSkeleton';
 import { Page } from '@/components/nav/Page';
 import { Skeleton } from '@/components/Skeleton';
 

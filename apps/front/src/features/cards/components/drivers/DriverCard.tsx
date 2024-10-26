@@ -20,7 +20,7 @@ export const DriverCard: FC<IDriverCardProps> = ({
   const lastName = rest.join(' ');
 
   return (
-    <CardContainer disableHover={disableHover} type={type}>
+    <CardContainer resource="driver" disableHover={disableHover} type={type}>
       <div>
         <DriverPicture
           id={driverId}

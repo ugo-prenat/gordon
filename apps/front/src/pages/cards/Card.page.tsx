@@ -1,11 +1,12 @@
 import { Page } from '@/components/nav/Page';
 import { cardRoute } from '@/services/router/router.routes';
-import { useDriverCard } from './cards.api';
-import { DriverCard } from '@/components/cards/drivers/DriverCard';
+import { useDriverCard } from '../../features/cards/cards.api';
+import { DriverCard } from '@/features/cards/components/drivers/DriverCard';
 import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { CardPageSkeleton } from './CardPageSkeleton';
 import { CardPageError } from './CardPageError';
+import { DriverRecordsChart } from '@/features/records/components/recordsChart/DriverRecordsChart';
 
 export const CardPage = () => {
   const { id } = cardRoute.useParams();
@@ -19,18 +20,18 @@ export const CardPage = () => {
   return (
     <Page padding>
       <div className="h-full flex justify-center items-center gap-10">
-        <div className="w-1/2 flex justify-center">
+        <div id="left-section" className="w-1/2 flex justify-center">
           <div className="w-full md:w-4/5 lg:w-2/3 xl:w-1/2">
             <DriverCard card={card} />
           </div>
         </div>
-        <div className="flex-1 h-full ">
+        <div className="w-1/2 h-full flex flex-col justify-between gap-10">
           <Link to={`/drivers/${driver.id}`}>
-            <Button variant="link" className="text-xl font-bold">
+            <Button variant="link" className="text-4xl font-bold">
               {driver.fullName}
             </Button>
           </Link>
-          {/* <RecordsChart driverId={driver.id} /> */}
+          <DriverRecordsChart driverId={driver.id} className="p-0" />
         </div>
       </div>
     </Page>

@@ -1,5 +1,5 @@
 import { Alert } from '@/components/Alert';
-import { CardContainer } from '@/components/cards/CardContainer';
+import { CardContainer } from '@/features/cards/components/CardContainer';
 import { Page } from '@/components/nav/Page';
 import { DriverPicture } from '@/components/pictures/DriverPicture';
 import { Button } from '@/components/ui/button';
@@ -24,7 +24,7 @@ export const CardPageError: FC<ICardPageErrorProps> = ({
       <div className="h-full flex justify-center items-center gap-10">
         <div className="w-1/2 flex justify-center">
           <div className="w-full md:w-4/5 lg:w-2/3 xl:w-1/2">
-            <CardContainer disableHover>
+            <CardContainer resource="driver" disableHover>
               <DriverPicture id="placeholder" pictureUrl="" />
             </CardContainer>
           </div>

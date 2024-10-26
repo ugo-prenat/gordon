@@ -1,6 +1,6 @@
-import { DriverHero } from '../components/hero/DriverHero';
-import { DriverRecordsChart } from '../components/records/chart/DriverRecordsChart';
-import { useDriver } from '../drivers.api';
+import { DriverRecordsChart } from '@/features/records/components/recordsChart/DriverRecordsChart';
+import { DriverHero } from './hero/DriverHero';
+import { useDriver } from '../../drivers.api';
 import { driverRoute } from '@/services/router/router.routes';
 
 export const DriverOverviewTab = () => {

@@ -1,6 +1,6 @@
 import { driverRoute } from '@/services/router/router.routes';
-import { useDriverRecords } from '../drivers.api';
-import { DriverRecordsList } from '../components/records/DriverRecordsList';
+import { useDriverRecords } from '@/features/records/records.api';
+import { DriverRecordsList } from './DriverRecordsList';
 
 export const DriverRecordsTab = () => {
   const { id } = driverRoute.useParams();
@@ -14,9 +14,5 @@ export const DriverRecordsTab = () => {
         Error: {error.message} code: {error.code}
       </div>
     );
-  return (
-    <>
-      <DriverRecordsList records={records} />
-    </>
-  );
+  return <DriverRecordsList records={records} />;
 };
