@@ -5,24 +5,14 @@ import { DriverCard } from '@/components/cards/drivers/DriverCard';
 import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { CardPageSkeleton } from './CardPageSkeleton';
-import { Alert } from '@/components/Alert';
+import { CardPageError } from './CardPageError';
 
 export const CardPage = () => {
   const { id } = cardRoute.useParams();
-  const { data: card, isPending, isError, error } = useDriverCard(id);
+  const { data: card, isPending, isError, error, refetch } = useDriverCard(id);
 
   if (isPending) return <CardPageSkeleton />;
-
-  if (isError)
-    return (
-      <div className="w-full p-4">
-        <Alert
-          severity="error"
-          text={`Error: ${error.message} code: ${error.code}`}
-          error={error}
-        />
-      </div>
-    );
+  if (isError) return <CardPageError onRefresh={refetch} error={error} />;
 
   const { driver } = card;
 
@@ -40,6 +30,7 @@ export const CardPage = () => {
               {driver.fullName}
             </Button>
           </Link>
+          {/* <RecordsChart driverId={driver.id} /> */}
         </div>
       </div>
     </Page>

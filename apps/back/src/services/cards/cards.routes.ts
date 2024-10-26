@@ -24,7 +24,7 @@ export const cardsRouter = new Hono()
         if (!card) throw new APIError('Card not found', 'CAR-3', 404);
         return c.json(formatToMarketDriverCard(card), 200);
       })
-      .catch(handleError(c, 'CAR-3'))
+      .catch(handleError(c, 'CAR-4'))
   )
 
   .get('/users/:id', (c) =>

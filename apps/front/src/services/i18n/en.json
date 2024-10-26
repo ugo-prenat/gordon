@@ -2,7 +2,7 @@
   "retry": "Retry",
 
   "settings": "Settings",
-
+  "back.to.market": "Back to market",
   "theme": "Theme",
   "theme.dark": "Dark",
   "theme.light": "Light",
@@ -23,5 +23,8 @@
   "page.market.tabTitle.drivers": "Drivers market",
   "page.market.tabTitle.chassis": "Chassis market",
 
-  "page.driver.tabTitle": "Driver profile"
+  "page.driver.tabTitle": "Driver profile",
+
+  "page.card.retrieve.notFound": "No card found for the given id",
+  "page.card.retrieve.error": "An error occurred while retrieving the card"
 }
