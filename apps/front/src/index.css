@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(127, 127, 127) transparent;
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+  scroll-margin: 0;
+  scroll-padding: 0;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
