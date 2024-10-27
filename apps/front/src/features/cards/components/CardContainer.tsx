@@ -36,13 +36,13 @@ export const CardContainer: FC<ICardContainerProps> = ({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        'relative rounded-lg overflow-hidden border border-border/50 transition-transform duration-300 ease-out bg-background',
+        'relative rounded-lg overflow-hidden border border-border/50 transition-transform duration-300 ease-out bg-foreground dark:bg-background',
         {
-          'bg-card-rare': type === 'rare',
-          'bg-card-common': type === 'common',
-          'bg-card-unique': type === 'unique',
-          'bg-card-vintage': type === 'vintage',
-          'bg-card-champion': type === 'champion'
+          '!bg-card-rare': type === 'rare',
+          '!bg-card-common': type === 'common',
+          '!bg-card-unique': type === 'unique',
+          '!bg-card-vintage': type === 'vintage',
+          '!bg-card-champion': type === 'champion'
         }
       )}
     >

@@ -38,7 +38,7 @@ export const Alert: FC<IAlertProps> = ({
     <AlertComponent
       variant={severity}
       className={cn(
-        'h-fit p-4 flex items-center justify-between',
+        'w-full h-fit p-4 flex items-center justify-between',
         { 'py-3': action },
         className
       )}

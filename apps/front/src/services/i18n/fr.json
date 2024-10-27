@@ -27,5 +27,8 @@
   "page.driver.tabTitle": "Profil de pilote",
 
   "page.card.retrieve.notFound": "Aucune carte n'a été trouvée pour l'id donné",
-  "page.card.retrieve.error": "Une erreur est survenue lors de la récupération de la carte"
+  "page.card.retrieve.error": "Une erreur est survenue lors de la récupération de la carte",
+
+  "page.driver.retrieve.notFound": "Aucun pilote n'a été trouvé pour l'id donné",
+  "page.driver.retrieve.error": "Une erreur est survenue lors de la récupération du pilote"
 }

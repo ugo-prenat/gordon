@@ -19,13 +19,13 @@ export const CardPage = () => {
 
   return (
     <Page padding>
-      <div className="h-full flex justify-center items-center gap-10">
-        <div id="left-section" className="w-1/2 flex justify-center">
-          <div className="w-full md:w-4/5 lg:w-2/3 xl:w-1/2">
+      <div className="h-full flex justify-center items-center">
+        <div className="w-1/2 flex justify-center">
+          <div className="w-full sm:mr-6 md:w-4/5 lg:w-2/3 xl:w-1/2">
             <DriverCard card={card} />
           </div>
         </div>
-        <div className="w-1/2 h-full flex flex-col justify-between gap-10">
+        <div className="w-1/2 h-full flex flex-col justify-between">
           <Link to={`/drivers/${driver.id}`}>
             <Button variant="link" className="text-4xl font-bold">
               {driver.fullName}

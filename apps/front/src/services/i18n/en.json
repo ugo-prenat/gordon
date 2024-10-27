@@ -26,5 +26,8 @@
   "page.driver.tabTitle": "Driver profile",
 
   "page.card.retrieve.notFound": "No card found for the given id",
-  "page.card.retrieve.error": "An error occurred while retrieving the card"
+  "page.card.retrieve.error": "An error occurred while retrieving the card",
+
+  "page.driver.retrieve.notFound": "No driver found for the given id",
+  "page.driver.retrieve.error": "An error occurred while retrieving the driver"
 }

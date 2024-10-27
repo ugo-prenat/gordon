@@ -27,17 +27,15 @@ export const DriverPicture = ({
     if (!placeholder) handleLoad();
   }, []);
 
-  const DriverPlaceholder = () => {
-    return (
-      <img
-        alt="driver-placeholder"
-        src="../../../public/assets/driver-placeholder.png"
-        className={cn({
-          'animate-breath duration-4000': status === 'pending' || placeholder
-        })}
-      />
-    );
-  };
+  const DriverPlaceholder = () => (
+    <img
+      alt="driver-placeholder"
+      src="/assets/driver-placeholder.png"
+      className={cn('opacity-10', {
+        'animate-breath duration-4000': status === 'pending' || placeholder
+      })}
+    />
+  );
 
   return status === 'success' ? (
     <img
