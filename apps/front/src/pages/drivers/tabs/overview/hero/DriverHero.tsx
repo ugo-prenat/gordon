@@ -2,6 +2,7 @@ import { Description } from '@/components/typography';
 import { IDriver } from '@gordon/models';
 import { DriverHeroContainer } from './DriverHeroContainer';
 import { cn } from '@/utils/tailwind.utils';
+import { buildPictureUrl } from '@/utils/images.utils';
 export const DriverHero = ({ driver }: { driver: IDriver }) => {
   const {
     id,
@@ -51,5 +52,9 @@ const NumberLogo = ({
   id
 }: Pick<IDriver, 'numberLogoPath' | 'id'>) =>
   numberLogoPath ? (
-    <img src={numberLogoPath} className="w-24" alt={`${id}-number-logo`} />
+    <img
+      className="w-24"
+      alt={`${id}-number-logo`}
+      src={buildPictureUrl(numberLogoPath, 'w_200')}
+    />
   ) : null;
