@@ -1,8 +1,9 @@
 import { FC, PropsWithChildren, useEffect, useRef } from 'react';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { IRecord } from '@gordon/models';
-import { getScoreColor, splitRecords } from '@/pages/drivers/drivers.utils';
+import { getScoreColor } from '@/pages/drivers/drivers.utils';
 import { cn } from '@/utils/tailwind.utils';
+import { splitRecords } from '@/features/records/records.utils';
 
 export const RecordsChart: FC<{ records: IRecord[] }> = ({ records }) => {
   const splittedRecords = splitRecords(records);
@@ -73,7 +74,7 @@ const YearSplit: FC<{ year: string; teamIds: string[] }> = ({
   </span>
 );
 
-const ScrollableContainer: FC<PropsWithChildren> = ({ children }) => {
+export const ScrollableContainer: FC<PropsWithChildren> = ({ children }) => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

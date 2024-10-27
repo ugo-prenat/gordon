@@ -29,5 +29,7 @@
   "page.card.retrieve.error": "An error occurred while retrieving the card",
 
   "page.driver.retrieve.notFound": "No driver found for the given id",
-  "page.driver.retrieve.error": "An error occurred while retrieving the driver"
+  "page.driver.retrieve.error": "An error occurred while retrieving the driver",
+
+  "driver.records.retrieve.error": "An error occurred while retrieving the driver's records"
 }

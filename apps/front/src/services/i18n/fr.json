@@ -30,5 +30,7 @@
   "page.card.retrieve.error": "Une erreur est survenue lors de la récupération de la carte",
 
   "page.driver.retrieve.notFound": "Aucun pilote n'a été trouvé pour l'id donné",
-  "page.driver.retrieve.error": "Une erreur est survenue lors de la récupération du pilote"
+  "page.driver.retrieve.error": "Une erreur est survenue lors de la récupération du pilote",
+
+  "driver.records.retrieve.error": "Une erreur est survenue lors de la récupération des performances du pilote"
 }
