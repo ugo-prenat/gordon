@@ -19,6 +19,9 @@ export interface IDBDriverCard extends WithDate<IDriverCard> {}
 export interface IMarketDriverCard
   extends Omit<IDriverCard, 'driverId' | 'teamId'> {
   value: number;
-  driver: Pick<IDriver, 'id' | 'fullName' | 'nationalityCountryCode'>;
+  driver: Pick<
+    IDriver,
+    'id' | 'fullName' | 'nationalityCountryCode' | 'dateOfBirth'
+  >;
   team: Pick<ITeam, 'id' | 'name' | 'darkLogoPath' | 'lightLogoPath'>;
 }
