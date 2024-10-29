@@ -5,6 +5,7 @@ import { buildPictureUrl } from '@/utils/images.utils';
 import { DriverPicture } from '@/components/pictures/DriverPicture';
 import { TeamLogo } from '@/components/pictures/TeamLogo';
 import { cn } from '@/utils/tailwind.utils';
+import { Flag } from '@/components/CountryFlag';
 
 interface IDriverCardProps {
   card: IMarketDriverCard;
@@ -16,12 +17,7 @@ export const DriverCard: FC<IDriverCardProps> = ({
   disableHover = false
 }) => {
   const { driver, picturePath, type, season, team, championship } = card;
-  const {
-    id: driverId,
-    fullName,
-    dateOfBirth,
-    nationalityCountryCode
-  } = driver;
+  const { id: driverId, fullName, nationalityCountryCode } = driver;
 
   return (
     <CardContainer resource="driver" disableHover={disableHover} type={type}>
@@ -39,7 +35,10 @@ export const DriverCard: FC<IDriverCardProps> = ({
 
           <div className="flex flex-col items-center">
             <DriverName fullName={fullName} />
-            <p>{nationalityCountryCode}</p>
+            <Flag
+              countryCode={nationalityCountryCode}
+              className="w-5 rounded-[2px]"
+            />
           </div>
         </div>
         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black via-black to-transparent"></div>

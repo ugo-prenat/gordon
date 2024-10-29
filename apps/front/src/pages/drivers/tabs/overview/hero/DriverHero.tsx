@@ -3,6 +3,7 @@ import { IDriver } from '@gordon/models';
 import { DriverHeroContainer } from './DriverHeroContainer';
 import { cn } from '@/utils/tailwind.utils';
 import { buildPictureUrl } from '@/utils/images.utils';
+import { Flag } from '@/components/CountryFlag';
 export const DriverHero = ({ driver }: { driver: IDriver }) => {
   const {
     id,
@@ -30,7 +31,7 @@ export const DriverHero = ({ driver }: { driver: IDriver }) => {
               {fullName}
             </h3>
           </div>
-          <div className="flex gap-6">
+          <div className="flex gap-6 items-center">
             <Description>
               {new Date(dateOfBirth).toLocaleDateString('en-US', {
                 year: 'numeric',
@@ -39,7 +40,11 @@ export const DriverHero = ({ driver }: { driver: IDriver }) => {
               })}
             </Description>
             <Description>{activeChampionship.toUpperCase()}</Description>
-            <Description>{nationalityCountryCode}</Description>
+            <Flag
+              tooltip={`${fullName} nationality`}
+              countryCode={nationalityCountryCode}
+              className="w-7 h-fit rounded-[2px]"
+            />
           </div>
         </div>
       </div>
