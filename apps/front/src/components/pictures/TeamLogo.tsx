@@ -26,7 +26,7 @@ export const TeamLogo: FC<TeamLogoPaths> = ({
 
   return (
     <img
-      className="max-w-12 max-h-11 object-contain"
+      className="max-w-10 max-h-10 object-contain"
       alt={`${id}-logo`}
       src={buildPictureUrl(logoPath, 'c_fit,w_100,h_100')}
     />

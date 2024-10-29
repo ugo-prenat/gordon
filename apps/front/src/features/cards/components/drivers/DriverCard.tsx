@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import { IMarketDriverCard } from '@gordon/models';
+import { Championship, IMarketDriverCard } from '@gordon/models';
 import { CardContainer } from '../CardContainer';
 import { buildPictureUrl } from '@/utils/images.utils';
 import { DriverPicture } from '@/components/pictures/DriverPicture';
 import { TeamLogo } from '@/components/pictures/TeamLogo';
-import { differenceInYears } from 'date-fns';
+import { cn } from '@/utils/tailwind.utils';
 
 interface IDriverCardProps {
   card: IMarketDriverCard;
@@ -23,9 +23,6 @@ export const DriverCard: FC<IDriverCardProps> = ({
     nationalityCountryCode
   } = driver;
 
-  const [firstName, ...rest] = fullName.split(' ');
-  const lastName = rest.join(' ');
-
   return (
     <CardContainer resource="driver" disableHover={disableHover} type={type}>
       <div>
@@ -37,28 +34,54 @@ export const DriverCard: FC<IDriverCardProps> = ({
           <div className="flex justify-end w-full">
             <TeamLogo {...team} useLight />
           </div>
-          <div className="flex justify-between items-end w-full">
-            <div>
-              <p>{nationalityCountryCode}</p>
-              <p>{differenceInYears(new Date(), new Date(dateOfBirth))}</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <p>{championship}</p>
-              <p className="font-medium text-sm tracking-tight leading-none">
-                {firstName?.toUpperCase()}
-              </p>
-              <p className="text-2xl tracking-tight font-extrabold whitespace-nowrap">
-                {lastName?.toUpperCase()}
-              </p>
-            </div>
-            <div className="flex flex-col leading-none text-sm font-black">
-              <p>{season.toString().slice(0, 2)}</p>
-              <p>{season.toString().slice(2)}</p>
-            </div>
+
+          <SeasonAndChamp season={season} championship={championship} />
+
+          <div className="flex flex-col items-center">
+            <DriverName fullName={fullName} />
+            <p>{nationalityCountryCode}</p>
           </div>
         </div>
-        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black via-black/80 to-transparent opacity-80"></div>
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black via-black to-transparent"></div>
       </div>
     </CardContainer>
+  );
+};
+
+const DriverName: FC<{ fullName: string }> = ({ fullName }) => {
+  const [firstName, ...rest] = fullName.split(' ');
+  const lastName = rest.join(' ');
+
+  return (
+    <div className="flex flex-col items-center">
+      <p className="font-medium text-xs tracking-tight leading-none">
+        {firstName?.toUpperCase()}
+      </p>
+      <p
+        className={cn(
+          'text-xl tracking-tight font-extrabold whitespace-nowrap',
+          {
+            'text-md': lastName.length > 7
+          }
+        )}
+      >
+        {lastName?.toUpperCase()}
+      </p>
+    </div>
+  );
+};
+
+const SeasonAndChamp: FC<{ season: number; championship: Championship }> = ({
+  season,
+  championship
+}) => {
+  return (
+    <div className="w-full flex flex-col items-end">
+      <div className="flex flex-col leading-none text-sm font-black">
+        <p>{season.toString().slice(0, 2)}</p>
+        <p>{season.toString().slice(2)}</p>
+      </div>
+      <p className="text-sm font-black">{championship.toUpperCase()}</p>
+    </div>
   );
 };
