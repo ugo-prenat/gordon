@@ -4,6 +4,8 @@ import { DriverHeroContainer } from './DriverHeroContainer';
 import { cn } from '@/utils/tailwind.utils';
 import { buildPictureUrl } from '@/utils/images.utils';
 import { Flag } from '@/components/Flag';
+import { useCountryName } from '@/services/i18n/i18n.hooks';
+
 export const DriverHero = ({ driver }: { driver: IDriver }) => {
   const {
     id,
@@ -14,6 +16,8 @@ export const DriverHero = ({ driver }: { driver: IDriver }) => {
     activeChampionship,
     nationalityCountryCode
   } = driver;
+
+  const nationality = useCountryName(nationalityCountryCode);
 
   return (
     <DriverHeroContainer picturePath={picturePath}>
@@ -41,7 +45,7 @@ export const DriverHero = ({ driver }: { driver: IDriver }) => {
             </Description>
             <Description>{activeChampionship.toUpperCase()}</Description>
             <Flag
-              tooltip={`${fullName} nationality`}
+              tooltip={nationality}
               countryCode={nationalityCountryCode}
               className="w-7 h-fit rounded-[2px]"
             />
