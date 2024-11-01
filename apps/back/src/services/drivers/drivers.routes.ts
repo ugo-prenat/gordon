@@ -33,7 +33,8 @@ export const driversRouter = new Hono()
   .post('/', (c) => {
     const driver: IInsertDBDriver = {
       id: 'andrea-kimi-antonelli',
-      fullName: 'Andrea Kimi Antonelli',
+      firstName: 'Andrea',
+      lastName: 'Kimi Antonelli',
       tla: 'ANT',
       teamId: 'prema-racing',
       wikiKey: 'Andrea_Kimi_Antonelli',

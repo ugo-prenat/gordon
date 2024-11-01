@@ -16,6 +16,7 @@ export const CardPage = () => {
   if (isError) return <CardPageError onRefresh={refetch} error={error} />;
 
   const { driver } = card;
+  const { firstName, lastName } = driver;
 
   return (
     <Page padding>
@@ -28,7 +29,7 @@ export const CardPage = () => {
         <div className="w-1/2 h-full flex flex-col justify-between">
           <Link to={`/drivers/${driver.id}`}>
             <Button variant="link" className="text-4xl font-bold">
-              {driver.fullName}
+              {`${firstName} ${lastName}`}
             </Button>
           </Link>
           <DriverRecordsChart driverId={driver.id} className="p-0" />

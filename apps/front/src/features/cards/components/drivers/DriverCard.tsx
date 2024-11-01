@@ -17,7 +17,7 @@ export const DriverCard: FC<IDriverCardProps> = ({
   disableHover = false
 }) => {
   const { driver, picturePath, type, season, team, championship } = card;
-  const { id: driverId, fullName, nationalityCountryCode } = driver;
+  const { id: driverId, nationalityCountryCode, firstName, lastName } = driver;
 
   return (
     <CardContainer resource="driver" disableHover={disableHover} type={type}>
@@ -34,7 +34,7 @@ export const DriverCard: FC<IDriverCardProps> = ({
           <SeasonAndChamp season={season} championship={championship} />
 
           <div className="flex flex-col items-center">
-            <DriverName fullName={fullName} />
+            <DriverName firstName={firstName} lastName={lastName} />
             <Flag
               countryCode={nationalityCountryCode}
               className="w-5 rounded-[2px]"
@@ -47,28 +47,23 @@ export const DriverCard: FC<IDriverCardProps> = ({
   );
 };
 
-const DriverName: FC<{ fullName: string }> = ({ fullName }) => {
-  const [firstName, ...rest] = fullName.split(' ');
-  const lastName = rest.join(' ');
-
-  return (
-    <div className="flex flex-col items-center">
-      <p className="font-medium text-xs tracking-tight leading-none">
-        {firstName?.toUpperCase()}
-      </p>
-      <p
-        className={cn(
-          'text-xl tracking-tight font-extrabold whitespace-nowrap',
-          {
-            'text-md': lastName.length > 7
-          }
-        )}
-      >
-        {lastName?.toUpperCase()}
-      </p>
-    </div>
-  );
-};
+const DriverName: FC<{ firstName: string; lastName: string }> = ({
+  firstName,
+  lastName
+}) => (
+  <div className="flex flex-col items-center">
+    <p className="font-medium text-xs tracking-tight leading-none">
+      {firstName?.toUpperCase()}
+    </p>
+    <p
+      className={cn('text-xl tracking-tight font-extrabold whitespace-nowrap', {
+        'text-md': lastName.length > 7
+      })}
+    >
+      {lastName?.toUpperCase()}
+    </p>
+  </div>
+);
 
 const SeasonAndChamp: FC<{ season: number; championship: Championship }> = ({
   season,

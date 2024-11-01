@@ -18,7 +18,7 @@ export const formatToMarketDriverCard = (
 ): IMarketDriverCard => {
   const { driverId, teamId, createdAt, driver, team, ...driverCard } = card;
   const { name, darkLogoPath, lightLogoPath } = team;
-  const { fullName, nationalityCountryCode, dateOfBirth } = driver;
+  const { firstName, lastName, nationalityCountryCode, dateOfBirth } = driver;
 
   const value = calculateValue(
     driver.value,
@@ -30,7 +30,13 @@ export const formatToMarketDriverCard = (
     ...driverCard,
     value,
     team: { id: teamId, name, darkLogoPath, lightLogoPath },
-    driver: { id: driverId, fullName, nationalityCountryCode, dateOfBirth }
+    driver: {
+      id: driverId,
+      firstName,
+      lastName,
+      dateOfBirth,
+      nationalityCountryCode
+    }
   };
 };
 

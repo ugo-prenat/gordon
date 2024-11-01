@@ -21,7 +21,7 @@ export interface IMarketDriverCard
   value: number;
   driver: Pick<
     IDriver,
-    'id' | 'fullName' | 'nationalityCountryCode' | 'dateOfBirth'
+    'id' | 'firstName' | 'lastName' | 'nationalityCountryCode' | 'dateOfBirth'
   >;
   team: Pick<ITeam, 'id' | 'name' | 'darkLogoPath' | 'lightLogoPath'>;
 }

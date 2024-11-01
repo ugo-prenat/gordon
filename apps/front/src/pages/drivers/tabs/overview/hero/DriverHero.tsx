@@ -9,7 +9,8 @@ import { useCountryName } from '@/services/i18n/i18n.hooks';
 export const DriverHero = ({ driver }: { driver: IDriver }) => {
   const {
     id,
-    fullName,
+    firstName,
+    lastName,
     picturePath,
     numberLogoPath,
     dateOfBirth,
@@ -32,7 +33,7 @@ export const DriverHero = ({ driver }: { driver: IDriver }) => {
         <div>
           <div className="w-full lg:w-2/3 xl:w-2/3 2xl:w-4/5">
             <h3 className="text-4xl sm:text-7xl lg:text-9xl font-extrabold mb-2">
-              {fullName}
+              {`${firstName} ${lastName}`}
             </h3>
           </div>
           <div className="flex gap-6 items-center">

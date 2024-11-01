@@ -13,7 +13,8 @@ import { teamsTable } from '@services/teams/teams.schemas';
 
 export const driversTable = pgTable('drivers', {
   id: text('id').primaryKey(),
-  fullName: text('full_name').notNull(),
+  firstName: text('first_name').notNull(),
+  lastName: text('last_name').notNull(),
   tla: varchar('tla', { length: 3 }).notNull(),
   value: integer('value').notNull().default(-1),
   wikiKey: text('wiki_key').notNull().unique(),

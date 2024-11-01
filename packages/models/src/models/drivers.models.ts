@@ -3,7 +3,8 @@ import { Championship } from './championships.models';
 
 export interface IDriver {
   id: string;
-  fullName: string;
+  firstName: string;
+  lastName: string;
   tla: string;
   value: number;
   teamId: string;
