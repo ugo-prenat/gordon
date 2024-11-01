@@ -5,7 +5,7 @@ import { buildPictureUrl } from '@/utils/images.utils';
 import { DriverPicture } from '@/components/pictures/DriverPicture';
 import { TeamLogo } from '@/components/pictures/TeamLogo';
 import { cn } from '@/utils/tailwind.utils';
-import { Flag } from '@/components/CountryFlag';
+import { Flag } from '@/components/Flag';
 
 interface IDriverCardProps {
   card: IMarketDriverCard;

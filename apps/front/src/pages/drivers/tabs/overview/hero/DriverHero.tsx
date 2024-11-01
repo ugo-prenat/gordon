@@ -3,7 +3,7 @@ import { IDriver } from '@gordon/models';
 import { DriverHeroContainer } from './DriverHeroContainer';
 import { cn } from '@/utils/tailwind.utils';
 import { buildPictureUrl } from '@/utils/images.utils';
-import { Flag } from '@/components/CountryFlag';
+import { Flag } from '@/components/Flag';
 export const DriverHero = ({ driver }: { driver: IDriver }) => {
   const {
     id,
