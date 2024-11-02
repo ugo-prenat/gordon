@@ -17,7 +17,8 @@ import {
   CHAMPIONSHIPS_CONF,
   IInsertDBRecord,
   IFlattenedRecord,
-  CHAMPIONSHIPS_TOTAL_DRIVERS
+  CHAMPIONSHIPS_TOTAL_DRIVERS,
+  CIRCUIT_COUNTRY_MAPPING
 } from '@gordon/models';
 import countries from 'i18n-iso-countries';
 
@@ -104,12 +105,12 @@ const formatTable =
             championship,
             index + 1
           );
-
           const circuitId = raceData?.[0]?.text!;
-          const raceCountryCode = countries.alpha3ToAlpha2(circuitId) || null;
 
           if (!result) return null;
           if (year < maxYear) return null;
+
+          const raceCountryCode = getRaceCountryCode(circuitId, driverId, year);
 
           const record: IInsertDBRecord = {
             year,
@@ -226,6 +227,26 @@ const getTeam = (el: IHtmlTag, teamColumnIndex: number) =>
 
 const getRedactorTitle = (el: IHtmlTag | undefined): string | null =>
   (el?.attrs?.['redactor-attributes'] as { title?: string })?.title || null;
+
+const getRaceCountryCode = (
+  circuitId: string,
+  driverId: string,
+  year: number
+): string => {
+  const code = countries.alpha3ToAlpha2(circuitId);
+  if (code) return code;
+
+  const mappedCode = CIRCUIT_COUNTRY_MAPPING.find(({ wikiCircuitIds }) =>
+    wikiCircuitIds.includes(circuitId)
+  )?.countryCode;
+
+  if (!mappedCode)
+    throw new Error(
+      `No country code found for circuit id ${circuitId} (${driverId} ${year}), populate CIRCUIT_COUNTRY_MAPPING`
+    );
+
+  return mappedCode;
+};
 
 const getRaceResult = (el: IHtmlTag | undefined): RaceResult | undefined => {
   if (!el || !el.text || el.text === '') return undefined;
