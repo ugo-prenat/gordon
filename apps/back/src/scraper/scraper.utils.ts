@@ -19,6 +19,7 @@ import {
   IFlattenedRecord,
   CHAMPIONSHIPS_TOTAL_DRIVERS
 } from '@gordon/models';
+import countries from 'i18n-iso-countries';
 
 export const fetchWiki = (wikiKey: string): Promise<IHtmlTag[]> =>
   fetch(`${WIKIPEDIA_URL}/${wikiKey}`)
@@ -104,6 +105,9 @@ const formatTable =
             index + 1
           );
 
+          const circuitId = raceData?.[0]?.text!;
+          const raceCountryCode = countries.alpha3ToAlpha2(circuitId) || null;
+
           if (!result) return null;
           if (year < maxYear) return null;
 
@@ -115,10 +119,11 @@ const formatTable =
             raceKey,
             raceIndex,
             raceRound,
+            raceCountryCode,
             raceName: getRedactorTitle(raceCell?.[0]),
             score: calculateScore(result, championship),
-            circuitId: raceData?.[0]?.text!,
-            team: getTeam(line, teamColumnIndex) || ''
+            team: getTeam(line, teamColumnIndex) || '',
+            circuitId
           };
           return record;
         })

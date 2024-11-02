@@ -1,0 +1,1 @@
+ALTER TABLE "records" ADD COLUMN "race_country_code" text;

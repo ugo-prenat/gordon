@@ -12,7 +12,7 @@ interface ITooltipProps extends PropsWithChildren {
 }
 
 export const Tooltip: FC<ITooltipProps> = ({ children, title, className }) => {
-  if (!title) return children;
+  if (!title) return <div className={className}>{children}</div>;
   return (
     <TooltipProvider delayDuration={200}>
       <TooltipUI>

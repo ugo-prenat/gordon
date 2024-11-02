@@ -13,6 +13,7 @@ export interface IRecord {
   race: {
     key: RaceKey;
     name: string | null;
+    countryCode: string | null;
     round: number; // en fonction de la saison
     index: number; // en fonction du weekend (SPR | FEA)
   };
@@ -24,6 +25,7 @@ export interface IFlattenedRecord extends Omit<IRecord, 'race' | 'score'> {
   raceName: string | null;
   raceRound: number;
   raceIndex: number;
+  raceCountryCode: string | null;
 }
 
 export interface IInsertDBRecord extends Omit<IFlattenedRecord, 'id'> {}

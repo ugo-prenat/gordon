@@ -10,7 +10,9 @@ export const useFnsLocale = () => {
   return lang === 'fr' ? fnsFrLocale : undefined;
 };
 
-export const useCountryName = (countryCode: string) => {
+export const useCountryName = (countryCode: string | null) => {
   const { lang } = useSettings();
+
+  if (!countryCode) return undefined;
   return countries.getName(countryCode, lang);
 };

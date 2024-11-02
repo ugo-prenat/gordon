@@ -41,6 +41,9 @@ importers:
       hono:
         specifier: ^4.5.11
         version: 4.5.11
+      i18n-iso-countries:
+        specifier: ^7.12.0
+        version: 7.12.0
       jsdom:
         specifier: ^25.0.0
         version: 25.0.0

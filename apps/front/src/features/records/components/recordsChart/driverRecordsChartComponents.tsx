@@ -4,6 +4,8 @@ import { IRecord } from '@gordon/models';
 import { getScoreColor } from '@/pages/drivers/drivers.utils';
 import { cn } from '@/utils/tailwind.utils';
 import { splitRecords } from '@/features/records/records.utils';
+import { Flag } from '@/components/Flag';
+import { useCountryName } from '@/services/i18n/i18n.hooks';
 
 export const RecordsChart: FC<{ records: IRecord[] }> = ({ records }) => {
   const splittedRecords = splitRecords(records);
@@ -35,8 +37,8 @@ const RecordsList: FC<{ records: IRecord[] }> = ({ records }) => (
 );
 
 const RecordBar: FC<{ record: IRecord }> = ({ record }) => {
-  const { score, race, year } = record;
-  const { round } = race;
+  const { score, race } = record;
+  const { round, countryCode } = race;
   const heightPercentage = Math.min(score, 100);
 
   return (
@@ -55,14 +57,24 @@ const RecordBar: FC<{ record: IRecord }> = ({ record }) => {
         </div>
       </div>
 
-      <div className="mt-2 text-center">
-        <p className="text-xs font-semibold text-muted-foreground">{year}</p>
+      <div className="flex flex-col items-center gap-2 mt-2 text-center">
+        <RaceCountryFlag countryCode={countryCode} />
         <p className="text-xs font-bold text-muted-foreground whitespace-pre">
           R{round}
         </p>
       </div>
     </div>
   );
+};
+
+const RaceCountryFlag: FC<{ countryCode: string | null }> = ({
+  countryCode
+}) => {
+  const tooltip = useCountryName(countryCode);
+
+  return countryCode ? (
+    <Flag countryCode={countryCode} className="w-5 h-3" tooltip={tooltip} />
+  ) : null;
 };
 
 const YearSplit: FC<{ year: string; teamIds: string[] }> = ({

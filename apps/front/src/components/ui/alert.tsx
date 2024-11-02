@@ -9,12 +9,12 @@ const alertVariants = cva('w-full rounded-lg border p-4', {
     variant: {
       default: 'bg-background text-foreground',
       error:
-        'border-destructive/50 text-destructive dark:border-destructive bg-destructive/20 dark:bg-destructive/10 [&>svg]:text-destructive',
-      info: 'border-info/50 text-info bg-info/20 dark:border-info dark:bg-info/10 [&>svg]:text-info',
+        'border-destructive/50 text-destructive bg-destructive/20 dark:bg-destructive/10 [&>svg]:text-destructive',
+      info: 'border-info/50 text-info bg-info/20 dark:bg-info/10 [&>svg]:text-info',
       warning:
-        'border-warning/50 text-warning bg-warning/20 dark:border-warning dark:bg-warning/10 [&>svg]:text-warning',
+        'border-warning/50 text-warning bg-warning/20 dark:bg-warning/10 [&>svg]:text-warning',
       success:
-        'border-success/50 text-success bg-success/20 dark:border-success dark:bg-success/10 [&>svg]:text-success'
+        'border-success/50 text-success bg-success/20 dark:bg-success/10 [&>svg]:text-success'
     }
   },
   defaultVariants: {

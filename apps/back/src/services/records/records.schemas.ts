@@ -26,6 +26,7 @@ export const recordsTable = pgTable(
     raceName: text('race_name'),
     raceRound: integer('race_round').notNull(),
     raceIndex: integer('race_index').notNull(),
+    raceCountryCode: text('race_country_code'),
     createdAt: timestamp('created_at').notNull().defaultNow()
   },
   (table) => ({

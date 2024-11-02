@@ -41,6 +41,7 @@ export const dbRecordToRecord = ({
   raceKey,
   raceRound,
   raceIndex,
+  raceCountryCode,
   createdAt,
   ...record
 }: IDBRecord): IRecord => ({
@@ -50,6 +51,7 @@ export const dbRecordToRecord = ({
     key: raceKey,
     name: raceName,
     round: raceRound,
-    index: raceIndex
+    index: raceIndex,
+    countryCode: raceCountryCode
   }
 });
