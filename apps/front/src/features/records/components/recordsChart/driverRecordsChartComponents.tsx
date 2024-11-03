@@ -41,6 +41,8 @@ const RecordBar: FC<{ record: IRecord }> = ({ record }) => {
   const { round, countryCode } = race;
   const heightPercentage = Math.min(score, 100);
 
+  const countryName = useCountryName(countryCode);
+
   return (
     <div className="h-full flex flex-col min-w-7 max-w-7">
       <div className="flex-grow flex flex-col-reverse">
@@ -58,23 +60,17 @@ const RecordBar: FC<{ record: IRecord }> = ({ record }) => {
       </div>
 
       <div className="flex flex-col items-center gap-2 mt-2 text-center">
-        <RaceCountryFlag countryCode={countryCode} />
+        <Flag
+          countryCode={countryCode}
+          tooltip={countryName}
+          className="w-5 h-3"
+        />
         <p className="text-xs font-bold text-muted-foreground whitespace-pre">
           R{round}
         </p>
       </div>
     </div>
   );
-};
-
-const RaceCountryFlag: FC<{ countryCode: string | null }> = ({
-  countryCode
-}) => {
-  const tooltip = useCountryName(countryCode);
-
-  return countryCode ? (
-    <Flag countryCode={countryCode} className="w-5 h-3" tooltip={tooltip} />
-  ) : null;
 };
 
 const YearSplit: FC<{ year: string; teamIds: string[] }> = ({
