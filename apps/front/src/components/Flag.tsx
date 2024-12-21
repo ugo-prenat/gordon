@@ -2,7 +2,6 @@ import { cn } from '@/utils/tailwind.utils';
 import { FC } from 'react';
 import { CountryCode, CountryFlag } from 'react-country-flags-lazyload';
 import { Tooltip } from './Tooltip';
-import { AspectRatio } from './ui/aspect-ratio';
 
 interface IFlagProps {
   countryCode: string;
@@ -15,8 +14,8 @@ export const Flag: FC<IFlagProps> = ({ countryCode, className, tooltip }) => (
     title={tooltip}
     className={cn('cursor-default overflow-hidden', className)}
   >
-    <AspectRatio ratio={16 / 9}>
-      <CountryFlag countryCode={countryCode as CountryCode} />
-    </AspectRatio>
+    {/* <AspectRatio ratio={16 / 9}> */}
+    <CountryFlag countryCode={countryCode as CountryCode} />
+    {/* </AspectRatio> */}
   </Tooltip>
 );

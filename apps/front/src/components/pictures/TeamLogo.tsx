@@ -1,11 +1,13 @@
 import { useSettings } from '@/services/store/settings/settings.stores';
 import { buildPictureUrl } from '@/utils/images.utils';
+import { cn } from '@/utils/tailwind.utils';
 import { ITeam } from '@gordon/models';
 import { FC } from 'react';
 
 type TeamLogoPaths = Pick<ITeam, 'id' | 'darkLogoPath' | 'lightLogoPath'> & {
   useDark?: boolean;
   useLight?: boolean;
+  className?: string;
 };
 
 export const TeamLogo: FC<TeamLogoPaths> = ({
@@ -13,7 +15,8 @@ export const TeamLogo: FC<TeamLogoPaths> = ({
   darkLogoPath,
   lightLogoPath,
   useDark,
-  useLight
+  useLight,
+  className
 }) => {
   const { theme } = useSettings();
   const logoPath = useDark
@@ -26,7 +29,7 @@ export const TeamLogo: FC<TeamLogoPaths> = ({
 
   return (
     <img
-      className="max-w-10 max-h-10 object-contain"
+      className={cn('object-contain', className)}
       alt={`${id}-logo`}
       src={buildPictureUrl(logoPath, 'c_fit,w_100,h_100')}
     />

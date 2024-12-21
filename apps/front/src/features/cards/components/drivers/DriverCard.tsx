@@ -3,9 +3,9 @@ import { IMarketDriverCard } from '@gordon/models';
 import { CardContainer } from '../CardContainer';
 import { buildPictureUrl } from '@/utils/images.utils';
 import { DriverPicture } from '@/components/pictures/DriverPicture';
-import { TeamLogo } from '@/components/pictures/TeamLogo';
 import { cn } from '@/utils/tailwind.utils';
 import { Flag } from '@/components/Flag';
+import { ChampionshipLogo } from '../../../../components/pictures/ChampionshipLogo';
 
 interface IDriverCardProps {
   card: IMarketDriverCard;
@@ -16,7 +16,7 @@ export const DriverCard: FC<IDriverCardProps> = ({
   card,
   disableHover = false
 }) => {
-  const { driver, picturePath, type, season, team, championship } = card;
+  const { driver, picturePath, type, season, championship } = card;
   const { id: driverId, nationalityCountryCode, firstName, lastName } = driver;
 
   return (
@@ -28,24 +28,22 @@ export const DriverCard: FC<IDriverCardProps> = ({
         />
         <div className="absolute inset-0 flex flex-col items-center justify-between text-background dark:text-foreground z-10 p-4">
           <div className="flex justify-end w-full">
-            <TeamLogo {...team} useLight />
+            <div>
+              <ChampionshipLogo
+                championship={championship}
+                type={type}
+                classname="w-8"
+              />
+              <p className="text-xs font-extralight mt-[2px]">{season}</p>
+            </div>
           </div>
 
-          <div className="w-full flex justify-between items-end">
-            <div className="flex flex-col leading-none text-sm font-light">
-              <p>{season.toString().slice(0, 2)}</p>
-              <p>{season.toString().slice(2)}</p>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <DriverName firstName={firstName} lastName={lastName} />
-              <Flag
-                countryCode={nationalityCountryCode}
-                className="w-5 rounded-[2px]"
-              />
-            </div>
-
-            <p className="text-sm font-black">{championship.toUpperCase()}</p>
+          <div className="w-full flex flex-col items-center">
+            <Flag
+              countryCode={nationalityCountryCode}
+              className="w-5 rounded-[2px] mb-2"
+            />
+            <DriverName firstName={firstName} lastName={lastName} />
           </div>
         </div>
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black to-transparent"></div>

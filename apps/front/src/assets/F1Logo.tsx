@@ -7,8 +7,8 @@ export const F1Logo: FC<{ className?: string }> = ({ className }) => (
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       width="120px"
-      height="30px"
-      viewBox="0 0 120 30"
+      height="13px"
+      viewBox="0 0 120 13"
       version="1.1"
       className="injected-svg js-svg-inject"
     >
