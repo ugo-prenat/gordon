@@ -71,5 +71,6 @@ export const CIRCUIT_COUNTRY_MAPPING: {
   { countryCode: 'AT', wikiCircuitIds: ['RBR'] },
   { countryCode: 'GB', wikiCircuitIds: ['SIL'] },
   { countryCode: 'BE', wikiCircuitIds: ['SPA'] },
-  { countryCode: 'AZ', wikiCircuitIds: ['BAK'] }
+  { countryCode: 'AZ', wikiCircuitIds: ['BAK'] },
+  { countryCode: 'QA', wikiCircuitIds: ['LSL'] }
 ];
