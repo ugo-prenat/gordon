@@ -15,6 +15,7 @@ export const DriverPicture = ({
   placeholder = false
 }: IDriverPictureProps) => {
   const [status, setStatus] = useState<CallStatus>('idle');
+  const [showPlaceholder, setShowPlaceholder] = useState(placeholder);
 
   const handleLoad = () => {
     setStatus('pending');
@@ -36,6 +37,14 @@ export const DriverPicture = ({
       })}
     />
   );
+
+  if (!showPlaceholder && status === 'pending') {
+    setTimeout(() => {
+      setShowPlaceholder(true);
+    }, 1000);
+
+    return null;
+  }
 
   return status === 'success' ? (
     <img

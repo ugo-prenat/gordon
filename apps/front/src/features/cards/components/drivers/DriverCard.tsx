@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { IMarketDriverCard } from '@gordon/models';
 import { CardContainer } from '../CardContainer';
-import { buildPictureUrl } from '@/utils/images.utils';
-import { DriverPicture } from '@/components/pictures/DriverPicture';
 import { cn } from '@/utils/tailwind.utils';
 import { Flag } from '@/components/Flag';
 import { ChampionshipLogo } from '../../../../components/pictures/ChampionshipLogo';
+import { DriverPicture } from '@/components/pictures/DriverPicture';
+import { buildPictureUrl } from '@/utils/images.utils';
 
 interface IDriverCardProps {
   card: IMarketDriverCard;
@@ -26,24 +26,22 @@ export const DriverCard: FC<IDriverCardProps> = ({
           id={driverId}
           pictureUrl={buildPictureUrl(picturePath, 'c_fill,w_800,ar_4:5')}
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-between text-background dark:text-foreground z-10 p-4">
-          <div className="flex justify-end w-full">
-            <div>
+        <div className="absolute inset-0 flex flex-col items-center justify-end text-background dark:text-foreground z-10 p-4">
+          <div className="w-full animate-fade-in duration-900">
+            <DriverName firstName={firstName} lastName={lastName} />
+
+            <div className="flex justify-between items-end">
+              <Flag
+                countryCode={nationalityCountryCode}
+                className="w-5 rounded-[2px]"
+              />
+              <p className="text-xs font-extralight opacity-70">{season}</p>
               <ChampionshipLogo
                 championship={championship}
                 type={type}
                 classname="w-8"
               />
-              <p className="text-xs font-extralight mt-[2px]">{season}</p>
             </div>
-          </div>
-
-          <div className="w-full flex flex-col items-center">
-            <Flag
-              countryCode={nationalityCountryCode}
-              className="w-5 rounded-[2px] mb-2"
-            />
-            <DriverName firstName={firstName} lastName={lastName} />
           </div>
         </div>
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black to-transparent"></div>
