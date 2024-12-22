@@ -27,7 +27,7 @@ export const DriverCard: FC<IDriverCardProps> = ({
           pictureUrl={buildPictureUrl(picturePath, 'c_fill,w_800,ar_4:5')}
         />
         <div className="absolute inset-0 flex flex-col items-center justify-end text-background dark:text-foreground z-10 p-4">
-          <div className="w-full animate-fade-in duration-900">
+          <div className="w-full opacity-0 animate-fade-in">
             <DriverName firstName={firstName} lastName={lastName} />
 
             <div className="flex justify-between items-end">

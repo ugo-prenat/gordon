@@ -137,7 +137,7 @@ const config = {
         'accordion-up': 'accordion-up 0.2s ease-out',
         breath: 'breath 4s ease-in-out infinite',
         throb: 'throb 3s ease-in-out infinite',
-        'fade-in': 'fade-in 1s ease-in-out',
+        'fade-in': 'fade-in 1s ease-in-out forwards',
         skeleton: 'skeleton 2.5s ease-in-out infinite'
       }
     }
