@@ -1,19 +1,26 @@
 import { Hono } from 'hono';
 import { handleError } from '@utils/api.utils';
-import { DRIVER_CARDS_TYPE_ID, IInsertDBDriverCard } from '@gordon/models';
+import {
+  DRIVER_CARDS_TYPE_ID,
+  IInsertDBDriverCard,
+  marketDriverCardFiltersSchema
+} from '@gordon/models';
 import { createDBDriverCard, getDBDriverCards } from './driverCards.db';
 import { formatToMarketDriverCards } from './driverCards.utils';
 import { buildCardId } from '@utils/cards.utils';
+import { queriesValidator } from '@middlewares/queriesValidator.middleware';
 
 export const driverCardsRouter = new Hono()
   .onError((e, c) => handleError(c, 'DCR-1')(e))
 
   // /market/drivers
-  .get('/', (c) =>
-    getDBDriverCards()
+  .get('/', queriesValidator(marketDriverCardFiltersSchema), (c) => {
+    const filters = c.get('queries');
+
+    return getDBDriverCards(filters)
       .then((cards) => c.json(formatToMarketDriverCards(cards), 200))
-      .catch(handleError(c, 'DCR-2'))
-  )
+      .catch(handleError(c, 'DCR-2'));
+  })
 
   .post('/', (c) => {
     const driverCard: IInsertDBDriverCard = {
