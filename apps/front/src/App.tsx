@@ -4,7 +4,7 @@ import { updateRootElement } from './services/store/settings/settings.utils';
 import { useEffect } from 'react';
 import { useSettings } from './services/store/settings/settings.stores';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient } from './services/api/api';
+import { queryClient } from './services/api/queryClient.api';
 
 export const App = () => {
   const { theme } = useSettings();

@@ -1,4 +1,4 @@
-import { api } from '@/services/api/api';
+import { api } from '@/services/api/rpc.api';
 import { handleRes } from '@/services/api/api.utils';
 import { IAPIError, IDriver } from '@gordon/models';
 import { useQuery } from '@tanstack/react-query';
