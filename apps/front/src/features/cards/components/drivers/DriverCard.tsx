@@ -36,11 +36,7 @@ export const DriverCard: FC<IDriverCardProps> = ({
                 className="w-5 rounded-[2px]"
               />
               <p className="text-xs font-extralight opacity-70">{season}</p>
-              <ChampionshipLogo
-                championship={championship}
-                type={type}
-                classname="w-8"
-              />
+              <ChampionshipLogo championship={championship} type={type} />
             </div>
           </div>
         </div>

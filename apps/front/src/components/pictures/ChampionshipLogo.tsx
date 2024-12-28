@@ -8,7 +8,7 @@ import { cn } from '@/utils/tailwind.utils';
 
 export const ChampionshipLogo: FC<{
   championship: Championship;
-  type: CardType;
+  type?: CardType;
   classname?: string;
 }> = ({ championship, type, classname }) => {
   const key =
@@ -16,13 +16,13 @@ export const ChampionshipLogo: FC<{
 
   switch (key) {
     case 'old-f1':
-      return <OldF1Logo className={classname} />;
+      return <OldF1Logo className={cn('w-8', classname)} />;
     case 'f1':
-      return <F1Logo className={classname} />;
+      return <F1Logo className={cn('w-8', classname)} />;
     case 'f2':
-      return <F2Logo className={classname} />;
+      return <F2Logo className={cn('w-8', classname)} />;
     case 'f3':
-      return <F3Logo className={classname} />;
+      return <F3Logo className={cn('w-8', classname)} />;
     default:
       return (
         <p className={cn('text-sm font-black')}>{championship.toUpperCase()}</p>

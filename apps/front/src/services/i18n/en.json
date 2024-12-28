@@ -20,6 +20,11 @@
   "cards": "Cards",
   "admin": "Admin",
 
+  "championships": "Championships",
+  "championships.f1": "Formula 1",
+  "championships.f2": "Formula 2",
+  "championships.f3": "Formula 3",
+
   "page.market.tabTitle.drivers": "Drivers market",
   "page.market.tabTitle.chassis": "Chassis market",
 
