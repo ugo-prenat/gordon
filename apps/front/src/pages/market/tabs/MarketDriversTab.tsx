@@ -5,9 +5,11 @@ import { MarketDriverFilters } from '@/features/market/components/filters/Market
 import { useState } from 'react';
 import { MarketDriverCardFilters } from '@gordon/models';
 import { mergeFilters } from '../market.utils';
+import { isEmpty } from '@gordon/utils';
 
 const unmodifiableFilters: MarketDriverCardFilters = {
-  championships: ['f2']
+  championships: ['f2'],
+  seasons: [2025]
 };
 
 export const MarketDriversTab = () => {
@@ -30,6 +32,7 @@ export const MarketDriversTab = () => {
           Error: {error.message} code: {error.code}
         </div>
       )}
+      {data && isEmpty(data) && <div>oula</div>}
       {data && (
         <CardsListContainer>
           {data.map((card) => (

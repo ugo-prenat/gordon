@@ -6,7 +6,7 @@ export interface ICheckboxGroupOption<T extends string | number> {
   value: T;
   label: string;
   checked: boolean;
-  icon: JSX.Element;
+  icon?: JSX.Element;
   disabled?: boolean;
 }
 
@@ -36,18 +36,18 @@ export const CheckboxGroup = <T extends string | number>({
 
   return (
     <div id={`${id}-checkbox-group`}>
-      <p className="text-lg font-semibold mb-3">{label}</p>
+      <p className="text-lg font-bold mb-2">{label}</p>
       <div className="flex flex-col gap-1">
         {options.map(({ id, label, value, checked, disabled, icon }) => (
           <div
             key={value}
-            className="flex items-center justify-between gap-2 cursor-pointer"
+            className="flex items-center justify-between gap-2 cursor-pointer rounded-md py-[0.1rem] px-2 hover:bg-muted/40"
             onClick={handleClick(value)}
           >
             <div className="flex items-center gap-2">
               <Checkbox id={id} checked={checked} disabled={disabled} />
               <p
-                className={cn('cursor-pointer select-none', {
+                className={cn('cursor-pointer select-none font-medium', {
                   'text-muted-foreground cursor-default': disabled
                 })}
               >
