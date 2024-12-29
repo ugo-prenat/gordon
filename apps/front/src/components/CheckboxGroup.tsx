@@ -45,20 +45,14 @@ export const CheckboxGroup = <T extends string | number>({
             onClick={handleClick(value)}
           >
             <div className="flex items-center gap-2">
-              <Checkbox
-                id={id}
-                checked={checked}
-                disabled={disabled}
-                onClick={handleClick(value)}
-              />
-              <label
-                htmlFor={id}
+              <Checkbox id={id} checked={checked} disabled={disabled} />
+              <p
                 className={cn('cursor-pointer select-none', {
-                  'text-muted-foreground': disabled
+                  'text-muted-foreground cursor-default': disabled
                 })}
               >
                 {label}
-              </label>
+              </p>
             </div>
             {icon}
           </div>

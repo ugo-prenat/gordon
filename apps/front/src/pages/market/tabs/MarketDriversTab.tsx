@@ -4,26 +4,18 @@ import { MarketCard } from '@/features/cards/components/MarketCard';
 import { MarketDriverFilters } from '@/features/market/components/filters/MarketDriverFilters';
 import { useState } from 'react';
 import { MarketDriverCardFilters } from '@gordon/models';
+import { mergeFilters } from '../market.utils';
+
+const unmodifiableFilters: MarketDriverCardFilters = {
+  championships: ['f2']
+};
 
 export const MarketDriversTab = () => {
   const [filters, setFilters] = useState<MarketDriverCardFilters>({});
 
-  const unmodifiableFilters: MarketDriverCardFilters = {
-    championships: ['f2']
-  };
   const { data, isPending, isError, error } = useMarketDrivers(
-    filters,
-    unmodifiableFilters
+    mergeFilters(filters, unmodifiableFilters)
   );
-
-  if (isPending) return <div>Loading drivers...</div>;
-
-  if (isError)
-    return (
-      <div>
-        Error: {error.message} code: {error.code}
-      </div>
-    );
 
   return (
     <div className="flex gap-6 p-6">
@@ -32,11 +24,19 @@ export const MarketDriversTab = () => {
         onFiltersChange={setFilters}
         unmodifiableFilters={unmodifiableFilters}
       />
-      <CardsListContainer>
-        {data.map((card) => (
-          <MarketCard key={card.id} resource="driver" card={card} />
-        ))}
-      </CardsListContainer>
+      {isPending && <div>Loading drivers...</div>}
+      {isError && (
+        <div>
+          Error: {error.message} code: {error.code}
+        </div>
+      )}
+      {data && (
+        <CardsListContainer>
+          {data.map((card) => (
+            <MarketCard key={card.id} resource="driver" card={card} />
+          ))}
+        </CardsListContainer>
+      )}
     </div>
   );
 };
