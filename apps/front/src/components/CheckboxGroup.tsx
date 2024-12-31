@@ -36,7 +36,7 @@ export const CheckboxGroup = <T extends string | number>({
 
   return (
     <div id={`${id}-checkbox-group`}>
-      <p className="text-lg font-bold mb-2">{label}</p>
+      <p className="text-base font-medium mb-2">{label}</p>
       <div className="flex flex-col gap-1">
         {options.map(({ id, label, value, checked, disabled, icon }) => (
           <div
@@ -47,9 +47,12 @@ export const CheckboxGroup = <T extends string | number>({
             <div className="flex items-center gap-2">
               <Checkbox id={id} checked={checked} disabled={disabled} />
               <p
-                className={cn('cursor-pointer select-none font-medium', {
-                  'text-muted-foreground cursor-default': disabled
-                })}
+                className={cn(
+                  'cursor-pointer text-sm select-none font-medium',
+                  {
+                    'text-muted-foreground cursor-default': disabled
+                  }
+                )}
               >
                 {label}
               </p>

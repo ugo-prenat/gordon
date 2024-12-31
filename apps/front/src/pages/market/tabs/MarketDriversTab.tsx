@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { MarketDriverCardFilters } from '@gordon/models';
 import { mergeFilters } from '../market.utils';
 import { isEmpty } from '@gordon/utils';
+import { Alert } from '@/components/Alert';
+import { useTranslation } from '@/services/i18n/i18n.hooks';
 
 const unmodifiableFilters: MarketDriverCardFilters = {
   championships: ['f2'],
@@ -13,9 +15,10 @@ const unmodifiableFilters: MarketDriverCardFilters = {
 };
 
 export const MarketDriversTab = () => {
+  const t = useTranslation();
   const [filters, setFilters] = useState<MarketDriverCardFilters>({});
 
-  const { data, isPending, isError, error } = useMarketDrivers(
+  const { data, isPending, isError, error, refetch } = useMarketDrivers(
     mergeFilters(filters, unmodifiableFilters)
   );
 
@@ -28,9 +31,12 @@ export const MarketDriversTab = () => {
       />
       {isPending && <div>Loading drivers...</div>}
       {isError && (
-        <div>
-          Error: {error.message} code: {error.code}
-        </div>
+        <Alert
+          error={error}
+          severity="error"
+          action={refetch}
+          text={t('page.market.drivers.retrieve.error')}
+        />
       )}
       {data && isEmpty(data) && <div>oula</div>}
       {data && (
