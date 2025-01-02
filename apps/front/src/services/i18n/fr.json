@@ -1,5 +1,7 @@
 {
   "retry": "Réessayer",
+  "seasons": "Saisons",
+  "name": "Nom",
 
   "settings": "Paramètres",
   "back.to.market": "Retour au marché",
@@ -20,8 +22,6 @@
   "records": "Performances",
   "cards": "Cartes",
   "admin": "Admin",
-
-  "seasons": "Saisons",
 
   "championships": "Championnats",
   "championships.f1": "Formule 1",
