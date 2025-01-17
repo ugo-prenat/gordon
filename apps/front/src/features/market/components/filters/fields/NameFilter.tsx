@@ -29,9 +29,9 @@ export const NameFilter = ({
 
   return (
     <Input
+      value={inputValue}
       placeholder={t('name')}
       disabled={!!unmodifiableValue}
-      value={inputValue}
       onChange={(e) => handleChange(e.target.value)}
     />
   );
