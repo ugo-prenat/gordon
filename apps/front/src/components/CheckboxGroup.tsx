@@ -36,7 +36,7 @@ export const CheckboxGroup = <T extends string | number>({
 
   return (
     <div id={`${id}-checkbox-group`}>
-      <p className="text-base font-medium mb-2">{label}</p>
+      <p className="text-base font-bold mb-2">{label}</p>
       <div className="flex flex-col gap-1">
         {options.map(({ id, label, value, checked, disabled, icon }) => (
           <div
@@ -60,7 +60,8 @@ export const CheckboxGroup = <T extends string | number>({
               checked={checked}
               disabled={disabled}
               className={cn({
-                'group-hover:border-muted': !disabled || !checked
+                'border-primary-muted group-hover:border-primary':
+                  !disabled || !checked
               })}
             />
           </div>
