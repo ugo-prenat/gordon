@@ -1,7 +1,7 @@
+import { ChangeEvent, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
-import { useState } from 'react';
-import { useDebouncedCallback as useDebounce } from 'use-debounce';
+import { useDebounce } from '@/hooks/useDebounce';
 
 interface INameFilterProps {
   value: string | undefined;
@@ -19,20 +19,19 @@ export const NameFilter = ({
   );
   const t = useTranslation();
 
-  const handleChange = (newValue: string) => {
-    setInputValue(newValue);
+  const debouncedSearch = useDebounce(onChange, 700);
 
-    useDebounce(() => {
-      onChange(newValue);
-    }, 700);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+    debouncedSearch(e.target.value);
   };
 
   return (
     <Input
       value={inputValue}
       placeholder={t('name')}
+      onChange={handleChange}
       disabled={!!unmodifiableValue}
-      onChange={(e) => handleChange(e.target.value)}
     />
   );
 };
