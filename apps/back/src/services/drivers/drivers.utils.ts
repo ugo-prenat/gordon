@@ -1,6 +1,6 @@
 import { IDriverWithRecords } from '@services/records/records.models';
 import { CHAMPIONSHIPS_MULTIPLIERS, IInsertDBRecord } from '@gordon/models';
-import { updateDBDriver } from './drivers.db';
+import { getDBDrivers, updateDBDriver } from './drivers.db';
 
 export const updateDriversValues = (
   driversWithRecords: IDriverWithRecords[],
@@ -32,3 +32,8 @@ const calculateDriverValue = (records: IInsertDBRecord[]) => {
   );
   return Number(((totalScore / activeYearRecords.length) * 1000).toFixed());
 };
+
+export const getDriverIdsByName = (name?: string) =>
+  name
+    ? getDBDrivers({ name }).then((drivers) => drivers.map(({ id }) => id))
+    : Promise.resolve(undefined);

@@ -1,6 +1,6 @@
 import { db } from '@db';
 import { driversTable } from '@services/drivers/drivers.schemas';
-import { eq } from 'drizzle-orm';
+import { eq, ilike, or } from 'drizzle-orm';
 import { IDBDriver, IInsertDBDriver, PartialWithId } from '@gordon/models';
 
 export const createDBDriver = (driver: IInsertDBDriver): Promise<string[]> =>
@@ -10,8 +10,19 @@ export const createDBDriver = (driver: IInsertDBDriver): Promise<string[]> =>
     .returning({ id: driversTable.id })
     .then((ids) => ids.map(({ id }) => id));
 
-export const getDBDrivers = (): Promise<IDBDriver[]> =>
-  db.query.driversTable.findMany();
+export const getDBDrivers = (filters?: {
+  name?: string;
+}): Promise<IDBDriver[]> =>
+  db.query.driversTable.findMany({
+    where: or(
+      filters?.name
+        ? ilike(driversTable.lastName, `%${filters.name}%`)
+        : undefined,
+      filters?.name
+        ? ilike(driversTable.firstName, `%${filters.name}%`)
+        : undefined
+    )
+  });
 
 export const getDBDriver = (id: string): Promise<IDBDriver | undefined> =>
   db.query.driversTable.findFirst({

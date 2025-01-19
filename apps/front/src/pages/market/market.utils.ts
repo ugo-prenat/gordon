@@ -11,6 +11,7 @@ export const mergeFilters = (
   cleanDeep({
     ...filters,
     ...unmodifiableFilters,
+    name: unmodifiableFilters.name?.trim() || filters.name?.trim(),
     championships: [
       ...(filters.championships || []),
       ...(unmodifiableFilters.championships || [])
