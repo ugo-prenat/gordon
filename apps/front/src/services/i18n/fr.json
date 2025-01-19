@@ -2,6 +2,8 @@
   "retry": "Réessayer",
   "seasons": "Saisons",
   "name": "Nom",
+  "teams": "Équipes",
+  "search": "Rechercher",
 
   "settings": "Paramètres",
   "back.to.market": "Retour au marché",
@@ -31,7 +33,7 @@
   "page.market.tabTitle.drivers": "Marché des pilotes",
   "page.market.tabTitle.chassis": "Marché des châssis",
   "page.market.drivers.retrieve.error": "Une erreur est survenue lors de la récupération des pilotes",
-
+  "page.market.teams.retrieve.error": "Une erreur est survenue lors de la récupération des équipes",
   "page.driver.tabTitle": "Profil de pilote",
 
   "page.card.retrieve.notFound": "Aucune carte n'a été trouvée pour l'id donné",

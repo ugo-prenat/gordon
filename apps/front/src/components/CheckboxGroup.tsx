@@ -12,7 +12,7 @@ export interface ICheckboxGroupOption<T extends string | number> {
 
 interface ICheckboxGroupProps<T extends string | number> {
   id: string;
-  label: string;
+  label?: string;
   options: ICheckboxGroupOption<T>[];
   onChange: (values: T[]) => void;
 }
@@ -36,7 +36,7 @@ export const CheckboxGroup = <T extends string | number>({
 
   return (
     <div id={`${id}-checkbox-group`}>
-      <p className="text-base font-bold mb-2">{label}</p>
+      {label && <p className="text-base font-bold mb-2">{label}</p>}
       <div className="flex flex-col gap-1">
         {options.map(({ id, label, value, checked, disabled, icon }) => (
           <div

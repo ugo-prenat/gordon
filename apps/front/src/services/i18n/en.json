@@ -2,7 +2,8 @@
   "retry": "Retry",
   "seasons": "Seasons",
   "name": "Name",
-
+  "teams": "Teams",
+  "search": "Search",
   "settings": "Settings",
   "back.to.market": "Back to market",
   "theme": "Theme",
@@ -30,6 +31,7 @@
   "page.market.tabTitle.drivers": "Drivers market",
   "page.market.tabTitle.chassis": "Chassis market",
   "page.market.drivers.retrieve.error": "An error occurred while retrieving the drivers",
+  "page.market.teams.retrieve.error": "An error occurred while retrieving the teams",
   "page.driver.tabTitle": "Driver profile",
 
   "page.card.retrieve.notFound": "No card found for the given id",
