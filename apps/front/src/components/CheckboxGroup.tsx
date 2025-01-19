@@ -60,7 +60,7 @@ export const CheckboxGroup = <T extends string | number>({
               checked={checked}
               disabled={disabled}
               className={cn({
-                'border-primary-muted group-hover:border-primary':
+                'border-muted-foreground/50 group-hover:border-primary':
                   !disabled || !checked
               })}
             />

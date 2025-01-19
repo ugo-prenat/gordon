@@ -1,14 +1,14 @@
-import cleanDeep from 'clean-deep';
 import { ChampionshipsFilter } from './fields/ChampionshipsFilter';
 import { SeasonsFilter } from './fields/SeasonsFilter';
 import { FiltersContainer } from './FiltersContainer';
 import { MarketDriverCardFilters } from '@gordon/models';
 import { NameFilter } from './fields/NameFilter';
+import { Dispatch, SetStateAction } from 'react';
 
 interface IMarketDriverFiltersProps {
   filters: MarketDriverCardFilters;
   unmodifiableFilters?: MarketDriverCardFilters;
-  onFiltersChange: (filters: MarketDriverCardFilters) => void;
+  onFiltersChange: Dispatch<SetStateAction<MarketDriverCardFilters>>;
 }
 
 export const MarketDriverFilters = ({
@@ -17,7 +17,7 @@ export const MarketDriverFilters = ({
   onFiltersChange
 }: IMarketDriverFiltersProps) => {
   const onChange = (key: keyof MarketDriverCardFilters) => (value: unknown) =>
-    onFiltersChange(cleanDeep({ ...filters, [key]: value }));
+    onFiltersChange((prevFilters) => ({ ...prevFilters, [key]: value }));
 
   return (
     <FiltersContainer>
