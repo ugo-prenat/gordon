@@ -48,8 +48,11 @@ export const CheckboxGroup = <T extends string | number>({
               {icon}
               <p
                 className={cn(
-                  'cursor-pointer text-sm select-none font-medium',
-                  { 'text-muted-foreground cursor-default': disabled }
+                  'cursor-pointer text-sm select-none text-muted-foreground font-medium',
+                  {
+                    'group-hover:text-primary': !disabled,
+                    'text-muted-foreground cursor-default': disabled
+                  }
                 )}
               >
                 {label}

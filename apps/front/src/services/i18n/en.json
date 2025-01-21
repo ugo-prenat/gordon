@@ -32,6 +32,7 @@
   "page.market.tabTitle.chassis": "Chassis market",
   "page.market.drivers.retrieve.error": "An error occurred while retrieving the drivers",
   "page.market.teams.retrieve.error": "An error occurred while retrieving the teams",
+  "page.marlet.filters.teams.search": "Search a team",
   "page.driver.tabTitle": "Driver profile",
 
   "page.card.retrieve.notFound": "No card found for the given id",

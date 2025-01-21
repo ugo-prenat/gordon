@@ -27,8 +27,8 @@ export const TeamsFilter = ({
   const filteredTeams = useMemo(
     () =>
       (data || []).filter(({ id, name }) =>
-        [id.toLowerCase(), name.toLowerCase()].includes(
-          inputSearch.toLowerCase()
+        [id.toLowerCase(), name.toLowerCase()].some((value) =>
+          value.includes(inputSearch.toLowerCase())
         )
       ),
     [data, inputSearch]
@@ -67,8 +67,9 @@ export const TeamsFilter = ({
 
       <Input
         className="mb-2"
+        value={inputSearch}
         onChange={handleChange}
-        placeholder={t('search')}
+        placeholder={t('page.marlet.filters.teams.search')}
         disabled={isInputDisabled}
       />
       {data && (

@@ -10,8 +10,9 @@ import { Alert } from '@/components/Alert';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
 
 const unmodifiableFilters: MarketDriverCardFilters = {
-  // championships: ['f2'],
-  // seasons: [2025]
+  // championships: ['f2']
+  // seasons: [2025],
+  // teamIds: ['alpine']
 };
 
 export const MarketDriversTab = () => {
