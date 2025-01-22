@@ -29,7 +29,7 @@ export const TeamLogo: FC<TeamLogoPaths> = ({
 
   return (
     <img
-      className={cn('object-contain', className)}
+      className={cn('object-contain rounded-sm w-8 h-8', className)}
       alt={`${id}-logo`}
       src={buildPictureUrl(logoPath, 'c_fit,w_100,h_100')}
     />

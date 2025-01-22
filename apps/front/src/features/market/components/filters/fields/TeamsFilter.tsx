@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { useTeams } from '@/features/teams/teams.api';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
 import { ChangeEvent, useMemo, useState } from 'react';
+import { TeamLogo } from '@/components/pictures/TeamLogo';
 
 interface ITeamsFilterProps {
   checkedTeamIds: string[] | undefined;
@@ -42,10 +43,18 @@ export const TeamsFilter = ({
   console.log(data, filteredTeams);
 
   const options: ICheckboxGroupOption<string>[] = filteredTeams.map(
-    ({ id, name }) => ({
+    ({ id, name, darkLogoPath, lightLogoPath }) => ({
       id,
       value: id,
       label: name,
+      icon: (
+        <TeamLogo
+          id={id}
+          darkLogoPath={darkLogoPath}
+          lightLogoPath={lightLogoPath}
+          className="w-6 h-6"
+        />
+      ),
       checked: checkedTeamIds?.includes(id) || false,
       disabled: unmodifiableCheckedTeamIds?.includes(id) || false
     })
@@ -66,7 +75,7 @@ export const TeamsFilter = ({
       <p className="text-base font-bold mb-2">{t('teams')}</p>
 
       <Input
-        className="mb-2"
+        className="mb-3"
         value={inputSearch}
         onChange={handleChange}
         placeholder={t('page.marlet.filters.teams.search')}

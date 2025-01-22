@@ -28,7 +28,7 @@ export const ChampionshipsFilter = ({
         ...unmodifiableCheckedChampionships
       ].includes(championship),
       label: t(`championships.${championship}`),
-      icon: <ChampionshipLogo championship={championship} />,
+      icon: <ChampionshipLogo championship={championship} classname="w-7" />,
       disabled: unmodifiableCheckedChampionships.includes(championship)
     })
   );

@@ -41,14 +41,14 @@ export const CheckboxGroup = <T extends string | number>({
         {options.map(({ id, label, value, checked, disabled, icon }) => (
           <div
             key={value}
-            className="group flex items-center justify-between gap-2 cursor-pointer rounded-md"
+            className="group flex items-center justify-between gap-3 cursor-pointer rounded-md"
             onClick={handleClick(value)}
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               {icon}
               <p
                 className={cn(
-                  'cursor-pointer text-sm select-none text-muted-foreground font-medium',
+                  'cursor-pointer text-sm select-none text-muted-foreground font-medium truncate max-w-48',
                   {
                     'group-hover:text-primary': !disabled,
                     'text-muted-foreground cursor-default': disabled
