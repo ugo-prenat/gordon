@@ -17,7 +17,7 @@ export const SeasonsFilter = ({
 }: ISeasonsFilterProps) => {
   const t = useTranslation();
 
-  const options: ICheckboxGroupOption<number>[] = [2024, 2025].map(
+  const options: ICheckboxGroupOption<number>[] = [2025, 2024].map(
     (season) => ({
       value: season,
       id: String(season),
