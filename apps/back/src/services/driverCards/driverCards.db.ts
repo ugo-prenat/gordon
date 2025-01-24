@@ -7,7 +7,7 @@ import {
   WithTeam
 } from '@gordon/models';
 import { driverCardsTable } from './driverCards.schemas';
-import { and, eq, inArray } from 'drizzle-orm';
+import { and, desc, eq, inArray, sql } from 'drizzle-orm';
 import { db } from '@db';
 import { getDriverIdsByName } from '@services/drivers/drivers.utils';
 export const getDBDriverCards = (
@@ -31,7 +31,19 @@ export const getDBDriverCards = (
           ? inArray(driverCardsTable.championship, filters.championships)
           : undefined
       ),
-      with: { driver: true, team: true }
+      with: { driver: true, team: true },
+      orderBy: [
+        desc(
+          sql`CASE 
+            WHEN ${driverCardsTable.type} = 'common' THEN 1
+            WHEN ${driverCardsTable.type} = 'rare' THEN 2
+            WHEN ${driverCardsTable.type} = 'unique' THEN 3
+            WHEN ${driverCardsTable.type} = 'champion' THEN 4
+            WHEN ${driverCardsTable.type} = 'vintage' THEN 5
+            ELSE 6
+          END`
+        )
+      ]
     })
   );
 
