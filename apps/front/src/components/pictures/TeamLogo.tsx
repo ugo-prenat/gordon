@@ -23,9 +23,9 @@ export const TeamLogo: FC<TeamLogoPaths> = ({
     ? darkLogoPath
     : useLight
       ? lightLogoPath
-      : theme === 'dark'
-        ? lightLogoPath
-        : darkLogoPath;
+      : theme === 'light'
+        ? darkLogoPath
+        : lightLogoPath;
 
   return (
     <img
