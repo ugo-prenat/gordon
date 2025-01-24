@@ -23,17 +23,10 @@ export const teamsRoutes = new Hono()
       .catch(handleError(c, 'TER-4'));
   })
 
-  .post('/', (c) => {
-    const team: IInsertDBTeam = {
-      id: 'prema-racing',
-      wikiNames: ['Prema Racing'],
-      name: 'Prema Racing',
-      lightLogoPath: '/v1728813629/prema-racing_ellnls.png',
-      darkLogoPath: '/v1728813629/prema-racing_ellnls.png',
-      parentTeamId: null
-    };
+  .post('/', async (c) => {
+    const body: IInsertDBTeam = await c.req.json();
 
-    return createDBTeam(team)
+    return createDBTeam(body)
       .then((createdTeam) => c.json({ team: createdTeam }, 201))
       .catch(handleError(c, 'TER-5'));
   });

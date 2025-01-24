@@ -7,8 +7,8 @@ import {
 } from '@gordon/models';
 import { createDBDriverCard, getDBDriverCards } from './driverCards.db';
 import { formatToMarketDriverCards } from './driverCards.utils';
-import { buildCardId } from '@utils/cards.utils';
 import { queriesValidator } from '@middlewares/queriesValidator.middleware';
+import { buildCardId } from '@utils/cards.utils';
 
 export const driverCardsRouter = new Hono()
   .onError((e, c) => handleError(c, 'DCR-1')(e))
@@ -22,16 +22,12 @@ export const driverCardsRouter = new Hono()
       .catch(handleError(c, 'DCR-2'));
   })
 
-  .post('/', (c) => {
-    const driverCard: IInsertDBDriverCard = {
-      id: buildCardId(DRIVER_CARDS_TYPE_ID),
-      driverId: 'pierre-gasly',
-      teamId: 'alpine',
-      type: 'unique',
-      season: 2025,
-      championship: 'f1',
-      description: null,
-      picturePath: '/v1737492022/pierre_gasly_unique_25_gnltvs.png'
+  .post('/', async (c) => {
+    const body: IInsertDBDriverCard = await c.req.json();
+
+    const driverCard = {
+      ...body,
+      id: buildCardId(DRIVER_CARDS_TYPE_ID)
     };
 
     return createDBDriverCard(driverCard)

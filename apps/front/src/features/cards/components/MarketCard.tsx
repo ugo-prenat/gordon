@@ -13,7 +13,7 @@ export const MarketCard: FC<IMarketCardProps> = ({ resource, card }) => {
     <div id={`${resource}-market-card`} className="flex flex-col gap-2">
       <Link to={`/cards/${card.id}`}>
         <DriverCard card={card} disableHover />
-        <p>{card.value}</p>
+        <p>{new Intl.NumberFormat('en-US', {}).format(card.value)}</p>
       </Link>
     </div>
   );
