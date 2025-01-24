@@ -1,12 +1,14 @@
-import { CheckboxGroup } from '@/components/CheckboxGroup';
-
 import { Alert } from '@/components/Alert';
-import { ICheckboxGroupOption } from '@/components/CheckboxGroup';
+import {
+  CheckboxGroup,
+  ICheckboxGroupOption
+} from '@/components/CheckboxGroup';
 import { Input } from '@/components/ui/input';
 import { useTeams } from '@/features/teams/teams.api';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
 import { ChangeEvent, useMemo, useState } from 'react';
 import { TeamLogo } from '@/components/pictures/TeamLogo';
+import { Skeleton } from '@/components/Skeleton';
 
 interface ITeamsFilterProps {
   checkedTeamIds: string[] | undefined;
@@ -21,7 +23,7 @@ export const TeamsFilter = ({
 }: ITeamsFilterProps) => {
   const t = useTranslation();
 
-  const { data, isLoading, isError, error, refetch } = useTeams();
+  const { data, isLoading, isError, error } = useTeams();
 
   const [inputSearch, setInputSearch] = useState('');
 
@@ -39,8 +41,6 @@ export const TeamsFilter = ({
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setInputSearch(e.target.value);
-
-  console.log(data, filteredTeams);
 
   const options: ICheckboxGroupOption<string>[] = filteredTeams.map(
     ({ id, name, darkLogoPath, lightLogoPath }) => ({
@@ -62,16 +62,6 @@ export const TeamsFilter = ({
 
   return (
     <div>
-      {isLoading && <div>Loading teams...</div>}
-      {isError && (
-        <Alert
-          error={error}
-          severity="error"
-          action={refetch}
-          text={t('page.market.teams.retrieve.error')}
-        />
-      )}
-
       <p className="text-base font-bold mb-2">{t('teams')}</p>
 
       <Input
@@ -81,9 +71,27 @@ export const TeamsFilter = ({
         placeholder={t('page.marlet.filters.teams.search')}
         disabled={isInputDisabled}
       />
+      {isLoading && <LoadingState />}
+      {isError && (
+        <Alert
+          error={error}
+          severity="error"
+          text={t('page.market.teams.retrieve.error')}
+        />
+      )}
       {data && (
         <CheckboxGroup id="teams" options={options} onChange={onChange} />
       )}
     </div>
   );
 };
+
+const LoadingState = () => (
+  <div className="flex flex-col gap-2">
+    <Skeleton className="w-full h-5" />
+    <Skeleton className="w-full h-5" />
+    <Skeleton className="w-full h-5" />
+    <Skeleton className="w-full h-5" />
+    <Skeleton className="w-full h-5" />
+  </div>
+);

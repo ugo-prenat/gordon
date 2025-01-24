@@ -44,7 +44,9 @@ export const Alert: FC<IAlertProps> = ({
       )}
     >
       <div className="flex items-center gap-2">
-        <AlertIcon variant={severity} className="h-5 w-5" />
+        <div className="flex items-start min-w-4 w-5 h-full">
+          <AlertIcon variant={severity} className="min-w-4 h-5 w-5" />
+        </div>
         <AlertTitle>{text}</AlertTitle>
       </div>
       {action && (
@@ -60,9 +62,16 @@ const AlertIcon: FC<{
   variant: AlertVariantProps['variant'];
   className: string;
 }> = ({ variant, className }) => {
-  if (variant === 'error') return <AlertCircleIcon className={className} />;
-  if (variant === 'info') return <InfoIcon className={className} />;
-  if (variant === 'warning') return <AlertTriangleIcon className={className} />;
-  if (variant === 'success') return <CheckIcon className={className} />;
-  return null;
+  switch (variant) {
+    case 'error':
+      return <AlertCircleIcon className={className} />;
+    case 'info':
+      return <InfoIcon className={className} />;
+    case 'warning':
+      return <AlertTriangleIcon className={className} />;
+    case 'success':
+      return <CheckIcon className={className} />;
+    default:
+      return null;
+  }
 };
