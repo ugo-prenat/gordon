@@ -16,6 +16,9 @@ export const getDBDriverCards = (
   getDriverIdsByName(filters.name).then((driverIds) =>
     db.query.driverCardsTable.findMany({
       where: and(
+        filters.driverId
+          ? eq(driverCardsTable.driverId, filters.driverId)
+          : undefined,
         // filters.value
         driverIds ? inArray(driverCardsTable.driverId, driverIds) : undefined,
         filters.teamIds

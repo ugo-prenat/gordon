@@ -19,6 +19,7 @@ export const useMarketDrivers = (
   });
 
 const fetchMarketDrivers = ({
+  driverId,
   name,
   types,
   seasons,
@@ -30,6 +31,7 @@ const fetchMarketDrivers = ({
     .$get({
       query: {
         name,
+        driverId,
         types: types?.join(','),
         seasons: seasons?.join(','),
         teamIds: teamIds?.join(','),

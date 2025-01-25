@@ -1,5 +1,8 @@
-export const DriverCardsTab = () => {
-  // const { id } = driverRoute.useParams();
+import { MarketDriversTab } from '@/pages/market/tabs/MarketDriversTab';
+import { driverRoute } from '@/services/router/router.routes';
 
-  return <div>DriverCardsTab</div>;
+export const DriverCardsTab = () => {
+  const { id: driverId } = driverRoute.useParams();
+
+  return <MarketDriversTab unmodifiableFilters={{ driverId }} />;
 };

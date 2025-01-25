@@ -32,6 +32,7 @@ export type MarketDriverCardFilters = z.infer<
 >;
 
 export const marketDriverCardFiltersSchema = z.object({
+  driverId: z.string().optional(),
   name: z.string().optional(),
   teamIds: z.array(z.string()).optional(),
   types: z.array(z.enum(CARD_TYPES)).optional(),

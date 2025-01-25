@@ -22,11 +22,13 @@ export const MarketDriverFilters = ({
 
   return (
     <FiltersContainer>
-      <NameFilter
-        value={filters.name}
-        unmodifiableValue={unmodifiableFilters?.name}
-        onChange={onChange('name')}
-      />
+      {!unmodifiableFilters?.driverId && (
+        <NameFilter
+          value={filters.name}
+          unmodifiableValue={unmodifiableFilters?.name}
+          onChange={onChange('name')}
+        />
+      )}
       <TeamsFilter
         onChange={onChange('teamIds')}
         checkedTeamIds={filters.teamIds}
