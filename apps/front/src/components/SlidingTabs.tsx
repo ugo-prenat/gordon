@@ -19,14 +19,12 @@ interface ISlidingTabsProps<T extends string> {
   defaultTab: T;
   onClick: (tab: T) => void;
   className?: string;
-  sticky?: boolean;
 }
 
 export const SlidingTabs = <T extends string>({
   tabs,
   defaultTab,
   className,
-  sticky = false,
   onClick
 }: ISlidingTabsProps<T>) => {
   const tabsRef = useRef<(HTMLElement | null)[]>([]);
@@ -63,11 +61,10 @@ export const SlidingTabs = <T extends string>({
   }, []);
 
   return (
-    <Tabs defaultValue={defaultTab}>
+    <Tabs defaultValue={defaultTab} className="h-full flex flex-col">
       <TabsList
         className={cn(
           'relative border-b w-full justify-start bg-background',
-          { 'sticky top-0 z-10': sticky },
           className
         )}
       >
@@ -91,11 +88,17 @@ export const SlidingTabs = <T extends string>({
         />
       </TabsList>
 
-      {tabs.map(({ value, content }) => (
-        <TabsContent key={value} value={value}>
-          {content}
-        </TabsContent>
-      ))}
+      <div className="flex-1 overflow-auto">
+        {tabs.map(({ value, content }) => (
+          <TabsContent
+            key={value}
+            value={value}
+            className="h-full overflow-auto"
+          >
+            {content}
+          </TabsContent>
+        ))}
+      </div>
     </Tabs>
   );
 };

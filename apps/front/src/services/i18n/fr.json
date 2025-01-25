@@ -27,6 +27,13 @@
   "cards": "Cartes",
   "admin": "Admin",
 
+  "cards.types": "Types",
+  "cards.types.common": "Commune",
+  "cards.types.rare": "Rare",
+  "cards.types.unique": "Unique",
+  "cards.types.champion": "Champion",
+  "cards.types.vintage": "Vintage",
+
   "championships": "Championnats",
   "championships.f1": "Formule 1",
   "championships.f2": "Formule 2",

@@ -6,11 +6,8 @@ export const FiltersContainer: FC<IFiltersContainerProps> = ({ children }) => {
   // si useIsMobile true, envoyé <Drawer>
 
   return (
-    <div
-      id="filters-container"
-      className="flex flex-col w-64 gap-8 sticky top-[4.6rem] h-full"
-    >
-      {children}
+    <div id="filters-container" className="p-6 w-72 h-full overflow-auto">
+      <div className="flex flex-col gap-6">{children}</div>
     </div>
   );
 };

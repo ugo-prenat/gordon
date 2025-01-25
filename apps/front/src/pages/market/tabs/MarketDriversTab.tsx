@@ -20,7 +20,7 @@ export const MarketDriversTab: FC<{
   );
 
   return (
-    <div className="flex gap-6 p-6">
+    <div className="flex h-full overflow-hidden">
       <MarketDriverFilters
         filters={filters}
         onFiltersChange={setFilters}
@@ -37,7 +37,7 @@ export const MarketDriversTab: FC<{
       )}
       {data && isEmpty(data) && <div>oula</div>}
       {data && (
-        <CardsListContainer>
+        <CardsListContainer className="pl-2">
           {data.map((card) => (
             <MarketCard key={card.id} resource="driver" card={card} />
           ))}

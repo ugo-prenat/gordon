@@ -5,6 +5,7 @@ import { MarketDriverCardFilters } from '@gordon/models';
 import { NameFilter } from './fields/NameFilter';
 import { Dispatch, SetStateAction } from 'react';
 import { TeamsFilter } from './fields/TeamsFilter';
+import { TypesFilter } from './fields/TypesFilter';
 
 interface IMarketDriverFiltersProps {
   filters: MarketDriverCardFilters;
@@ -38,6 +39,11 @@ export const MarketDriverFilters = ({
         onChange={onChange('championships')}
         checkedChampionships={filters.championships}
         unmodifiableCheckedChampionships={unmodifiableFilters?.championships}
+      />
+      <TypesFilter
+        onChange={onChange('types')}
+        checkedTypes={filters.types}
+        unmodifiableCheckedTypes={unmodifiableFilters?.types}
       />
       <SeasonsFilter
         onChange={onChange('seasons')}
