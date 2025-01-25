@@ -4,8 +4,12 @@
   "name": "Name",
   "teams": "Teams",
   "search": "Search",
+  "showMore.true": "Show more",
+  "showMore.false": "Show less",
+
   "settings": "Settings",
   "back.to.market": "Back to market",
+
   "theme": "Theme",
   "theme.dark": "Dark",
   "theme.light": "Light",
@@ -33,6 +37,7 @@
   "page.market.drivers.retrieve.error": "An error occurred while retrieving the drivers",
   "page.market.teams.retrieve.error": "An error occurred while retrieving the teams",
   "page.marlet.filters.teams.search": "Search a team",
+  "page.marlet.filters.teams.noResults": "No team found",
   "page.driver.tabTitle": "Driver profile",
 
   "page.card.retrieve.notFound": "No card found for the given id",

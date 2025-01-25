@@ -37,12 +37,15 @@ export const CheckboxGroup = <T extends string | number>({
   return (
     <div id={`${id}-checkbox-group`}>
       {label && <p className="text-base font-bold mb-2">{label}</p>}
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col">
         {options.map(({ id, label, value, checked, disabled, icon }) => (
           <div
             key={value}
-            className="group flex items-center justify-between gap-3 cursor-pointer rounded-md"
-            onClick={handleClick(value)}
+            className={cn(
+              'group flex items-center justify-between gap-3 cursor-pointer rounded-md py-[0.1rem]',
+              { 'cursor-default': disabled }
+            )}
+            onClick={!disabled ? handleClick(value) : undefined}
           >
             <div className="flex items-center gap-3">
               {icon}

@@ -17,8 +17,14 @@ export const Title: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   </h2>
 );
 
-export const Description: FC<PropsWithChildren> = ({ children }) => (
-  <p className="text-sm text-muted-foreground/80">{children}</p>
+export const Description: FC<HTMLAttributes<HTMLParagraphElement>> = ({
+  children,
+  className,
+  ...props
+}) => (
+  <p className={cn('text-sm text-muted-foreground', className)} {...props}>
+    {children}
+  </p>
 );
 
 export const P: FC<PropsWithChildren> = ({ children }) => (

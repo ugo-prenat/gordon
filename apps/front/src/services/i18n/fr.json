@@ -4,6 +4,8 @@
   "name": "Nom",
   "teams": "Équipes",
   "search": "Rechercher",
+  "showMore.true": "Voir plus",
+  "showMore.false": "Voir moins",
 
   "settings": "Paramètres",
   "back.to.market": "Retour au marché",
@@ -35,6 +37,7 @@
   "page.market.drivers.retrieve.error": "Une erreur est survenue lors de la récupération des pilotes",
   "page.market.teams.retrieve.error": "Une erreur est survenue lors de la récupération des équipes",
   "page.marlet.filters.teams.search": "Rechercher une équipe",
+  "page.marlet.filters.teams.noResults": "Aucune équipe trouvée",
   "page.driver.tabTitle": "Profil de pilote",
 
   "page.card.retrieve.notFound": "Aucune carte n'a été trouvée pour l'id donné",
