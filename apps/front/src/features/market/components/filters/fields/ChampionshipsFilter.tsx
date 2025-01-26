@@ -19,6 +19,12 @@ export const ChampionshipsFilter = ({
 }: IChampionshipsFilterProps) => {
   const t = useTranslation();
 
+  const Icon = ({ championship }: { championship: Championship }) => (
+    <div className="flex items-center h-6">
+      <ChampionshipLogo championship={championship} classname="w-6" />
+    </div>
+  );
+
   const options: ICheckboxGroupOption<Championship>[] = CHAMPIONSHIPS.map(
     (championship) => ({
       id: championship,
@@ -28,7 +34,7 @@ export const ChampionshipsFilter = ({
         ...unmodifiableCheckedChampionships
       ].includes(championship),
       label: t(`championships.${championship}`),
-      icon: <ChampionshipLogo championship={championship} classname="w-7" />,
+      icon: <Icon championship={championship} />,
       disabled: unmodifiableCheckedChampionships.includes(championship)
     })
   );

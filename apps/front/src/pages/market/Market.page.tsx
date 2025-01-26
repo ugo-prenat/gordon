@@ -30,7 +30,16 @@ export const MarketPage = () => {
     {
       label: t('drivers'),
       value: MARKET_DRIVERS_TAB,
-      content: <MarketDriversTab />
+      content: (
+        <MarketDriversTab
+          unmodifiableFilters={
+            {
+              // types: ['champion'],
+              // championships: ['f1']
+            }
+          }
+        />
+      )
     },
     {
       label: t('chassis'),

@@ -2,7 +2,7 @@ import {
   CheckboxGroup,
   ICheckboxGroupOption
 } from '@/components/CheckboxGroup';
-import { CardTypeLogo } from '@/components/pictures/CardTypeLogo';
+import { CardTypeIcon } from '@/components/pictures/CardTypeIcon';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
 import { CARD_TYPES, CardType } from '@gordon/models';
 
@@ -19,11 +19,17 @@ export const TypesFilter = ({
 }: ITypesFilterProps) => {
   const t = useTranslation();
 
+  const Icon = ({ type }: { type: CardType }) => (
+    <div className="flex items-center h-6">
+      <CardTypeIcon type={type} className="w-4 h-4" />
+    </div>
+  );
+
   const options: ICheckboxGroupOption<CardType>[] = CARD_TYPES.map((type) => ({
     id: type,
     value: type,
     label: t(`cards.types.${type}`),
-    icon: <CardTypeLogo type={type} />,
+    icon: <Icon type={type} />,
     disabled: unmodifiableCheckedTypes.includes(type),
     checked: [...checkedTypes, ...unmodifiableCheckedTypes].includes(type)
   }));

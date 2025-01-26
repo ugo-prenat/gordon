@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { CardType, Championship } from '@gordon/models';
-import { OldF1Logo } from '@/assets/OldF1Logo';
-import { F2Logo } from '@/assets/F2Logo';
-import { F1Logo } from '@/assets/F1Logo';
-import { F3Logo } from '@/assets/F3Logo';
+import { OldF1Logo } from '@/assets/championshipLogos/OldF1Logo';
+import { F2Logo } from '@/assets/championshipLogos/F2Logo';
+import { F1Logo } from '@/assets/championshipLogos/F1Logo';
+import { F3Logo } from '@/assets/championshipLogos/F3Logo';
 import { cn } from '@/utils/tailwind.utils';
 
 export const ChampionshipLogo: FC<{
