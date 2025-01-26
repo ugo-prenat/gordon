@@ -81,7 +81,7 @@ export const TeamsFilter = ({
         value={inputSearch}
         onChange={handleChange}
         disabled={isInputDisabled}
-        placeholder={t('page.marlet.filters.teams.search')}
+        placeholder={t('page.market.filters.teams.search')}
       />
       {isLoading && <LoadingState />}
       {isError && (
@@ -101,7 +101,7 @@ export const TeamsFilter = ({
         </>
       )}
       {isEmpty(options) && (
-        <Description>{t('page.marlet.filters.teams.noResults')}</Description>
+        <Description>{t('page.market.filters.teams.noResults')}</Description>
       )}
     </div>
   );
