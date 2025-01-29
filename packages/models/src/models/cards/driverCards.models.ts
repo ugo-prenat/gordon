@@ -11,9 +11,10 @@ export interface IDriverCard {
   description: string | null;
   season: number;
   championship: Championship;
+  value: number;
 }
 
-export interface IInsertDBDriverCard extends IDriverCard {}
+export interface IInsertDBDriverCard extends Omit<IDriverCard, 'value'> {}
 
 export interface IDBDriverCard extends WithDate<IDriverCard> {}
 

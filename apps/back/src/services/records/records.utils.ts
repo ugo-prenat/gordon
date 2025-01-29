@@ -1,7 +1,6 @@
 import { IDBRecord, IRecord } from '@gordon/models';
 import { ICreateRecordsResponse, IDriverWithRecords } from './records.models';
 import { createDBRecords } from './records.db';
-import { updateDriversValues } from '@services/drivers/drivers.utils';
 import { isEmpty } from '@gordon/utils';
 
 export const createRecords = (
@@ -21,14 +20,11 @@ export const createRecords = (
 
       if (isEmpty(updatedRecordsDriverIds)) console.log('no drivers updated');
 
-      return updateDriversValues(
-        driversWithRecords,
-        updatedRecordsDriverIds
-      ).then(() => ({
+      return {
         insertedRecordsNb,
         scrapedRecordsNb: records.length,
         driversNb: driversWithRecords.length
-      }));
+      };
     }
   );
 };

@@ -6,7 +6,6 @@ export interface IDriver {
   firstName: string;
   lastName: string;
   tla: string;
-  value: number;
   teamId: string;
   wikiKey: string;
   activeChampionship: Championship;
@@ -18,7 +17,7 @@ export interface IDriver {
   isActive: boolean;
 }
 
-export interface IInsertDBDriver extends Omit<IDriver, 'value'> {}
+export interface IInsertDBDriver extends IDriver {}
 
 export interface IDBDriver extends WithDate<IDriver> {}
 

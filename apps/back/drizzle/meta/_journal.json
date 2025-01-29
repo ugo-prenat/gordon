@@ -183,6 +183,13 @@
       "when": 1730569454813,
       "tag": "0025_sharp_stranger",
       "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1738184091728,
+      "tag": "0026_wandering_mojo",
+      "breakpoints": true
     }
   ]
 }

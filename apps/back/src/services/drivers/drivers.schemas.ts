@@ -3,7 +3,6 @@ import { Championship } from '@gordon/models';
 import { relations } from 'drizzle-orm';
 import {
   boolean,
-  integer,
   pgTable,
   text,
   timestamp,
@@ -16,7 +15,6 @@ export const driversTable = pgTable('drivers', {
   firstName: text('first_name').notNull(),
   lastName: text('last_name').notNull(),
   tla: varchar('tla', { length: 3 }).notNull(),
-  value: integer('value').notNull().default(-1),
   wikiKey: text('wiki_key').notNull().unique(),
   activeChampionship: text('active_championship')
     .$type<Championship>()
