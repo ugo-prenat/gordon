@@ -63,7 +63,7 @@ const NoResultState = ({ onFiltersClear }: { onFiltersClear: () => void }) => {
         alt="No result"
         draggable={false}
         src={NoResultImgSrc}
-        className="filter grayscale w-1/3 opacity-40 [mask-image:linear-gradient(to_top,transparent_0%,black_70%)]"
+        className="filter grayscale w-4/5 md:w-1/2 lg:w-1/3 opacity-40 [mask-image:linear-gradient(to_top,transparent_0%,black_70%)]"
       />
       <div className="flex flex-col items-center gap-2 -mt-6">
         <p className="text-lg font-medium text-muted-foreground/80">

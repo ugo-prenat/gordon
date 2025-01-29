@@ -5,17 +5,19 @@ import { useDebounce } from '@/hooks/useDebounce';
 
 interface INameFilterProps {
   value: string | undefined;
+  driverId: string | undefined;
   unmodifiableValue: string | undefined;
   onChange: (name: string) => void;
 }
 
 export const NameFilter = ({
   value,
+  driverId,
   unmodifiableValue,
   onChange
 }: INameFilterProps) => {
   const [inputValue, setInputValue] = useState(
-    unmodifiableValue || value || ''
+    driverId?.split('-').join(' ') || unmodifiableValue || value || ''
   );
   const t = useTranslation();
 
@@ -31,7 +33,7 @@ export const NameFilter = ({
       value={inputValue}
       placeholder={t('name')}
       onChange={handleChange}
-      disabled={!!unmodifiableValue}
+      disabled={!!unmodifiableValue || !!driverId}
     />
   );
 };
