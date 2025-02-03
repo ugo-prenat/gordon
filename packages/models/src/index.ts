@@ -8,6 +8,8 @@ export * from './models/championships.models';
 
 export * from './models/cards/cards.models';
 export * from './models/cards/driverCards.models';
+export * from './models/cards/driverCardsValue.models';
+
 export * from './types/types';
 
 export * from './constants';

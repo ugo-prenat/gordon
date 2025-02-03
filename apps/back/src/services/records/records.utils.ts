@@ -3,6 +3,19 @@ import { ICreateRecordsResponse, IDriverWithRecords } from './records.models';
 import { createDBRecords } from './records.db';
 import { isEmpty } from '@gordon/utils';
 
+// export const createRecords = (
+//   driversWithRecords: IDriverWithRecords[]
+// ): Promise<string> => {
+
+//   const frecords = driversWithRecords.map(({ driver,records }) => {
+//     createDBRecords(records).then(res => {
+
+//     })
+//     return 'rere'
+//   })
+
+//   return Promise.all(frecords)
+// };
 export const createRecords = (
   driversWithRecords: IDriverWithRecords[]
 ): Promise<ICreateRecordsResponse> => {
