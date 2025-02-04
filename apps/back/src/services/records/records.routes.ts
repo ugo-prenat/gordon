@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { getDBRecord, getDBRecords } from './records.db';
 import { getDBDrivers } from '@services/drivers/drivers.db';
-import { scrapRecords } from '@scraper/scraper.actions';
+import { notify, scrapRecords } from '@scraper/scraper.actions';
 import {
   createRecords,
   dbRecordsToRecords,
@@ -34,4 +34,10 @@ export const recordsRouter = new Hono()
       .then(createRecords)
       .then((res) => c.json(res, 201))
       .catch(handleError(c, 'RER-5'))
+  )
+
+  .post('/notify', (c) =>
+    notify()
+      .then(() => c.json('notified', 201))
+      .catch(handleError(c, 'RER-6'))
   );
