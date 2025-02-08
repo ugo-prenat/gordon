@@ -17,12 +17,12 @@ export interface IHtmlTag {
   [key: string]: unknown;
 }
 
-export interface IGroupedContent {
+export interface IChampionshipTable {
   championship: Championship;
   table: IHtmlTag;
 }
 
-export interface IRawGroupedContent extends Partial<IGroupedContent> {}
+export interface IRawChampionshipTable extends Partial<IChampionshipTable> {}
 
 export const UNUSED_DRIVERS: IInsertDBDriver[] = [
   {

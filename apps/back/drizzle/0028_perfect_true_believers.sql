@@ -1,0 +1,1 @@
+ALTER TABLE "records" ADD COLUMN "avg_score" numeric(5, 2) DEFAULT '0.00' NOT NULL;

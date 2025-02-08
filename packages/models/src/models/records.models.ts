@@ -10,6 +10,7 @@ export interface IRecord {
   circuitId: string;
   championship: Championship;
   score: number;
+  avgScore: number;
   race: {
     key: RaceKey;
     name: string | null;
@@ -19,8 +20,10 @@ export interface IRecord {
   };
 }
 
-export interface IFlattenedRecord extends Omit<IRecord, 'race' | 'score'> {
+export interface IFlattenedRecord
+  extends Omit<IRecord, 'race' | 'score' | 'avgScore'> {
   score: string;
+  avgScore: string;
   raceKey: RaceKey;
   raceName: string | null;
   raceRound: number;

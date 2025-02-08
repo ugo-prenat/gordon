@@ -2,8 +2,8 @@ import { htmlToJson } from '@contentstack/json-rte-serializer';
 import { JSDOM } from 'jsdom';
 import {
   IHtmlTag,
-  IGroupedContent,
-  IRawGroupedContent,
+  IChampionshipTable,
+  IRawChampionshipTable,
   TEAM_COLUMN_ID,
   WIKIPEDIA_URL,
   YEAR_COLUMN_ID,
@@ -37,8 +37,8 @@ export const fetchWiki = (wikiKey: string): Promise<IHtmlTag[]> =>
 export const parsePageContent = (
   elements: IHtmlTag[],
   wantedChampionships: Championship[]
-): IGroupedContent[] => {
-  const ungroupedElements: IRawGroupedContent[] = elements
+): IChampionshipTable[] => {
+  const ungroupedElements: IRawChampionshipTable[] = elements
     .filter((_, index) => index > getRacingRecordIndex(elements))
     .map((el) => {
       if (isTableTitle(el)) {
@@ -59,9 +59,10 @@ export const parsePageContent = (
 };
 
 export const buildRecords = (
-  groupedContents: IGroupedContent[],
+  championshipsTables: IChampionshipTable[],
   driverId: string
-): IInsertDBRecord[] => groupedContents.map(formatTable(driverId)).flat();
+): IInsertDBRecord[] =>
+  championshipsTables.map(buildChampionshipRecords(driverId)).flat();
 
 const getMaybeChampionship = (
   el: IHtmlTag,
@@ -75,9 +76,9 @@ const getMaybeChampionship = (
   return undefined;
 };
 
-const formatTable =
+const buildChampionshipRecords =
   (driverId: string) =>
-  ({ championship, table }: IGroupedContent): IInsertDBRecord[] => {
+  ({ championship, table }: IChampionshipTable): IInsertDBRecord[] => {
     if (table.type !== 'table')
       throw new Error(`Element ${table.type} is not a table`);
 
@@ -88,46 +89,64 @@ const formatTable =
     const lines = extractLines(tbody);
 
     const records = lines
-      .map((line) =>
-        roundsColumnIndexes.map((roundIndex, index) => {
-          const year = getYear(line, yearColumnIndex);
-          const maxYear = new Date().getFullYear() - MAX_YEARS_IN_PAST;
+      .map(
+        (line) =>
+          roundsColumnIndexes.reduce<{
+            records: (IInsertDBRecord | null)[];
+            prevScores: number[];
+          }>(
+            (acc, roundIndex, index) => {
+              const year = getYear(line, yearColumnIndex);
+              const maxYear = new Date().getFullYear() - MAX_YEARS_IN_PAST;
 
-          const raceCell = line.children?.[roundIndex]?.children;
-          const raceData = raceCell?.[0]?.children?.filter(
-            (el) => el.text !== '\n'
-          );
+              const raceCell = line.children?.[roundIndex]?.children;
+              const raceData = raceCell?.[0]?.children?.filter(
+                (el) => el.text !== '\n'
+              );
 
-          const resultTags = raceCell?.filter((el) => el.text !== '\n');
-          const result = getRaceResult(resultTags?.[1]);
-          const { raceKey, raceIndex, raceRound } = getRaceData(
-            raceData,
-            championship,
-            index + 1
-          );
-          const circuitId = raceData?.[0]?.text!;
+              const resultTags = raceCell?.filter((el) => el.text !== '\n');
+              const result = getRaceResult(resultTags?.[1]);
+              const { raceKey, raceIndex, raceRound } = getRaceData(
+                raceData,
+                championship,
+                index + 1
+              );
+              const circuitId = raceData?.[0]?.text!;
 
-          if (!result) return null;
-          if (year < maxYear) return null;
+              if (!result) return acc;
+              if (year < maxYear) return acc;
 
-          const raceCountryCode = getRaceCountryCode(circuitId, driverId, year);
+              const raceCountryCode = getRaceCountryCode(
+                circuitId,
+                driverId,
+                year
+              );
+              const score = calculateScore(result, championship);
+              const avgScore = calculateAvgScore(score, acc.prevScores);
 
-          const record: IInsertDBRecord = {
-            year,
-            result,
-            driverId,
-            championship,
-            raceKey,
-            raceIndex,
-            raceRound,
-            raceCountryCode,
-            raceName: getRedactorTitle(raceCell?.[0]),
-            score: calculateScore(result, championship),
-            team: getTeam(line, teamColumnIndex) || '',
-            circuitId
-          };
-          return record;
-        })
+              const record: IInsertDBRecord = {
+                year,
+                result,
+                score,
+                avgScore,
+                raceKey,
+                driverId,
+                raceIndex,
+                raceRound,
+                circuitId,
+                championship,
+                raceCountryCode,
+                raceName: getRedactorTitle(raceCell?.[0]),
+                team: getTeam(line, teamColumnIndex) || ''
+              };
+
+              return {
+                records: [...acc.records, record],
+                prevScores: [...acc.prevScores, Number(score)]
+              };
+            },
+            { records: [], prevScores: [] }
+          ).records
       )
       .flat()
       .filter((el) => el !== null);
@@ -167,14 +186,26 @@ const calculateScore = (
   result: RaceResult,
   championship: Championship
 ): string => {
+  // Calculates a score between 10 and 100 based on race position
+  // For numeric results:
+  // - P1 gets 100 points
+  // - Last place gets 10 points
+  // - Other positions are scaled linearly between 100 and 10
+  // For non-numeric results (DNF, DNS etc), returns 0 points
   const totalDriversInChampionship = CHAMPIONSHIPS_TOTAL_DRIVERS[championship];
 
   if (typeof result === 'number') {
     const points = 100 - (90 * (result - 1)) / (totalDriversInChampionship - 1);
     return Math.max(10, Math.round(points * 100) / 100).toFixed(2);
   }
-  return '5.00';
+  return '0.00';
 };
+
+const calculateAvgScore = (score: string, prevScores: number[]) =>
+  (
+    (prevScores.reduce((sum, s) => sum + s, 0) + Number(score)) /
+    (prevScores.length + 1)
+  ).toFixed(2);
 
 const getRaceData = (
   el: IHtmlTag[] | undefined,
@@ -261,8 +292,8 @@ const getRaceResult = (el: IHtmlTag | undefined): RaceResult | undefined => {
 };
 
 const groupTablesAndTitles = (
-  elements: IRawGroupedContent[]
-): IGroupedContent[] =>
+  elements: IRawChampionshipTable[]
+): IChampionshipTable[] =>
   elements
     .map((curr, index, array) => {
       const nextElement = array[index + 1];
