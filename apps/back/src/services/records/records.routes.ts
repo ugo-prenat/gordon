@@ -29,7 +29,7 @@ export const recordsRouter = new Hono()
   )
 
   .post('/', (c) =>
-    getDBDrivers({ championships: ['f3'] })
+    getDBDrivers()
       .then(scrapRecords)
       .then(createRecords)
       .then((res) => c.json(res, 201))

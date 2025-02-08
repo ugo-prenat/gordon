@@ -78,81 +78,72 @@ const getMaybeChampionship = (
 
 const buildChampionshipRecords =
   (driverId: string) =>
-  ({ championship, table }: IChampionshipTable): IInsertDBRecord[] => {
-    if (table.type !== 'table')
-      throw new Error(`Element ${table.type} is not a table`);
-
-    const tbody = table.children?.[0];
-    const { yearColumnIndex, teamColumnIndex, roundsColumnIndexes } =
-      parseTableHeaders(tbody);
-
-    const lines = extractLines(tbody);
-
-    const records = lines
-      .map(
-        (line) =>
-          roundsColumnIndexes.reduce<{
-            records: (IInsertDBRecord | null)[];
-            prevScores: number[];
-          }>(
-            (acc, roundIndex, index) => {
-              const year = getYear(line, yearColumnIndex);
-              const maxYear = new Date().getFullYear() - MAX_YEARS_IN_PAST;
-
-              const raceCell = line.children?.[roundIndex]?.children;
-              const raceData = raceCell?.[0]?.children?.filter(
-                (el) => el.text !== '\n'
-              );
-
-              const resultTags = raceCell?.filter((el) => el.text !== '\n');
-              const result = getRaceResult(resultTags?.[1]);
-              const { raceKey, raceIndex, raceRound } = getRaceData(
-                raceData,
-                championship,
-                index + 1
-              );
-              const circuitId = raceData?.[0]?.text!;
-
-              if (!result) return acc;
-              if (year < maxYear) return acc;
-
-              const raceCountryCode = getRaceCountryCode(
-                circuitId,
-                driverId,
-                year
-              );
-              const score = calculateScore(result, championship);
-              const avgScore = calculateAvgScore(score, acc.prevScores);
-
-              const record: IInsertDBRecord = {
-                year,
-                result,
-                score,
-                avgScore,
-                raceKey,
-                driverId,
-                raceIndex,
-                raceRound,
-                circuitId,
-                championship,
-                raceCountryCode,
-                raceName: getRedactorTitle(raceCell?.[0]),
-                team: getTeam(line, teamColumnIndex) || ''
-              };
-
-              return {
-                records: [...acc.records, record],
-                prevScores: [...acc.prevScores, Number(score)]
-              };
-            },
-            { records: [], prevScores: [] }
-          ).records
-      )
-      .flat()
-      .filter((el) => el !== null);
-
+  (championshipTable: IChampionshipTable): IInsertDBRecord[] => {
+    const partialRecords = buildPartialRecords(driverId, championshipTable);
+    const records = buildRecordsAvgScore(partialRecords);
     return records;
   };
+
+const buildPartialRecords = (
+  driverId: string,
+  { championship, table }: IChampionshipTable
+): Omit<IInsertDBRecord, 'avgScore'>[] => {
+  if (table.type !== 'table')
+    throw new Error(`Element ${table.type} is not a table`);
+
+  const tbody = table.children?.[0];
+  const { yearColumnIndex, teamColumnIndex, roundsColumnIndexes } =
+    parseTableHeaders(tbody);
+
+  const lines = extractLines(tbody);
+
+  return lines
+    .map((line) =>
+      roundsColumnIndexes.map((roundIndex, index) => {
+        const year = getYear(line, yearColumnIndex);
+        const maxYear = new Date().getFullYear() - MAX_YEARS_IN_PAST;
+
+        const raceCell = line.children?.[roundIndex]?.children;
+        const raceData = raceCell?.[0]?.children?.filter(
+          (el) => el.text !== '\n'
+        );
+
+        const resultTags = raceCell?.filter((el) => el.text !== '\n');
+        const result = getRaceResult(resultTags?.[1]);
+        const { raceKey, raceIndex, raceRound } = getRaceData(
+          raceData,
+          championship,
+          index + 1
+        );
+        const circuitId = raceData?.[0]?.text!;
+
+        if (!result) return null;
+        if (year < maxYear) return null;
+
+        const raceCountryCode = getRaceCountryCode(circuitId, driverId, year);
+
+        const score = calculateScore(result, championship);
+
+        const record: Omit<IInsertDBRecord, 'avgScore'> = {
+          year,
+          score,
+          result,
+          driverId,
+          championship,
+          raceKey,
+          raceIndex,
+          raceRound,
+          raceCountryCode,
+          raceName: getRedactorTitle(raceCell?.[0]),
+          team: getTeam(line, teamColumnIndex) || '',
+          circuitId
+        };
+        return record;
+      })
+    )
+    .flat()
+    .filter((el) => el !== null);
+};
 
 const extractLines = (tbody: IHtmlTag | undefined) => {
   const { yearColumnIndex, teamColumnIndex } = parseTableHeaders(tbody);
@@ -200,6 +191,20 @@ const calculateScore = (
   }
   return '0.00';
 };
+
+const buildRecordsAvgScore = (
+  records: Omit<IInsertDBRecord, 'avgScore'>[]
+): IInsertDBRecord[] =>
+  records.reduce<{ records: IInsertDBRecord[]; prevScores: number[] }>(
+    (acc, record) => {
+      const avgScore = calculateAvgScore(record.score, acc.prevScores);
+      return {
+        records: [...acc.records, { ...record, avgScore }],
+        prevScores: [...acc.prevScores, Number(record.score)]
+      };
+    },
+    { records: [], prevScores: [] }
+  ).records;
 
 const calculateAvgScore = (score: string, prevScores: number[]) =>
   (
