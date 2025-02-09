@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button';
 import { CardPageSkeleton } from './CardPageSkeleton';
 import { CardPageError } from './CardPageError';
 import { DriverRecordsChart } from '@/features/records/components/recordsChart/DriverRecordsChart';
+import { DriverCardsValuesChart } from '@/features/values/components/DriverCardsValuesChart';
+import { CARD_TYPES_WITH_VALUES, CardTypeWithValues } from '@gordon/models';
 
 export const CardPage = () => {
   const { id } = cardRoute.useParams();
@@ -15,8 +17,12 @@ export const CardPage = () => {
   if (isPending) return <CardPageSkeleton />;
   if (isError) return <CardPageError onRefresh={refetch} error={error} />;
 
-  const { driver } = card;
+  const { driver, type } = card;
   const { firstName, lastName } = driver;
+
+  const showDriverCardsValuesChart = CARD_TYPES_WITH_VALUES.includes(
+    type as CardTypeWithValues
+  );
 
   return (
     <Page padding>
@@ -32,6 +38,9 @@ export const CardPage = () => {
               {`${firstName} ${lastName}`}
             </Button>
           </Link>
+          {showDriverCardsValuesChart && (
+            <DriverCardsValuesChart driverId={driver.id} type={type} />
+          )}
           <DriverRecordsChart driverId={driver.id} className="p-0" />
         </div>
       </div>

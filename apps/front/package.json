@@ -38,6 +38,7 @@
     "react-country-flags-lazyload": "^1.0.9",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.0.2",
+    "recharts": "^2.15.1",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8",

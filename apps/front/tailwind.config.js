@@ -85,6 +85,13 @@ const config = {
           unique: 'hsl(var(--card-unique))',
           champion: 'hsl(var(--card-champion))',
           vintage: 'hsl(var(--card-vintage))'
+        },
+        chart: {
+          1: 'hsl(var(--chart-1))',
+          2: 'hsl(var(--chart-2))',
+          3: 'hsl(var(--chart-3))',
+          4: 'hsl(var(--chart-4))',
+          5: 'hsl(var(--chart-5))'
         }
       },
       borderRadius: {
@@ -94,15 +101,25 @@ const config = {
       },
       keyframes: {
         'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' }
+          from: {
+            height: '0'
+          },
+          to: {
+            height: 'var(--radix-accordion-content-height)'
+          }
         },
         'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' }
+          from: {
+            height: 'var(--radix-accordion-content-height)'
+          },
+          to: {
+            height: '0'
+          }
         },
         breath: {
-          '50%': { opacity: '0.4' }
+          '50%': {
+            opacity: '0.4'
+          }
         },
         throb: {
           '0%': {
@@ -121,12 +138,20 @@ const config = {
           }
         },
         'fade-in': {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' }
+          '0%': {
+            opacity: '0'
+          },
+          '100%': {
+            opacity: '1'
+          }
         },
         skeleton: {
-          '0%': { backgroundPosition: '200% 0' },
-          '100%': { backgroundPosition: '-100% 0' }
+          '0%': {
+            backgroundPosition: '200% 0'
+          },
+          '100%': {
+            backgroundPosition: '-100% 0'
+          }
         }
       },
       transitionDuration: {
@@ -142,7 +167,7 @@ const config = {
       }
     }
   },
-  plugins: [animatePlugin]
+  plugins: [animatePlugin, require('tailwindcss-animate')]
 };
 
 export default config;

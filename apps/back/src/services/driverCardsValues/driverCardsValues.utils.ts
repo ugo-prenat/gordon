@@ -72,6 +72,7 @@ export const dbDriverCardsValuesToFrontDriverCardsValues = (
 const dbDriverCardValueToFrontDriverCardValue = (
   dbDriverCardValue: WithDBRecord<IDBDriverCardValue>
 ): IFrontDriverCardValue => {
-  const { record, driverId, recordId, ...driverCardValue } = dbDriverCardValue;
+  const { record, driverId, recordId, createdAt, ...driverCardValue } =
+    dbDriverCardValue;
   return { ...driverCardValue, record: dbRecordToRecord(record) };
 };
