@@ -1,13 +1,11 @@
-import { IDriver } from '@gordon/models';
+import { IDriver, IInsertDBRecord } from '@gordon/models';
 import { buildRecords, fetchWiki, parsePageContent } from './scraper.utils';
-import { IDriverWithRecords } from '@services/records/records.models';
 import { MessageBuilder, Webhook } from 'discord-webhook-node';
 
-export const scrapRecords = (
-  drivers: IDriver[]
-): Promise<IDriverWithRecords[]> => Promise.all(drivers.map(getDriverRecords));
+export const scrapRecords = (drivers: IDriver[]): Promise<IInsertDBRecord[]> =>
+  Promise.all(drivers.map(getDriverRecords)).then((records) => records.flat());
 
-const getDriverRecords = (driver: IDriver): Promise<IDriverWithRecords> =>
+const getDriverRecords = (driver: IDriver): Promise<IInsertDBRecord[]> =>
   fetchWiki(driver.wikiKey).then((elements) => {
     const { recordedChampionships, id } = driver;
 
@@ -15,7 +13,7 @@ const getDriverRecords = (driver: IDriver): Promise<IDriverWithRecords> =>
     const records = buildRecords(parsedRecords, id);
 
     console.log(`${driver.id} - ${records.length} records found`);
-    return { driver, records };
+    return records;
   });
 
 export const notify = () => {

@@ -1,8 +1,4 @@
 import {
-  CARD_TYPES_MULTIPLIERS,
-  Championship,
-  CHAMPIONSHIPS_MULTIPLIERS,
-  CardType,
   IDBDriverCard,
   IMarketDriverCard,
   WithDriver,
@@ -34,16 +30,3 @@ export const formatToMarketDriverCard = (
     }
   };
 };
-
-const calculateValue = (
-  driverValue: number,
-  cardType: CardType,
-  championship: Championship
-) =>
-  Number(
-    (
-      driverValue *
-      CARD_TYPES_MULTIPLIERS[cardType] *
-      CHAMPIONSHIPS_MULTIPLIERS[championship]
-    ).toFixed()
-  );

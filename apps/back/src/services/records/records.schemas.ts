@@ -22,7 +22,7 @@ export const recordsTable = pgTable(
     circuitId: text('circuit_id').notNull(),
     championship: text('championship').$type<Championship>().notNull(),
     score: numeric('score', { precision: 5, scale: 2 }).notNull(),
-    avgScore: numeric('avg_score', { precision: 5, scale: 2 }).notNull(),
+    avgScore: numeric('avg_score', { precision: 5, scale: 2 }),
     raceKey: text('race_key').$type<RaceKey>().notNull(),
     raceName: text('race_name'),
     raceRound: integer('race_round').notNull(),

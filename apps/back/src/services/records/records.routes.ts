@@ -1,14 +1,11 @@
 import { Hono } from 'hono';
-import { getDBRecord, getDBRecords } from './records.db';
+import { createDBRecords, getDBRecord, getDBRecords } from './records.db';
 import { getDBDrivers } from '@services/drivers/drivers.db';
 import { notify, scrapRecords } from '@scraper/scraper.actions';
-import {
-  createRecords,
-  dbRecordsToRecords,
-  dbRecordToRecord
-} from './records.utils';
+import { dbRecordsToRecords, dbRecordToRecord } from './records.utils';
 import { handleError } from '@utils/api.utils';
 import { APIError } from '@gordon/models';
+import { updateDriverCardsValue } from '@services/driverCardsValue/driverCardsValue.utils';
 
 export const recordsRouter = new Hono()
   .onError((e, c) => handleError(c, 'RER-1')(e))
@@ -30,9 +27,12 @@ export const recordsRouter = new Hono()
 
   .post('/', (c) =>
     getDBDrivers()
+      // getDBDrivers({ championships: ['f3'] })
       .then(scrapRecords)
-      .then(createRecords)
-      .then((res) => c.json(res, 201))
+      .then(createDBRecords)
+      .then(updateDriverCardsValue)
+      // update driver cards avec les nouvelles values
+      .then(() => c.json({ yeah: true }, 201))
       .catch(handleError(c, 'RER-5'))
   )
 

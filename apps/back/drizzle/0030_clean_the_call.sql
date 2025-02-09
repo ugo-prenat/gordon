@@ -1,0 +1,1 @@
+ALTER TABLE "records" ALTER COLUMN "avg_score" DROP NOT NULL;

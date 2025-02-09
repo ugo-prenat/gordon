@@ -19,10 +19,18 @@ export const CARD_TYPES = [
 
 export type CardType = (typeof CARD_TYPES)[number];
 
-export const CARD_TYPES_MULTIPLIERS: Record<CardType, number> = {
+export const CARD_TYPES_WITH_VALUES = [
+  COMMON_CARD_TYPE,
+  RARE_CARD_TYPE,
+  UNIQUE_CARD_TYPE,
+  CHAMPION_CARD_TYPE
+] as const;
+
+export type CardTypeWithValues = (typeof CARD_TYPES_WITH_VALUES)[number];
+
+export const CARD_TYPES_MULTIPLIERS: Record<CardTypeWithValues, number> = {
   [COMMON_CARD_TYPE]: 0.7,
   [RARE_CARD_TYPE]: 1,
   [UNIQUE_CARD_TYPE]: 1.5,
-  [CHAMPION_CARD_TYPE]: 3,
-  [VINTAGE_CARD_TYPE]: 1
+  [CHAMPION_CARD_TYPE]: 3
 };

@@ -1,8 +1,7 @@
 import { db } from '@db';
 import { driverCardsValueTable } from './driverCardsValue.schemas';
-import { IInsertDBDriverCardValue, IDBDriverCardValue } from '@gordon/models';
+import { IInsertDBDriverCardValue } from '@gordon/models';
 
-export const createDBDriverCardsValue = (
-  driverCardsValue: IInsertDBDriverCardValue
-): Promise<IDBDriverCardValue[]> =>
-  db.insert(driverCardsValueTable).values(driverCardsValue).returning();
+export const createDBDriverCardsValues = (
+  driverCardsValues: IInsertDBDriverCardValue[]
+) => db.insert(driverCardsValueTable).values(driverCardsValues);

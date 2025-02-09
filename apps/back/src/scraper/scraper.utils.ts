@@ -22,6 +22,7 @@ import {
   CIRCUIT_COUNTRY_MAPPING
 } from '@gordon/models';
 import countries from 'i18n-iso-countries';
+import { isEmpty, roundNum } from '@gordon/utils';
 
 export const fetchWiki = (wikiKey: string): Promise<IHtmlTag[]> =>
   fetch(`${WIKIPEDIA_URL}/${wikiKey}`)
@@ -188,7 +189,7 @@ const calculateScore = (
 
   if (typeof result === 'number') {
     const points = 100 - (90 * (result - 1)) / (totalDriversInChampionship - 1);
-    return Math.max(10, Math.round(points * 100) / 100).toFixed(2);
+    return roundNum(Math.max(10, points)).toString();
   }
   return '0.00';
 };
@@ -198,7 +199,7 @@ const buildRecordsAvgScore = (
 ): IInsertDBRecord[] =>
   records.reduce<{ records: IInsertDBRecord[]; prevScores: number[] }>(
     (acc, record) => {
-      const avgScore = calculateAvgScore(record.score, acc.prevScores);
+      const avgScore = calculateAvgScore(acc.prevScores);
       const newRecords = [...acc.records, { ...record, avgScore }];
 
       const slicedPrevScores = [...acc.prevScores, +record.score].slice(
@@ -210,11 +211,15 @@ const buildRecordsAvgScore = (
     { records: [], prevScores: [] }
   ).records;
 
-const calculateAvgScore = (score: string, prevScores: number[]) =>
-  (
-    (prevScores.reduce((sum, s) => sum + s, 0) + Number(score)) /
-    Math.min(prevScores.length + 1, RECORDS_WINDOW_SIZE)
-  ).toFixed(2);
+const calculateAvgScore = (prevScores: number[]) => {
+  if (isEmpty(prevScores)) return null;
+
+  const avgScore =
+    prevScores.reduce((sum, s) => sum + s, 0) /
+    Math.min(prevScores.length, RECORDS_WINDOW_SIZE);
+
+  return roundNum(avgScore).toString();
+};
 
 const getRaceData = (
   el: IHtmlTag[] | undefined,

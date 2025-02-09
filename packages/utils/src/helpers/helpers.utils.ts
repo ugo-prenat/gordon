@@ -17,3 +17,11 @@ export const isFirst = <T>(array: T[], index: number): boolean => index === 0;
 
 export const isLast = <T>(array: T[], index: number): boolean =>
   index === array.length - 1;
+
+export const roundNum = <T extends number | null>(
+  num: T,
+  precision = 100
+): T => {
+  if (num === null) return num;
+  return (Math.round(num * precision) / precision) as T;
+};

@@ -1,0 +1,1 @@
+ALTER TABLE "driver_cards_value" DROP COLUMN IF EXISTS "id";
