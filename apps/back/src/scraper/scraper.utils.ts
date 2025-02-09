@@ -8,7 +8,8 @@ import {
   WIKIPEDIA_URL,
   YEAR_COLUMN_ID,
   TRGRP_TYPE_NAME,
-  MAX_YEARS_IN_PAST
+  MAX_YEARS_IN_PAST,
+  RECORDS_WINDOW_SIZE
 } from './scraper.models';
 import {
   Championship,
@@ -198,10 +199,13 @@ const buildRecordsAvgScore = (
   records.reduce<{ records: IInsertDBRecord[]; prevScores: number[] }>(
     (acc, record) => {
       const avgScore = calculateAvgScore(record.score, acc.prevScores);
-      return {
-        records: [...acc.records, { ...record, avgScore }],
-        prevScores: [...acc.prevScores, Number(record.score)]
-      };
+      const newRecords = [...acc.records, { ...record, avgScore }];
+
+      const slicedPrevScores = [...acc.prevScores, +record.score].slice(
+        -RECORDS_WINDOW_SIZE + 1
+      );
+
+      return { records: newRecords, prevScores: slicedPrevScores };
     },
     { records: [], prevScores: [] }
   ).records;
@@ -209,7 +213,7 @@ const buildRecordsAvgScore = (
 const calculateAvgScore = (score: string, prevScores: number[]) =>
   (
     (prevScores.reduce((sum, s) => sum + s, 0) + Number(score)) /
-    (prevScores.length + 1)
+    Math.min(prevScores.length + 1, RECORDS_WINDOW_SIZE)
   ).toFixed(2);
 
 const getRaceData = (

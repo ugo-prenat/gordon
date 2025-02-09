@@ -38,6 +38,7 @@ export interface IDBRecord extends WithDate<IFlattenedRecord> {}
 export type RaceKey = 'SPR' | 'FEA';
 
 // unwanted results:
+// WD = Withdrawn
 // C = Race cancelled
 // PO = Practiced only
 // TD = Thursday/Friday test driver (from 2003 onwards)
@@ -47,7 +48,6 @@ export type RaceKey = 'SPR' | 'FEA';
 // DNPQ = Did not pre-qualify
 export const RACE_RESULTS = [
   'EX', // Excluded
-  'WD', // Withdrawn
   'DSQ', // Disqualified
   'DNA', // Did not arrive
   'Ret', // Not classified, retired
