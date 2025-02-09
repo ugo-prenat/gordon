@@ -8,7 +8,7 @@ export * from './models/championships.models';
 
 export * from './models/cards/cards.models';
 export * from './models/cards/driverCards.models';
-export * from './models/cards/driverCardsValue.models';
+export * from './models/cards/driverCardsValues.models';
 
 export * from './types/types';
 

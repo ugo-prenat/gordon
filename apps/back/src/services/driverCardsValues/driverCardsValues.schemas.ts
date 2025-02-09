@@ -4,7 +4,7 @@ import { recordsTable } from '@services/records/records.schemas';
 import { relations } from 'drizzle-orm';
 import { integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
 
-export const driverCardsValueTable = pgTable('driver_cards_value', {
+export const driverCardsValuesTable = pgTable('driver_cards_values', {
   id: serial('id').primaryKey(),
   driverId: text('driver_id')
     .notNull()
@@ -17,15 +17,15 @@ export const driverCardsValueTable = pgTable('driver_cards_value', {
   createdAt: timestamp('created_at').notNull().defaultNow()
 });
 
-export const driverCardsValueRelations = relations(
-  driverCardsValueTable,
+export const driverCardsValuesRelations = relations(
+  driverCardsValuesTable,
   ({ one }) => ({
     driver: one(driversTable, {
-      fields: [driverCardsValueTable.driverId],
+      fields: [driverCardsValuesTable.driverId],
       references: [driversTable.id]
     }),
     record: one(recordsTable, {
-      fields: [driverCardsValueTable.recordId],
+      fields: [driverCardsValuesTable.recordId],
       references: [recordsTable.id]
     })
   })

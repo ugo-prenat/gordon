@@ -13,7 +13,7 @@ import {
   dbRecordsToRecords,
   dbRecordToRecord
 } from '@services/records/records.utils';
-import { createDBDriverCardsValues } from './driverCardsValue.db';
+import { createDBDriverCardsValues } from './driverCardsValues.db';
 
 export const updateDriverCardsValue = (insertedRecords: IDBRecord[]) => {
   const records = dbRecordsToRecords(insertedRecords);
@@ -64,7 +64,7 @@ const calculateCardValue = (
   return Math.floor(newValue);
 };
 
-export const dbDriverCardsValueToFrontDriverCardsValue = (
+export const dbDriverCardsValuesToFrontDriverCardsValues = (
   dbDriverCardsValues: WithDBRecord<IDBDriverCardValue>[]
 ): IFrontDriverCardValue[] =>
   dbDriverCardsValues.map(dbDriverCardValueToFrontDriverCardValue);

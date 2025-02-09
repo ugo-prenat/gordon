@@ -1,5 +1,5 @@
 import { db } from '@db';
-import { driverCardsValueTable } from './driverCardsValue.schemas';
+import { driverCardsValuesTable } from './driverCardsValues.schemas';
 import {
   IDBDriverCardValue,
   IInsertDBDriverCardValue,
@@ -10,16 +10,16 @@ import { eq } from 'drizzle-orm';
 
 export const createDBDriverCardsValues = (
   driverCardsValues: IInsertDBDriverCardValue[]
-) => db.insert(driverCardsValueTable).values(driverCardsValues);
+) => db.insert(driverCardsValuesTable).values(driverCardsValues);
 
 export const getDBDriverCardsValues = ({
   driverId,
   type
 }: Partial<IDBDriverCardValue>): Promise<WithDBRecord<IDBDriverCardValue>[]> =>
-  db.query.driverCardsValueTable.findMany({
+  db.query.driverCardsValuesTable.findMany({
     where: and(
-      driverId ? eq(driverCardsValueTable.driverId, driverId) : undefined,
-      type ? eq(driverCardsValueTable.type, type) : undefined
+      driverId ? eq(driverCardsValuesTable.driverId, driverId) : undefined,
+      type ? eq(driverCardsValuesTable.type, type) : undefined
     ),
     with: { record: true }
   });

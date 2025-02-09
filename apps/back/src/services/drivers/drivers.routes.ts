@@ -4,8 +4,8 @@ import { APIError, CardTypeWithValues, IInsertDBDriver } from '@gordon/models';
 import { getDBRecordsByDriverId } from '@services/records/records.db';
 import { dbRecordsToRecords } from '@services/records/records.utils';
 import { formatToFront, handleError } from '@utils/api.utils';
-import { getDBDriverCardsValues } from '@services/driverCardsValue/driverCardsValue.db';
-import { dbDriverCardsValueToFrontDriverCardsValue } from '@services/driverCardsValue/driverCardsValue.utils';
+import { getDBDriverCardsValues } from '@services/driverCardsValues/driverCardsValues.db';
+import { dbDriverCardsValuesToFrontDriverCardsValues } from '@services/driverCardsValues/driverCardsValues.utils';
 
 export const driversRouter = new Hono()
   .onError((e, c) => handleError(c, 'DRR-1')(e))
@@ -38,7 +38,7 @@ export const driversRouter = new Hono()
 
     return getDBDriverCardsValues({ driverId, type })
       .then((values) =>
-        c.json(dbDriverCardsValueToFrontDriverCardsValue(values), 200)
+        c.json(dbDriverCardsValuesToFrontDriverCardsValues(values), 200)
       )
       .catch(handleError(c, 'DRR-6'));
   })

@@ -5,7 +5,7 @@ import { notify, scrapRecords } from '@scraper/scraper.actions';
 import { dbRecordsToRecords, dbRecordToRecord } from './records.utils';
 import { handleError } from '@utils/api.utils';
 import { APIError } from '@gordon/models';
-import { updateDriverCardsValue } from '@services/driverCardsValue/driverCardsValue.utils';
+import { updateDriverCardsValue } from '@services/driverCardsValues/driverCardsValues.utils';
 
 export const recordsRouter = new Hono()
   .onError((e, c) => handleError(c, 'RER-1')(e))
