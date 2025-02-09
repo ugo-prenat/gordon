@@ -2,11 +2,17 @@ import {
   CARD_TYPES_MULTIPLIERS,
   CARD_TYPES_WITH_VALUES,
   CardTypeWithValues,
+  IDBDriverCardValue,
   IDBRecord,
+  IFrontDriverCardValue,
   IInsertDBDriverCardValue,
-  IRecord
+  IRecord,
+  WithDBRecord
 } from '@gordon/models';
-import { dbRecordsToRecords } from '@services/records/records.utils';
+import {
+  dbRecordsToRecords,
+  dbRecordToRecord
+} from '@services/records/records.utils';
 import { createDBDriverCardsValues } from './driverCardsValue.db';
 
 export const updateDriverCardsValue = (insertedRecords: IDBRecord[]) => {
@@ -56,4 +62,16 @@ const calculateCardValue = (
   // });
 
   return Math.floor(newValue);
+};
+
+export const dbDriverCardsValueToFrontDriverCardsValue = (
+  dbDriverCardsValues: WithDBRecord<IDBDriverCardValue>[]
+): IFrontDriverCardValue[] =>
+  dbDriverCardsValues.map(dbDriverCardValueToFrontDriverCardValue);
+
+const dbDriverCardValueToFrontDriverCardValue = (
+  dbDriverCardValue: WithDBRecord<IDBDriverCardValue>
+): IFrontDriverCardValue => {
+  const { record, driverId, recordId, ...driverCardValue } = dbDriverCardValue;
+  return { ...driverCardValue, record: dbRecordToRecord(record) };
 };

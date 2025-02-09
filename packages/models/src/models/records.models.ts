@@ -35,6 +35,8 @@ export interface IInsertDBRecord extends Omit<IFlattenedRecord, 'id'> {}
 
 export interface IDBRecord extends WithDate<IFlattenedRecord> {}
 
+export type WithDBRecord<T> = T & { record: IDBRecord };
+
 export type RaceKey = 'SPR' | 'FEA';
 
 // unwanted results:

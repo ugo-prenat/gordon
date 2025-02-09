@@ -15,6 +15,7 @@ export interface IInsertDBDriverCardValue
 
 export interface IDBDriverCardValue extends WithDate<IDriverCardValue> {}
 
-export interface IFrontDriverCardValue extends IDriverCardValue {
+export interface IFrontDriverCardValue
+  extends Omit<IDriverCardValue, 'recordId' | 'driverId'> {
   record: IRecord;
 }
