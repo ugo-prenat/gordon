@@ -18,12 +18,8 @@ export const ValuesChart: FC<{
   records: IFrontDriverCardValue[];
 }> = ({ records }) => {
   return (
-    <ChartContainer config={chartConfig} className="min-h-[200px]">
-      <AreaChart
-        data={records}
-        accessibilityLayer
-        margin={{ left: 12, right: 12 }}
-      >
+    <ChartContainer config={chartConfig} className="min-h-[150px]">
+      <AreaChart data={records} accessibilityLayer>
         <CartesianGrid vertical={false} />
         <XAxis
           tickMargin={8}
@@ -33,8 +29,8 @@ export const ValuesChart: FC<{
           tickFormatter={(value) => `R${value}`}
         />
         <YAxis
+          width={40}
           tickMargin={8}
-          width={35}
           dataKey="value"
           tickLine={false}
           axisLine={false}

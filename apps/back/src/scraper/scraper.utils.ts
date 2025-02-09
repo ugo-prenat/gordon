@@ -184,14 +184,14 @@ const calculateScore = (
   // - P1 gets 100 points
   // - Last place gets 10 points
   // - Other positions are scaled linearly between 100 and 10
-  // For non-numeric results (DNF, DNS etc), returns 0 points
+  // For non-numeric results (DNF, DNS etc), returns 1 point
   const totalDriversInChampionship = CHAMPIONSHIPS_TOTAL_DRIVERS[championship];
 
   if (typeof result === 'number') {
     const points = 100 - (90 * (result - 1)) / (totalDriversInChampionship - 1);
     return roundNum(Math.max(10, points)).toString();
   }
-  return '0.00';
+  return '1.00';
 };
 
 const buildRecordsAvgScore = (

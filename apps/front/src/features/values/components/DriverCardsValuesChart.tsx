@@ -11,12 +11,11 @@ export const DriverCardsValuesChart: FC<{
   className?: string;
 }> = ({ driverId, type, className }) => {
   const t = useTranslation();
-  const { data, isLoading, isError, isSuccess, error, refetch } =
-    useDriverCardsValues(driverId, type);
+  const { data, isSuccess } = useDriverCardsValues(driverId, type);
 
   return (
     <div className={cn(className)}>
-      <p className="font-bold text-lg mb-6">{t('records')}</p>
+      <p className="font-bold text-lg mb-6">{t('values.history')}</p>
       {/* {isLoading && <DriverRecordsChartSkeleton />}
       {isError && <DriverRecordsChartError error={error} onRetry={refetch} />} */}
       {isSuccess && <ValuesChart records={data} />}

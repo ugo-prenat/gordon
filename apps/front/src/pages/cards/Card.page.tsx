@@ -20,9 +20,8 @@ export const CardPage = () => {
   const { driver, type } = card;
   const { firstName, lastName } = driver;
 
-  const showDriverCardsValuesChart = CARD_TYPES_WITH_VALUES.includes(
-    type as CardTypeWithValues
-  );
+  const cardType = type as CardTypeWithValues;
+  const showDriverCardsValuesChart = CARD_TYPES_WITH_VALUES.includes(cardType);
 
   return (
     <Page padding>
@@ -32,14 +31,14 @@ export const CardPage = () => {
             <DriverCard card={card} />
           </div>
         </div>
-        <div className="w-1/2 h-full flex flex-col justify-between">
+        <div className="w-1/2 h-full flex flex-col justify-between gap-6">
           <Link to={`/drivers/${driver.id}`}>
             <Button variant="link" className="text-4xl font-bold">
               {`${firstName} ${lastName}`}
             </Button>
           </Link>
           {showDriverCardsValuesChart && (
-            <DriverCardsValuesChart driverId={driver.id} type={type} />
+            <DriverCardsValuesChart driverId={driver.id} type={cardType} />
           )}
           <DriverRecordsChart driverId={driver.id} className="p-0" />
         </div>
