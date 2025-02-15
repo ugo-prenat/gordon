@@ -10,13 +10,17 @@ import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { ValuesChartTooltip } from './ValuesChartTooltip';
 import { formatNumber } from '@gordon/utils';
 
-const chartConfig = {
-  value: { color: 'hsl(var(--chart-1))' }
-} satisfies ChartConfig;
-
 export const ValuesChart: FC<{
   records: IFrontDriverCardValue[];
-}> = ({ records }) => {
+  skeleton?: boolean;
+}> = ({ records, skeleton = false }) => {
+  const chartConfig = {
+    value: { color: skeleton ? 'hsl(0, 0%, 20%)' : 'hsl(var(--chart-1))' }
+  } satisfies ChartConfig;
+
+  const yAxisTickFormatter = (value: number) =>
+    skeleton ? '' : formatNumber(value);
+
   return (
     <ChartContainer config={chartConfig} className="min-h-[150px]">
       <AreaChart data={records} accessibilityLayer>
@@ -26,6 +30,7 @@ export const ValuesChart: FC<{
           tickLine={false}
           axisLine={false}
           dataKey="record.race.round"
+          tick={!skeleton}
           tickFormatter={(value) => `R${value}`}
         />
         <YAxis
@@ -34,10 +39,11 @@ export const ValuesChart: FC<{
           dataKey="value"
           tickLine={false}
           axisLine={false}
-          tickFormatter={(value) => formatNumber(value)}
+          tickFormatter={yAxisTickFormatter}
         />
         <ChartTooltip
           cursor={false}
+          active={!skeleton}
           content={
             <ChartTooltipContent
               hideLabel
