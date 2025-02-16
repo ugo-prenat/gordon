@@ -17,7 +17,7 @@ export const DriverCardsValuesChartError: FC<{
         action={onRetry}
         severity="error"
         text={t('driver.values.retrieve.error')}
-        className="absolute bottom-9 bg-error mx-2 w-[calc(100%-1rem)]"
+        className="absolute bottom-9 bg-error mx-6 w-[calc(100%-3rem)]"
       />
     </div>
   );
