@@ -24,9 +24,10 @@
   "chassis": "Châssis",
   "overview": "Aperçu",
   "records": "Performances",
-  "values.history": "Historique des prix",
+  "values.history": "Graph des prix",
   "cards": "Cartes",
   "admin": "Admin",
+  "type": "Type",
 
   "cards.types": "Types",
   "cards.types.common": "Commune",

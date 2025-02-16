@@ -8,6 +8,7 @@ import { Alert } from '@/components/Alert';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
 import { FC } from 'react';
 import { IAPIError } from '@gordon/models';
+import { DriverCardsValuesChart } from '@/features/values/components/DriverCardsValuesChart';
 
 export const DriverOverviewTab = () => {
   const { id } = driverRoute.useParams();
@@ -22,7 +23,10 @@ export const DriverOverviewTab = () => {
   return (
     <>
       <DriverHero driver={driver} />
-      <DriverRecordsChart driverId={id} />
+      <div className="flex flex-col p-10 gap-10">
+        <DriverRecordsChart driverId={id} />
+        <DriverCardsValuesChart driverId={id} />
+      </div>
     </>
   );
 };

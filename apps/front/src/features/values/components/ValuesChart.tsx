@@ -27,7 +27,10 @@ export const ValuesChart: FC<{
     showTicks ? formatNumber(value) : '';
 
   return (
-    <ChartContainer config={chartConfig} className="min-h-[150px]">
+    <ChartContainer
+      config={chartConfig}
+      className="aspect-auto h-[250px] w-full"
+    >
       <AreaChart data={records} accessibilityLayer>
         {state !== 'error' && <CartesianGrid vertical={false} />}
         <YAxis

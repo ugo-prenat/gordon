@@ -24,9 +24,10 @@
   "chassis": "Chassis",
   "overview": "Overview",
   "records": "Records",
-  "values.history": "Price history",
+  "values.history": "Price graph",
   "cards": "Cards",
   "admin": "Admin",
+  "type": "Type",
 
   "cards.types": "Types",
   "cards.types.common": "Common",

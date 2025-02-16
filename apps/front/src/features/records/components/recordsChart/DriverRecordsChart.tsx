@@ -4,7 +4,6 @@ import {
   RecordsChart,
   ScrollableContainer
 } from './driverRecordsChartComponents';
-import { cn } from '@/utils/tailwind.utils';
 import { useDriverRecords } from '../../records.api';
 import { IAPIError } from '@gordon/models';
 import { Skeleton } from '@/components/Skeleton';
@@ -25,7 +24,7 @@ export const DriverRecordsChart: FC<{
   } = useDriverRecords(driverId);
 
   return (
-    <div id="driver-records-chart" className={cn('px-6 py-10', className)}>
+    <div id="driver-records-chart" className={className}>
       <p className="font-bold text-lg mb-6">{t('records')}</p>
       {isPending && <DriverRecordsChartSkeleton />}
       {isError && <DriverRecordsChartError error={error} onRetry={refetch} />}

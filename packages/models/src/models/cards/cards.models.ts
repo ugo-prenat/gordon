@@ -34,3 +34,5 @@ export const CARD_TYPES_MULTIPLIERS: Record<CardTypeWithValues, number> = {
   [UNIQUE_CARD_TYPE]: 1.5,
   [CHAMPION_CARD_TYPE]: 3
 };
+
+export const DEFAULT_CARD_TYPE: CardTypeWithValues = COMMON_CARD_TYPE;
