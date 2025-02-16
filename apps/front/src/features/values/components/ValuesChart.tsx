@@ -33,6 +33,7 @@ export const ValuesChart: FC<{
         <XAxis
           tickMargin={8}
           tickLine={false}
+          minTickGap={10}
           axisLine={false}
           tick={showTicks}
           dataKey="record.race.round"
@@ -46,20 +47,21 @@ export const ValuesChart: FC<{
           width={state !== 'error' ? 40 : 0}
           tickFormatter={yAxisTickFormatter}
         />
-        <ChartTooltip
-          cursor={false}
-          active={showTicks}
-          content={
-            <ChartTooltipContent
-              hideLabel
-              formatter={(_value, _name, _item, _index, payload) => (
-                <ValuesChartTooltip
-                  cardValue={payload as unknown as IFrontDriverCardValue}
-                />
-              )}
-            />
-          }
-        />
+        {state === 'default' && (
+          <ChartTooltip
+            cursor={false}
+            content={
+              <ChartTooltipContent
+                hideLabel
+                formatter={(_value, _name, _item, _index, payload) => (
+                  <ValuesChartTooltip
+                    cardValue={payload as unknown as IFrontDriverCardValue}
+                  />
+                )}
+              />
+            }
+          />
+        )}
         <defs>
           <linearGradient id="fillArea" x1="0" y1="0" x2="0" y2="1">
             <stop

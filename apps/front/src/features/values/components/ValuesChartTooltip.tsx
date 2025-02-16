@@ -7,17 +7,22 @@ export const ValuesChartTooltip: FC<{ cardValue: IFrontDriverCardValue }> = ({
 }) => {
   const { record, value } = cardValue;
   const { race, result } = record;
-  const { countryCode } = race;
+  const { countryCode, round } = race;
+
+  const formattedResult = typeof result === 'number' ? `P${result}` : result;
 
   return (
     <div className="flex flex-col gap-1">
-      <span className="font-mono font-bold text-sm tabular-nums text-foreground">
+      <p className="font-mono font-bold text-base tabular-nums text-foreground">
         {value.toLocaleString()}
-      </span>
+      </p>
 
-      <Flag className="w-5 h-3" countryCode={countryCode} />
-      <span className="text-xs text-muted-foreground">{race.name}</span>
-      <span className="text-xs text-muted-foreground">{result}</span>
+      <p className="font-medium">Round {round}</p>
+      <div className="flex items-center gap-2">
+        <p className="text-muted-foreground">{race.name}</p>
+        <Flag className="w-5 h-3 rounded-[2px]" countryCode={countryCode} />
+      </div>
+      <p className="text-muted-foreground">{formattedResult}</p>
     </div>
   );
 };
