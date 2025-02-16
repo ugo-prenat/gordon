@@ -57,5 +57,10 @@
   "page.driver.retrieve.error": "Une erreur est survenue lors de la récupération du pilote",
 
   "driver.records.retrieve.error": "Une erreur est survenue lors de la récupération des performances du pilote",
-  "driver.values.retrieve.error": "Échec de la récupération des prix du pilote"
+  "driver.values.retrieve.error": "Échec de la récupération des prix du pilote",
+  "driver.values.timeRange": "Période",
+  "driver.values.timeRange.all": "Tout",
+  "driver.values.timeRange.last-2-seasons": "2 dernières saisons",
+  "driver.values.timeRange.last-season": "Dernière saison",
+  "driver.values.timeRange.last-10-races": "10 dernières courses"
 }

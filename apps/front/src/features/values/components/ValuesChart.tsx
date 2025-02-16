@@ -6,7 +6,7 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart';
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { Area, AreaChart, CartesianGrid, YAxis } from 'recharts';
 import { ValuesChartTooltip } from './ValuesChartTooltip';
 import { formatNumber } from '@gordon/utils';
 
@@ -30,15 +30,6 @@ export const ValuesChart: FC<{
     <ChartContainer config={chartConfig} className="min-h-[150px]">
       <AreaChart data={records} accessibilityLayer>
         {state !== 'error' && <CartesianGrid vertical={false} />}
-        <XAxis
-          tickMargin={8}
-          tickLine={false}
-          minTickGap={10}
-          axisLine={false}
-          tick={showTicks}
-          dataKey="record.race.round"
-          tickFormatter={(value) => `R${value}`}
-        />
         <YAxis
           tickMargin={8}
           dataKey="value"

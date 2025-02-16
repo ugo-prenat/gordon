@@ -1,11 +1,19 @@
 import { Hono } from 'hono';
 import { createDBDriver, getDBDriver, getDBDrivers } from './drivers.db';
-import { APIError, CardTypeWithValues, IInsertDBDriver } from '@gordon/models';
+import {
+  APIError,
+  CardTypeWithValues,
+  DriverCardsValuesTimeRange,
+  IInsertDBDriver
+} from '@gordon/models';
 import { getDBRecordsByDriverId } from '@services/records/records.db';
 import { dbRecordsToRecords } from '@services/records/records.utils';
 import { formatToFront, handleError } from '@utils/api.utils';
 import { getDBDriverCardsValues } from '@services/driverCardsValues/driverCardsValues.db';
-import { dbDriverCardsValuesToFrontDriverCardsValues } from '@services/driverCardsValues/driverCardsValues.utils';
+import {
+  dbDriverCardsValuesToFrontDriverCardsValues,
+  filterDriverCardsValuesByTimeRange
+} from '@services/driverCardsValues/driverCardsValues.utils';
 
 export const driversRouter = new Hono()
   .onError((e, c) => handleError(c, 'DRR-1')(e))
@@ -35,11 +43,14 @@ export const driversRouter = new Hono()
   .get('/:id/values', (c) => {
     const driverId = c.req.param('id');
     const type = c.req.query('type') as CardTypeWithValues | undefined;
+    const range = c.req.query('range') as
+      | DriverCardsValuesTimeRange
+      | undefined;
 
     return getDBDriverCardsValues({ driverId, type })
-      .then((values) =>
-        c.json(dbDriverCardsValuesToFrontDriverCardsValues(values), 200)
-      )
+      .then(filterDriverCardsValuesByTimeRange(range))
+      .then(dbDriverCardsValuesToFrontDriverCardsValues)
+      .then((values) => c.json(values, 200))
       .catch(handleError(c, 'DRR-6'));
   })
 

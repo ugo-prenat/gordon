@@ -2,6 +2,7 @@ import {
   CARD_TYPES_MULTIPLIERS,
   CARD_TYPES_WITH_VALUES,
   CardTypeWithValues,
+  DriverCardsValuesTimeRange,
   IDBDriverCardValue,
   IDBRecord,
   IFrontDriverCardValue,
@@ -83,4 +84,67 @@ const dbDriverCardValueToFrontDriverCardValue = (
   const { record, driverId, recordId, createdAt, ...driverCardValue } =
     dbDriverCardValue;
   return { ...driverCardValue, record: dbRecordToRecord(record) };
+};
+
+export const filterDriverCardsValuesByTimeRange =
+  (timeRange: DriverCardsValuesTimeRange | undefined) =>
+  (
+    driverCardsValues: WithDBRecord<IDBDriverCardValue>[]
+  ): WithDBRecord<IDBDriverCardValue>[] => {
+    if (!timeRange) return driverCardsValues;
+
+    switch (timeRange) {
+      case 'last-season':
+        return filterBySeasons(driverCardsValues, 1);
+      case 'last-2-seasons':
+        return filterBySeasons(driverCardsValues, 2);
+      case 'last-10-races':
+        return filterByRaces(driverCardsValues, 10);
+      default:
+        return driverCardsValues;
+    }
+  };
+
+const filterBySeasons = (
+  cardValues: WithDBRecord<IDBDriverCardValue>[],
+  seasons: number
+): WithDBRecord<IDBDriverCardValue>[] => {
+  const recordsBySeasons = cardValues.reduce<
+    WithDBRecord<IDBDriverCardValue>[][]
+  >((acc, record) => {
+    const seasonIndex = acc.findIndex(
+      (cv) => cv[0]?.record.year === record.record.year
+    );
+
+    if (seasonIndex === -1) {
+      acc.push([record]);
+    } else {
+      acc[seasonIndex]?.push(record);
+    }
+    return acc;
+  }, []);
+  return recordsBySeasons.splice(-seasons).flat();
+};
+
+const filterByRaces = (
+  cardValues: WithDBRecord<IDBDriverCardValue>[],
+  races: number
+): WithDBRecord<IDBDriverCardValue>[] => {
+  const recordsByRounds = cardValues.reduce<
+    WithDBRecord<IDBDriverCardValue>[][]
+  >((acc, record) => {
+    const roundIndex = acc.findIndex(
+      (cv) =>
+        cv[0]?.record.raceRound === record.record.raceRound &&
+        cv[0]?.record.year === record.record.year
+    );
+
+    if (roundIndex === -1) {
+      acc.push([record]);
+    } else {
+      acc[roundIndex]?.push(record);
+    }
+    return acc;
+  }, []);
+  return recordsByRounds.splice(-races).flat();
 };

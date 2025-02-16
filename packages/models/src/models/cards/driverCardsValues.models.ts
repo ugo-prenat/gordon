@@ -19,3 +19,16 @@ export interface IFrontDriverCardValue
   extends Omit<IDriverCardValue, 'recordId' | 'driverId'> {
   record: IRecord;
 }
+
+export const DRIVER_CARDS_VALUES_TIME_RANGE_OPTIONS = [
+  'all',
+  'last-2-seasons',
+  'last-season',
+  'last-10-races'
+] as const;
+
+export type DriverCardsValuesTimeRange =
+  (typeof DRIVER_CARDS_VALUES_TIME_RANGE_OPTIONS)[number];
+
+export const DEFAULT_DRIVER_CARDS_VALUES_TIME_RANGE: DriverCardsValuesTimeRange =
+  'last-2-seasons';

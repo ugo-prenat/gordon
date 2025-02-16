@@ -57,5 +57,10 @@
   "page.driver.retrieve.error": "An error occurred while retrieving the driver",
 
   "driver.records.retrieve.error": "An error occurred while retrieving the driver's records",
-  "driver.values.retrieve.error": "Failed to load driver price history"
+  "driver.values.retrieve.error": "Failed to load driver price history",
+  "driver.values.timeRange": "Time range",
+  "driver.values.timeRange.all": "All",
+  "driver.values.timeRange.last-2-seasons": "Last 2 seasons",
+  "driver.values.timeRange.last-season": "Last season",
+  "driver.values.timeRange.last-10-races": "Last 10 races"
 }
