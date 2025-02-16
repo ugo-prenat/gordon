@@ -6,7 +6,7 @@ import { useTranslation } from '@/services/i18n/i18n.hooks';
 import { DriverCardsValuesChartError } from './DriverCardsValuesChartError';
 import { ValuesChart } from './ValuesChart';
 import { DriverCardsValuesChartSkeleton } from './DriverCardsValuesChartSkeleton';
-import { TimeRangeSelect } from './TimeRange';
+import { TimeRangeSelect } from './TimeRangeSelect';
 import {
   DEFAULT_DRIVER_CARDS_VALUES_TIME_RANGE,
   DriverCardsValuesTimeRange
