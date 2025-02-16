@@ -1,11 +1,27 @@
+import { IAPIError, IFrontDriverCardValue } from '@gordon/models';
 import { ValuesChart } from './ValuesChart';
-import { IFrontDriverCardValue } from '@gordon/models';
+import { Alert } from '@/components/Alert';
+import { useTranslation } from '@/services/i18n/i18n.hooks';
+import { FC } from 'react';
 
-export const DriverCardsValuesChartSkeleton = () => (
-  <div className="animate-pulse [animation-duration:3s]">
-    <ValuesChart state="skeleton" records={skeletonRecords} />
-  </div>
-);
+export const DriverCardsValuesChartError: FC<{
+  error: IAPIError;
+  onRetry: () => void;
+}> = ({ error, onRetry }) => {
+  const t = useTranslation();
+  return (
+    <div className="relative">
+      <ValuesChart state="error" records={skeletonRecords} />
+      <Alert
+        error={error}
+        action={onRetry}
+        severity="error"
+        text={t('driver.values.retrieve.error')}
+        className="absolute bottom-9 bg-error mx-2 w-[calc(100%-1rem)]"
+      />
+    </div>
+  );
+};
 
 const skeletonRecords: IFrontDriverCardValue[] = [
   {

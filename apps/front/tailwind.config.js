@@ -87,11 +87,9 @@ const config = {
           vintage: 'hsl(var(--card-vintage))'
         },
         chart: {
-          1: 'hsl(var(--chart-1))',
-          2: 'hsl(var(--chart-2))',
-          3: 'hsl(var(--chart-3))',
-          4: 'hsl(var(--chart-4))',
-          5: 'hsl(var(--chart-5))'
+          default: 'hsl(var(--chart-default))',
+          skeleton: 'hsl(var(--chart-skeleton))',
+          error: 'hsl(var(--chart-error))'
         }
       },
       borderRadius: {

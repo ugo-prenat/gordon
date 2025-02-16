@@ -12,38 +12,43 @@ import { formatNumber } from '@gordon/utils';
 
 export const ValuesChart: FC<{
   records: IFrontDriverCardValue[];
-  skeleton?: boolean;
-}> = ({ records, skeleton = false }) => {
-  const chartConfig = {
-    value: { color: skeleton ? 'hsl(0, 0%, 20%)' : 'hsl(var(--chart-1))' }
-  } satisfies ChartConfig;
+  state?: 'skeleton' | 'error' | 'default';
+}> = ({ records, state = 'default' }) => {
+  const color = {
+    default: 'hsl(var(--chart-default))',
+    skeleton: 'hsl(var(--chart-skeleton))',
+    error: 'hsl(var(--chart-error))'
+  }[state];
+
+  const showTicks = state === 'default';
+  const chartConfig = { value: { color } } satisfies ChartConfig;
 
   const yAxisTickFormatter = (value: number) =>
-    skeleton ? '' : formatNumber(value);
+    showTicks ? formatNumber(value) : '';
 
   return (
     <ChartContainer config={chartConfig} className="min-h-[150px]">
       <AreaChart data={records} accessibilityLayer>
-        <CartesianGrid vertical={false} />
+        {state !== 'error' && <CartesianGrid vertical={false} />}
         <XAxis
           tickMargin={8}
           tickLine={false}
           axisLine={false}
+          tick={showTicks}
           dataKey="record.race.round"
-          tick={!skeleton}
           tickFormatter={(value) => `R${value}`}
         />
         <YAxis
-          width={40}
           tickMargin={8}
           dataKey="value"
           tickLine={false}
           axisLine={false}
+          width={state !== 'error' ? 40 : 0}
           tickFormatter={yAxisTickFormatter}
         />
         <ChartTooltip
           cursor={false}
-          active={!skeleton}
+          active={showTicks}
           content={
             <ChartTooltipContent
               hideLabel
@@ -76,6 +81,7 @@ export const ValuesChart: FC<{
           fillOpacity={0.4}
           fill="url(#fillArea)"
           stroke="var(--color-value)"
+          isAnimationActive={state === 'default'}
         />
       </AreaChart>
     </ChartContainer>
