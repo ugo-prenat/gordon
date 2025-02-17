@@ -36,6 +36,14 @@
   "cards.types.champion": "Champion",
   "cards.types.vintage": "Vintage",
 
+  "races.types.SPR": "Sprint race",
+  "races.types.FEA": "Feature race",
+  "races.results.EX": "Excluded",
+  "races.results.DSQ": "Disqualified",
+  "races.results.DNA": "Did not arrive",
+  "races.results.Ret": "Retired",
+  "races.results.NC": "Non classified",
+
   "championships": "Championships",
   "championships.f1": "Formula 1",
   "championships.f2": "Formula 2",
