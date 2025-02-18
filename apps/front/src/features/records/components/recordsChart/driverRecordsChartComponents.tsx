@@ -1,11 +1,11 @@
 import { FC, PropsWithChildren, useEffect, useRef } from 'react';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { IRecord } from '@gordon/models';
-import { getScoreColor } from '@/pages/drivers/drivers.utils';
 import { cn } from '@/utils/tailwind.utils';
-import { splitRecords } from '@/features/records/records.utils';
+import { getScoreColor, splitRecords } from '@/features/records/records.utils';
 import { Flag } from '@/components/Flag';
-import { useCountryName } from '@/services/i18n/i18n.hooks';
+import { useCountryName, useTranslation } from '@/services/i18n/i18n.hooks';
+import { Tooltip } from '@/components/Tooltip';
 
 export const RecordsChart: FC<{ records: IRecord[] }> = ({ records }) => {
   const splittedRecords = splitRecords(records);
@@ -37,33 +37,47 @@ const RecordsList: FC<{ records: IRecord[] }> = ({ records }) => (
 );
 
 const RecordBar: FC<{ record: IRecord }> = ({ record }) => {
-  const { score, race } = record;
+  const { score, race, result } = record;
   const { round, countryCode } = race;
-  const heightPercentage = Math.min(score, 100);
 
+  const t = useTranslation();
+
+  const heightPercentage = Math.min(score, 100);
   const countryName = useCountryName(countryCode);
+  const bgColor = getScoreColor(score);
+
+  const style = {
+    height: `${heightPercentage}%`,
+    background: `linear-gradient(to top, hsla(var(--${bgColor}), 0.1), hsl(var(--${bgColor})) calc(100%), hsl(var(--${bgColor})))`
+  };
 
   return (
     <div className="h-full flex flex-col min-w-7 max-w-7">
       <div className="flex-grow flex flex-col-reverse">
-        <div
-          style={{ height: `${heightPercentage}%` }}
-          className={cn(
-            'min-h-6 rounded-sm flex items-start justify-center',
-            getScoreColor(score)
-          )}
-        >
-          <p className="font-bold pt-1 text-xs dark:text-background">
-            {Math.round(score)}
-          </p>
-        </div>
+        {typeof result === 'number' ? (
+          <div
+            style={style}
+            className={cn('min-h-6 rounded-sm flex items-start justify-center')}
+          >
+            <p className="font-bold pt-1 text-xs dark:text-background">
+              {Math.round(score)}
+            </p>
+          </div>
+        ) : (
+          <Tooltip
+            title={t(`races.results.${result}`)}
+            className="text-sm text-center font-semibold whitespace-pre cursor-default"
+          >
+            {result}
+          </Tooltip>
+        )}
       </div>
 
       <div className="flex flex-col items-center gap-2 mt-2 text-center">
         <Flag
           countryCode={countryCode}
           tooltip={countryName}
-          className="w-5 h-3"
+          className="w-5 h-3 rounded-[2px]"
         />
         <p className="text-xs font-bold text-muted-foreground whitespace-pre">
           R{round}

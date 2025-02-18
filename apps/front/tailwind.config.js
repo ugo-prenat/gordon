@@ -29,11 +29,10 @@ const config = {
     extend: {
       colors: {
         score: {
-          veryLow: 'hsl(var(--score-veryLow))',
+          'very-low': 'hsl(var(--score-very-low))',
           low: 'hsl(var(--score-low))',
-          mediumLow: 'hsl(var(--score-mediumLow))',
+          'medium-low': 'hsl(var(--score-medium-low))',
           medium: 'hsl(var(--score-medium))',
-          mediumHigh: 'hsl(var(--score-mediumHigh))',
           high: 'hsl(var(--score-high))'
         },
         border: 'hsl(var(--border))',

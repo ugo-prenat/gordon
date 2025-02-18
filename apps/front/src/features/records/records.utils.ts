@@ -16,3 +16,11 @@ export const splitRecords = (records: IRecord[]) => {
 
   return Object.values(splittedRecords);
 };
+
+export const getScoreColor = (score: number) => {
+  if (score < 20) return 'score-very-low';
+  if (score < 40) return 'score-low';
+  if (score < 60) return 'score-medium-low';
+  if (score < 80) return 'score-medium';
+  return 'score-high';
+};

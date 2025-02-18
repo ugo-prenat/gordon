@@ -63,11 +63,10 @@ html {
 
     --radius: 0.5rem;
 
-    --score-veryLow: 0, 100%, 80%;
+    --score-very-low: 0, 100%, 80%;
     --score-low: 35, 92%, 59%;
-    --score-mediumLow: 52, 89%, 53%;
+    --score-medium-low: 52, 89%, 53%;
     --score-medium: 74, 68%, 52%;
-    --score-mediumHigh: 170, 59%, 65%;
     --score-high: 149, 60%, 50%;
 
     --card-common: 0, 0%, 4%;
@@ -121,11 +120,10 @@ html {
 
     --radius: 0.5rem;
 
-    --score-veryLow: 0, 100%, 80%;
+    --score-very-low: 0, 100%, 80%;
     --score-low: 35, 92%, 59%;
-    --score-mediumLow: 52, 89%, 53%;
+    --score-medium-low: 52, 89%, 53%;
     --score-medium: 74, 68%, 52%;
-    --score-mediumHigh: 170, 59%, 65%;
     --score-high: 149, 60%, 50%;
 
     --card-common: 0, 0%, 4%;
