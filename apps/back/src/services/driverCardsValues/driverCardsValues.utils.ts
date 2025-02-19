@@ -19,6 +19,7 @@ import {
   DRIVER_CARD_VALUE_MAX_VARIATION,
   DRIVER_CARD_VALUE_MULTIPLIER
 } from './driverCardsValues.models';
+import { MAX_RECORD_SCORE } from '@scraper/scraper.models';
 
 export const updateDriverCardsValue = (insertedRecords: IDBRecord[]) => {
   const records = dbRecordsToRecords(insertedRecords);
@@ -57,20 +58,39 @@ const calculateCardValue = (
   const minVariation = 1 - DRIVER_CARD_VALUE_MAX_VARIATION; // 15% below prevValue
   const maxVariation = 1 + DRIVER_CARD_VALUE_MAX_VARIATION; // 15% above prevValue
 
-  const baseValue =
-    score * CARD_TYPES_MULTIPLIERS[type] * DRIVER_CARD_VALUE_MULTIPLIER;
+  if (!avgScore || !prevValue)
+    return Math.floor(calculteBaseCardValue(type, score));
 
-  if (!avgScore || !prevValue) return Math.floor(baseValue);
+  const avgScoreBaseValue = calculteBaseCardValue(type, score, avgScore);
 
   const minAllowedValue = prevValue * minVariation;
   const maxAllowedValue = prevValue * maxVariation;
 
   const newValue = Math.max(
     minAllowedValue,
-    Math.min(maxAllowedValue, baseValue)
+    Math.min(maxAllowedValue, avgScoreBaseValue)
   );
 
   return Math.floor(newValue);
+};
+
+const calculteBaseCardValue = (
+  type: CardTypeWithValues,
+  score: number,
+  avgScore?: number
+) => {
+  if (!avgScore)
+    return score * CARD_TYPES_MULTIPLIERS[type] * DRIVER_CARD_VALUE_MULTIPLIER;
+
+  const baseValue =
+    avgScore * CARD_TYPES_MULTIPLIERS[type] * DRIVER_CARD_VALUE_MULTIPLIER;
+
+  const avgScoreBonus =
+    avgScore >= MAX_RECORD_SCORE * 0.99 && score === MAX_RECORD_SCORE
+      ? 1.05
+      : 1; // 5% bonus for avgScore between 99-100% and score = MAX_RECORD_SCORE
+
+  return baseValue * avgScoreBonus;
 };
 
 export const dbDriverCardsValuesToFrontDriverCardsValues = (

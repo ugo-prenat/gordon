@@ -9,7 +9,8 @@ import {
   YEAR_COLUMN_ID,
   TRGRP_TYPE_NAME,
   MAX_YEARS_IN_PAST,
-  RECORDS_WINDOW_SIZE
+  RECORDS_WINDOW_SIZE,
+  MAX_RECORD_SCORE
 } from './scraper.models';
 import {
   Championship,
@@ -188,7 +189,8 @@ const calculateScore = (
   const totalDriversInChampionship = CHAMPIONSHIPS_TOTAL_DRIVERS[championship];
 
   if (typeof result === 'number') {
-    const points = 100 - (90 * (result - 1)) / (totalDriversInChampionship - 1);
+    const points =
+      MAX_RECORD_SCORE - (90 * (result - 1)) / (totalDriversInChampionship - 1);
     return roundNum(Math.max(10, points)).toString();
   }
   return '1.00';
@@ -199,7 +201,7 @@ const buildRecordsAvgScore = (
 ): IInsertDBRecord[] =>
   records.reduce<{ records: IInsertDBRecord[]; prevScores: number[] }>(
     (acc, record) => {
-      const avgScore = calculateAvgScore(acc.prevScores);
+      const avgScore = calculateAvgScore(acc.prevScores, +record.score);
       const newRecords = [...acc.records, { ...record, avgScore }];
 
       const slicedPrevScores = [...acc.prevScores, +record.score].slice(
@@ -211,12 +213,12 @@ const buildRecordsAvgScore = (
     { records: [], prevScores: [] }
   ).records;
 
-const calculateAvgScore = (prevScores: number[]) => {
+const calculateAvgScore = (prevScores: number[], score: number) => {
   if (isEmpty(prevScores)) return null;
 
   const avgScore =
-    prevScores.reduce((sum, s) => sum + s, 0) /
-    Math.min(prevScores.length, RECORDS_WINDOW_SIZE);
+    (prevScores.reduce((sum, s) => sum + s, 0) + score) /
+    Math.min(prevScores.length + 1, RECORDS_WINDOW_SIZE);
 
   return roundNum(avgScore).toString();
 };

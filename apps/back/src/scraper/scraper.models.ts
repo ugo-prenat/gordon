@@ -25,3 +25,4 @@ export interface IChampionshipTable {
 export interface IRawChampionshipTable extends Partial<IChampionshipTable> {}
 
 export const RECORDS_WINDOW_SIZE = 10;
+export const MAX_RECORD_SCORE = 100;
