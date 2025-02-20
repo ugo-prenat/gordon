@@ -8,7 +8,7 @@ import {
 import { createDBDriverCard, getDBDriverCards } from './driverCards.db';
 import { formatToMarketDriverCards } from './driverCards.utils';
 import { queriesValidator } from '@middlewares/queriesValidator.middleware';
-import { buildCardId } from '@utils/cards.utils';
+import { buildCardId } from '@services/cards/cards.utils';
 
 export const driverCardsRouter = new Hono()
   .onError((e, c) => handleError(c, 'DCR-1')(e))
