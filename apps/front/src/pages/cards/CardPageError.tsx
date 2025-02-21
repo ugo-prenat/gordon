@@ -37,7 +37,7 @@ export const CardPageError: FC<ICardPageErrorProps> = ({
             text={`${t(`page.card.retrieve.${error.status === 404 ? 'notFound' : 'error'}`)}`}
           />
           <div className="flex gap-4">
-            <Button variant="default" className="px-3 py-2">
+            <Button variant="outline" className="px-3 py-2">
               <Link to="/market">{t('back.to.market')}</Link>
             </Button>
           </div>

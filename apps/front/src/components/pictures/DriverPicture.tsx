@@ -32,7 +32,7 @@ export const DriverPicture = ({
     <img
       alt="driver-placeholder"
       src="/assets/driver-placeholder.png"
-      className={cn('opacity-10', {
+      className={cn('opacity-20', {
         'animate-breath duration-4000': status === 'pending' || placeholder
       })}
     />
