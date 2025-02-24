@@ -2,10 +2,10 @@ import { Championship, CardType } from '@gordon/models';
 import { driversTable } from '@services/drivers/drivers.schemas';
 import { teamsTable } from '@services/teams/teams.schemas';
 import { relations } from 'drizzle-orm';
-import { integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
+import { integer, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 export const driverCardsTable = pgTable('driver_cards', {
-  id: text('id').primaryKey(),
+  id: uuid('id').primaryKey().defaultRandom(),
   driverId: text('driver_id')
     .notNull()
     .references(() => driversTable.id),

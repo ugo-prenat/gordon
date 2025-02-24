@@ -14,7 +14,8 @@ export interface IDriverCard {
   value: number;
 }
 
-export interface IInsertDBDriverCard extends Omit<IDriverCard, 'value'> {}
+export interface IInsertDBDriverCard
+  extends Omit<IDriverCard, 'id' | 'value'> {}
 
 export interface IDBDriverCard extends WithDate<IDriverCard> {}
 

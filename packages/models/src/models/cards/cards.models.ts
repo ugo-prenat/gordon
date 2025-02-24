@@ -1,7 +1,16 @@
-export const DRIVER_CARDS_TYPE_ID = 'dcp1';
-export const USER_DRIVER_CARDS_TYPE_ID = 'udcp';
-export const CHASSIS_CARDS_TYPE_ID = 'ccp1';
-export const USER_CHASSIS_CARDS_TYPE_ID = 'uccp';
+export const DRIVER_CARDS_TYPE_ID = 'drca';
+export const USER_DRIVER_CARDS_TYPE_ID = 'udca';
+export const CHASSIS_CARDS_TYPE_ID = 'chca';
+export const USER_CHASSIS_CARDS_TYPE_ID = 'uchc';
+
+export const CARDS_ID_TYPES = [
+  DRIVER_CARDS_TYPE_ID,
+  USER_DRIVER_CARDS_TYPE_ID,
+  CHASSIS_CARDS_TYPE_ID,
+  USER_CHASSIS_CARDS_TYPE_ID
+] as const;
+
+export type CardIdType = (typeof CARDS_ID_TYPES)[number];
 
 export const COMMON_CARD_TYPE = 'common';
 export const RARE_CARD_TYPE = 'rare';

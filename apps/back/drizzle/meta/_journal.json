@@ -239,6 +239,13 @@
       "when": 1739094136191,
       "tag": "0033_fine_captain_america",
       "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "7",
+      "when": 1740430673172,
+      "tag": "0034_free_quentin_quire",
+      "breakpoints": true
     }
   ]
 }

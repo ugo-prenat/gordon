@@ -24,6 +24,9 @@ const router = app
   .route('/cards', cardsRouter)
   .route('/market/drivers', driverCardsRouter)
 
+  // /market/drivers/cards
+  // /market/drivers/cards/:id
+
   .route('/teams', teamsRoutes)
 
   .notFound((c) => {

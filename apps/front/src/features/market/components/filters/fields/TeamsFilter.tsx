@@ -100,7 +100,7 @@ export const TeamsFilter = ({
           />
         </>
       )}
-      {isEmpty(options) && (
+      {isEmpty(options) && !isError && (
         <Description>{t('page.market.filters.teams.noResults')}</Description>
       )}
     </div>
