@@ -27,7 +27,7 @@ const fetchMarketDrivers = ({
   championships,
   value
 }: MarketDriverCardFilters) =>
-  api.market.drivers
+  api.cards.drivers.market
     .$get({
       query: {
         name,

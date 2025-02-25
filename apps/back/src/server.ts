@@ -7,7 +7,6 @@ import { handleError } from '@utils/api.utils';
 
 import { driversRouter } from '@services/drivers/drivers.routes';
 import { recordsRouter } from '@services/records/records.routes';
-import { cardsRouter } from '@services/cards/cards.routes';
 import { driverCardsRouter } from '@services/driverCards/driverCards.routes';
 import { teamsRoutes } from '@services/teams/teams.routes';
 
@@ -21,11 +20,22 @@ const router = app
   .route('/drivers', driversRouter)
   .route('/records', recordsRouter)
 
-  .route('/cards', cardsRouter)
-  .route('/market/drivers', driverCardsRouter)
+  // DRIVER CARDS
+  // /cards/drivers/market
+  // /cards/drivers/market/:id
+  .route('/cards/drivers/market', driverCardsRouter)
 
-  // /market/drivers/cards
-  // /market/drivers/cards/:id
+  // CHASSIS CARDS
+  // /cards/chassis/market
+  // /cards/chassis/market/:id
+
+  // USER DRIVER CARDS
+  // /cards/drivers
+  // /cards/drivers/:id
+
+  // USER CHASSIS CARDS
+  // /cards/chassis
+  // /cards/chassis/:id
 
   .route('/teams', teamsRoutes)
 
