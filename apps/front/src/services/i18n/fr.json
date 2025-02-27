@@ -58,7 +58,7 @@
   "page.market.drivers.search.noResults": "Aucun pilote trouvé",
   "page.market.drivers.search.clearFilters": "Effacer les filtres",
   "page.driver.tabTitle": "Profil de pilote",
-
+  "page.market.filters.title": "Filtres",
   "page.card.retrieve.notFound": "Aucune carte n'a été trouvée pour l'id donné",
   "page.card.retrieve.error": "Une erreur est survenue lors de la récupération de la carte",
 

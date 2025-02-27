@@ -58,6 +58,7 @@
   "page.market.drivers.search.noResults": "No driver found",
   "page.market.drivers.search.clearFilters": "Clear filters",
   "page.driver.tabTitle": "Driver profile",
+  "page.market.filters.title": "Filters",
 
   "page.card.retrieve.notFound": "No card found for the given id",
   "page.card.retrieve.error": "An error occurred while retrieving the card",
