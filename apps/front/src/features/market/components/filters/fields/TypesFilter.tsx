@@ -19,17 +19,11 @@ export const TypesFilter = ({
 }: ITypesFilterProps) => {
   const t = useTranslation();
 
-  const Icon = ({ type }: { type: CardType }) => (
-    <div className="flex items-center h-6">
-      <CardTypeIcon type={type} className="w-4 h-4" />
-    </div>
-  );
-
   const options: ICheckboxGroupOption<CardType>[] = CARD_TYPES.map((type) => ({
     id: type,
     value: type,
     label: t(`cards.types.${type}`),
-    icon: <Icon type={type} />,
+    icon: <CardTypeIcon type={type} />,
     disabled: unmodifiableCheckedTypes.includes(type),
     checked: [...checkedTypes, ...unmodifiableCheckedTypes].includes(type)
   }));

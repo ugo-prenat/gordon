@@ -1,10 +1,8 @@
 import { ChampionIcon } from '@/assets/cardTypes/ChampionIcon';
-import { CommonIcon } from '@/assets/cardTypes/CommonIcon';
-import { RareIcon } from '@/assets/cardTypes/RareIcon';
-import { UniqueIcon } from '@/assets/cardTypes/UniqueIcon';
 import { VintageIcon } from '@/assets/cardTypes/VintageIcon';
+import { cn } from '@/utils/tailwind.utils';
 import { CardType } from '@gordon/models';
-import { CrownIcon } from 'lucide-react';
+import { Crown, Flame, Star, Zap } from 'lucide-react';
 
 export const CardTypeIcon = ({
   type,
@@ -15,16 +13,16 @@ export const CardTypeIcon = ({
 }) => {
   switch (type) {
     case 'common':
-      return <CommonIcon className={className} />;
+      return <Flame className={cn('fill-current w-4 h-4', className)} />;
     case 'rare':
-      return <RareIcon className={className} />;
+      return <Zap className={cn('fill-current w-4 h-4', className)} />;
     case 'unique':
-      return <UniqueIcon className={className} />;
+      return <Star className={cn('fill-current w-4 h-4', className)} />;
     case 'champion':
-      return <ChampionIcon className={className} />;
+      return <ChampionIcon className={cn('fill-current w-4 h-4', className)} />;
     case 'vintage':
-      return <VintageIcon className={className} />;
+      return <VintageIcon className={cn('fill-current w-4 h-4', className)} />;
     default:
-      return <CrownIcon className={className} />;
+      return <Crown className={cn('fill-current w-4 h-4', className)} />;
   }
 };

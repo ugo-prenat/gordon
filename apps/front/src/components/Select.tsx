@@ -7,10 +7,12 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { cn } from '@/utils/tailwind.utils';
+import { ReactNode } from 'react';
 
 export type SelectOption<T extends string> = {
   value: T;
   label: string;
+  icon?: ReactNode;
 };
 
 interface ISelectProps<T extends string> {
@@ -37,9 +39,12 @@ export const Select = <T extends string>({
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {options.map(({ label, value }, index) => (
+          {options.map(({ label, value, icon }, index) => (
             <SelectItem key={index} value={value}>
-              {label}
+              <div className="flex items-center gap-2">
+                {icon}
+                {label}
+              </div>
             </SelectItem>
           ))}
         </SelectGroup>
