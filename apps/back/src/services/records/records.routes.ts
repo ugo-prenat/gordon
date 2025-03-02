@@ -6,6 +6,7 @@ import { dbRecordsToRecords, dbRecordToRecord } from './records.utils';
 import { handleError } from '@utils/api.utils';
 import { APIError } from '@gordon/models';
 import { updateDriverCardsValue } from '@services/driverCardsValues/driverCardsValues.utils';
+import { isEmpty } from '@gordon/utils';
 
 export const recordsRouter = new Hono()
   .onError((e, c) => handleError(c, 'RER-1')(e))
@@ -26,14 +27,28 @@ export const recordsRouter = new Hono()
   )
 
   .post('/', (c) =>
+    // getDBDrivers({ championships: ['f3'] })
     getDBDrivers()
-      // getDBDrivers({ championships: ['f3'] })
-      .then(scrapRecords)
-      .then(createDBRecords)
-      .then(updateDriverCardsValue)
-      // update driver cards avec les nouvelles values
-      .then(() => c.json({ yeah: true }, 201))
-      .catch(handleError(c, 'RER-5'))
+      .then((drivers) =>
+        scrapRecords(drivers).then((records) =>
+          createDBRecords(records).then((insertedRecords) => {
+            if (isEmpty(insertedRecords)) {
+              //notify
+              console.log('no records inserted');
+              return c.json(null, 201);
+            }
+            // notify
+            return updateDriverCardsValue(insertedRecords).then(() =>
+              c.json(null, 201)
+            );
+          })
+        )
+      )
+
+      .catch((e) => {
+        // notify error
+        return handleError(c, 'RER-5')(e);
+      })
   )
 
   .post('/notify', (c) =>

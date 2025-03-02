@@ -14,6 +14,7 @@ export const driverCardsValuesTable = pgTable('driver_cards_values', {
     .references(() => recordsTable.id),
   type: text('type').$type<CardTypeWithValues>().notNull(),
   value: integer('value').notNull(),
+  valueTrend: integer('value_trend').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow()
 });
 

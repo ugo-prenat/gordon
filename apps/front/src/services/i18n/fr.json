@@ -49,6 +49,14 @@
   "championships.f2": "Formule 2",
   "championships.f3": "Formule 3",
 
+  "records.trend": {
+    "-2": "forte baisse",
+    "-1": "baisse",
+    "0": "stable",
+    "1": "hausse",
+    "2": "forte hausse"
+  },
+
   "page.market.tabTitle.drivers": "Marché des pilotes",
   "page.market.tabTitle.chassis": "Marché des châssis",
   "page.market.drivers.retrieve.error": "Une erreur est survenue lors de la récupération des pilotes",

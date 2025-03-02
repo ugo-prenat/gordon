@@ -49,6 +49,14 @@
   "championships.f2": "Formula 2",
   "championships.f3": "Formula 3",
 
+  "records.trend": {
+    "-2": "strong decline",
+    "-1": "decline",
+    "0": "stable",
+    "1": "increase",
+    "2": "strong increase"
+  },
+
   "page.market.tabTitle.drivers": "Drivers market",
   "page.market.tabTitle.chassis": "Chassis market",
   "page.market.drivers.retrieve.error": "An error occurred while retrieving the drivers",

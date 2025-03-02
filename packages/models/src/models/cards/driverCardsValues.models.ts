@@ -8,6 +8,7 @@ export interface IDriverCardValue {
   recordId: number;
   type: CardTypeWithValues;
   value: number;
+  valueTrend: number;
 }
 
 export interface IInsertDBDriverCardValue

@@ -36,11 +36,17 @@ const buildCardValues =
     records.reduce<IInsertDBDriverCardValue[]>(
       (acc, { id: recordId, driverId, score, avgScore }) => {
         const prevValue = acc[acc.length - 1]?.value;
-        const value = calculateCardValue(prevValue, score, avgScore, type);
+        const { value, valueTrend } = calculateCardValue(
+          prevValue,
+          score,
+          avgScore,
+          type
+        );
 
         const newCardValue: IInsertDBDriverCardValue = {
           type,
           value,
+          valueTrend,
           driverId,
           recordId
         };
@@ -59,7 +65,10 @@ const calculateCardValue = (
   const maxVariation = 1 + DRIVER_CARD_VALUE_MAX_VARIATION; // 15% above prevValue
 
   if (!avgScore || !prevValue)
-    return Math.floor(calculteBaseCardValue(type, score));
+    return {
+      value: Math.floor(calculteBaseCardValue(type, score)),
+      valueTrend: 0
+    };
 
   const avgScoreBaseValue = calculteBaseCardValue(type, score, avgScore);
 
@@ -71,7 +80,10 @@ const calculateCardValue = (
     Math.min(maxAllowedValue, avgScoreBaseValue)
   );
 
-  return Math.floor(newValue);
+  return {
+    value: Math.floor(newValue),
+    valueTrend: calculateValueTrend(prevValue, newValue)
+  };
 };
 
 const calculteBaseCardValue = (
@@ -91,6 +103,16 @@ const calculteBaseCardValue = (
       : 1; // 5% bonus for avgScore between 99-100% and score = MAX_RECORD_SCORE
 
   return baseValue * avgScoreBonus;
+};
+
+const calculateValueTrend = (prevValue: number, newValue: number): number => {
+  const percentChange = (newValue - prevValue) / prevValue;
+
+  if (percentChange >= 0.15) return 2; // >15% increase
+  if (percentChange >= 0.05) return 1; // 5-15% increase
+  if (percentChange <= -0.15) return -2; // >15% decrease
+  if (percentChange <= -0.05) return -1; // 5-15% decrease
+  return 0; // within ±5%
 };
 
 export const dbDriverCardsValuesToFrontDriverCardsValues = (

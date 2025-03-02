@@ -12,6 +12,7 @@ export interface IDriverCard {
   season: number;
   championship: Championship;
   value: number;
+  valueTrend: number;
 }
 
 export interface IInsertDBDriverCard

@@ -79,6 +79,8 @@ const getMaybeChampionship = (
   return undefined;
 };
 
+type PartialRecord = Omit<IInsertDBRecord, 'avgScore'>;
+
 const buildChampionshipRecords =
   (driverId: string) =>
   (championshipTable: IChampionshipTable): IInsertDBRecord[] => {
@@ -90,7 +92,7 @@ const buildChampionshipRecords =
 const buildPartialRecords = (
   driverId: string,
   { championship, table }: IChampionshipTable
-): Omit<IInsertDBRecord, 'avgScore'>[] => {
+): PartialRecord[] => {
   if (table.type !== 'table')
     throw new Error(`Element ${table.type} is not a table`);
 
@@ -196,13 +198,12 @@ const calculateScore = (
   return '1.00';
 };
 
-const buildRecordsAvgScore = (
-  records: Omit<IInsertDBRecord, 'avgScore'>[]
-): IInsertDBRecord[] =>
+const buildRecordsAvgScore = (records: PartialRecord[]): IInsertDBRecord[] =>
   records.reduce<{ records: IInsertDBRecord[]; prevScores: number[] }>(
     (acc, record) => {
       const avgScore = calculateAvgScore(acc.prevScores, +record.score);
-      const newRecords = [...acc.records, { ...record, avgScore }];
+      const newRecord: IInsertDBRecord = { ...record, avgScore };
+      const newRecords = [...acc.records, newRecord];
 
       const slicedPrevScores = [...acc.prevScores, +record.score].slice(
         -RECORDS_WINDOW_SIZE + 1
