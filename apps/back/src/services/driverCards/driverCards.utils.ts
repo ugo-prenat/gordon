@@ -1,9 +1,12 @@
 import {
   IDBDriverCard,
+  IDBDriverCardValue,
   IMarketDriverCard,
   WithDriver,
   WithTeam
 } from '@gordon/models';
+import { uniqBy } from '@gordon/utils';
+import { updateDBDriverCardFromValue } from './driverCards.db';
 
 export const formatToMarketDriverCards = (
   cards: WithDriver<WithTeam<IDBDriverCard>>[]
@@ -29,4 +32,23 @@ export const formatToMarketDriverCard = (
       nationalityCountryCode
     }
   };
+};
+
+export const updateDriverCardsFromValues = (
+  cardsValues: IDBDriverCardValue[]
+) => {
+  const driverIds = uniqBy(cardsValues, 'driverId');
+  const groupedCardsValues = driverIds.map(({ driverId }) => {
+    const driverCardsValues = cardsValues.filter(
+      (card) => card.driverId === driverId
+    );
+    return uniqBy(driverCardsValues, 'type');
+  });
+
+  const driverCardsUpdates = groupedCardsValues.map((cardsValues) =>
+    Promise.all(
+      cardsValues.map((cardValue) => updateDBDriverCardFromValue(cardValue))
+    )
+  );
+  return Promise.all(driverCardsUpdates);
 };

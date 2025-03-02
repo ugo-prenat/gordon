@@ -11,7 +11,12 @@ export const isNull = (value: unknown): boolean => value === null;
 
 export const isNotNull = (value: unknown): boolean => !isNull(value);
 
-export const unique = <T>(array: T[]): T[] => [...new Set(array)];
+export const uniq = <T>(array: T[]): T[] => [...new Set(array)];
+
+export const uniqBy = <T>(arr: T[], key: keyof T): T[] =>
+  Object.values(
+    arr.reduce((map, item) => ({ ...map, [`${item[key]}`]: item }), {})
+  );
 
 export const isFirst = <T>(array: T[], index: number): boolean => index === 0;
 

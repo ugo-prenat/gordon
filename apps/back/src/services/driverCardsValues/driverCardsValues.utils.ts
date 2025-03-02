@@ -21,7 +21,7 @@ import {
 } from './driverCardsValues.models';
 import { MAX_RECORD_SCORE } from '@scraper/scraper.models';
 
-export const updateDriverCardsValue = (insertedRecords: IDBRecord[]) => {
+export const updateDriverCardsValues = (insertedRecords: IDBRecord[]) => {
   const records = dbRecordsToRecords(insertedRecords);
 
   const cardValues = CARD_TYPES_WITH_VALUES.map(

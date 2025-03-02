@@ -10,7 +10,8 @@ import { eq } from 'drizzle-orm';
 
 export const createDBDriverCardsValues = (
   driverCardsValues: IInsertDBDriverCardValue[]
-) => db.insert(driverCardsValuesTable).values(driverCardsValues);
+): Promise<IDBDriverCardValue[]> =>
+  db.insert(driverCardsValuesTable).values(driverCardsValues).returning();
 
 export const getDBDriverCardsValues = ({
   driverId,

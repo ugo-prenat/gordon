@@ -1,5 +1,6 @@
 import {
   IDBDriverCard,
+  IDBDriverCardValue,
   IInsertDBDriverCard,
   MarketDriverCardFilters,
   PartialWithId,
@@ -74,9 +75,23 @@ export const updateDBDriverCard = ({
   db
     .update(driverCardsTable)
     .set(driverCard)
-    .where(eq(driverCardsTable.id, id))
-    .returning({ id: driverCardsTable.id })
-    .then((ids) => ids.map(({ id }) => id));
+    .where(eq(driverCardsTable.id, id));
+
+export const updateDBDriverCardFromValue = ({
+  driverId,
+  type,
+  value,
+  valueTrend
+}: IDBDriverCardValue) =>
+  db
+    .update(driverCardsTable)
+    .set({ value, valueTrend })
+    .where(
+      and(
+        eq(driverCardsTable.type, type),
+        eq(driverCardsTable.driverId, driverId)
+      )
+    );
 
 export const deleteDBDriverCard = (id: string) =>
   db.delete(driverCardsTable).where(eq(driverCardsTable.id, id));

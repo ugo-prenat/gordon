@@ -5,7 +5,8 @@ import { notify, scrapRecords } from '@scraper/scraper.actions';
 import { dbRecordsToRecords, dbRecordToRecord } from './records.utils';
 import { handleError } from '@utils/api.utils';
 import { APIError } from '@gordon/models';
-import { updateDriverCardsValue } from '@services/driverCardsValues/driverCardsValues.utils';
+import { updateDriverCardsValues } from '@services/driverCardsValues/driverCardsValues.utils';
+import { updateDriverCardsFromValues } from '@services/driverCards/driverCards.utils';
 import { isEmpty } from '@gordon/utils';
 
 export const recordsRouter = new Hono()
@@ -27,19 +28,24 @@ export const recordsRouter = new Hono()
   )
 
   .post('/', (c) =>
-    // getDBDrivers({ championships: ['f3'] })
+    // db
+    //   .execute(
+    //     sql`TRUNCATE TABLE "public"."records", "public"."driver_cards_values"`
+    //   )
     getDBDrivers()
       .then((drivers) =>
         scrapRecords(drivers).then((records) =>
           createDBRecords(records).then((insertedRecords) => {
             if (isEmpty(insertedRecords)) {
               //notify
-              console.log('no records inserted');
-              return c.json(null, 201);
+              return c.text('no records inserted' as string, 201);
             }
             // notify
-            return updateDriverCardsValue(insertedRecords).then(() =>
-              c.json(null, 201)
+            return updateDriverCardsValues(insertedRecords).then(
+              (cardsValues) =>
+                updateDriverCardsFromValues(cardsValues).then(() =>
+                  c.text('created' as string, 201)
+                )
             );
           })
         )

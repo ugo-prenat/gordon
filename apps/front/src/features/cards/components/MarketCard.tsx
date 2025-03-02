@@ -9,11 +9,17 @@ interface IMarketCardProps {
 }
 
 export const MarketCard: FC<IMarketCardProps> = ({ resource, card }) => {
+  const { id, value, valueTrend } = card;
   return (
     <div id={`${resource}-market-card`} className="flex flex-col gap-2">
-      <Link to={`/cards/${card.id}`}>
+      <Link to={`/cards/${id}`}>
         <DriverCard card={card} disableHover />
-        <p>{new Intl.NumberFormat('en-US', {}).format(card.value)}</p>
+        <div className="flex justify-between mt-2">
+          <p className="font-mono font-bold text-sm">
+            {new Intl.NumberFormat('en-US', {}).format(value)}
+          </p>
+          <p>{valueTrend}</p>
+        </div>
       </Link>
     </div>
   );
