@@ -35,9 +35,9 @@ export const DriverCardsValuesChart: FC<{
 
   return (
     <div className={cn(className)}>
-      <p className="font-bold text-lg mb-4">{t('values.history')}</p>
+      <p className="font-bold text-lg mb-2">{t('values.history')}</p>
 
-      <div className="flex mb-4 gap-2">
+      <div className="flex mb-2 gap-2">
         <TimeRangeSelect
           range={timeRange}
           onChange={setTimeRange}

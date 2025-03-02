@@ -26,8 +26,8 @@ export const Page: FC<IPageProps> = ({
       id="page"
       className={cn(
         'w-full max-w-full h-full max-h-full flex flex-col',
-        className,
-        { 'p-6': padding }
+        { 'p-6': padding },
+        className
       )}
       {...props}
     >

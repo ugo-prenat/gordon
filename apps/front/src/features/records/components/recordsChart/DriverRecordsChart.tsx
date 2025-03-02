@@ -25,7 +25,7 @@ export const DriverRecordsChart: FC<{
 
   return (
     <div id="driver-records-chart" className={className}>
-      <p className="font-bold text-lg mb-6">{t('records')}</p>
+      <p className="font-bold text-lg mb-2">{t('records')}</p>
       {isPending && <DriverRecordsChartSkeleton />}
       {isError && <DriverRecordsChartError error={error} onRetry={refetch} />}
       {isSuccess && <RecordsChart records={records} />}

@@ -6,7 +6,6 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
-import { cn } from '@/utils/tailwind.utils';
 import { ReactNode } from 'react';
 
 export type SelectOption<T extends string> = {
@@ -34,7 +33,7 @@ export const Select = <T extends string>({
 }: ISelectProps<T>) => {
   return (
     <ShdacnSelect value={value} onValueChange={onChange} disabled={disabled}>
-      <SelectTrigger className={cn('w-[180px]', className)}>
+      <SelectTrigger className={className}>
         <SelectValue placeholder={label} />
       </SelectTrigger>
       <SelectContent>
