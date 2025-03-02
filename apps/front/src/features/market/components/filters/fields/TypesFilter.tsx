@@ -33,7 +33,7 @@ export const TypesFilter = ({
       id="types"
       options={options}
       onChange={onChange}
-      label={t('cards.types')}
+      label={t('cards.types.title')}
     />
   );
 };

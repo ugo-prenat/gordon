@@ -12,6 +12,7 @@ import { CARD_TYPES_WITH_VALUES, CardTypeWithValues } from '@gordon/models';
 import { ValueTrendBadge } from '@/features/values/components/ValueTrendBadge';
 import { Price } from '@/components/typography';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
+import { DriverCardDetails } from '@/features/cards/components/drivers/DriverCardDetails';
 
 export const CardPage = () => {
   const { id } = cardRoute.useParams();
@@ -30,13 +31,13 @@ export const CardPage = () => {
 
   return (
     <Page>
-      <div className="h-full flex justify-center items-center">
-        <div className="w-1/2 flex justify-center">
-          <div className="w-full sm:mr-6 md:w-4/5 lg:w-2/3 xl:w-1/2 pl-6">
+      <div className="h-full flex flex-col lg:flex-row lg:justify-center lg:items-center">
+        <div className="min-h-[70vh] w-full lg:w-1/2 flex items-center justify-center lg:py-0">
+          <div className="w-3/5 sm:w-1/2 md:w-1/3 lg:w-3/5 xl:w-1/2 pl-6">
             <DriverCard card={card} />
           </div>
         </div>
-        <div className="w-1/2 h-full flex flex-col gap-10 overflow-auto p-6">
+        <div className="w-full lg:w-1/2 h-full flex flex-col gap-10 lg:overflow-auto p-6">
           <div className="flex flex-col gap-2">
             <Link to={`/drivers/${driver.id}`}>
               <Button variant="link" className="text-4xl font-bold">
@@ -55,6 +56,8 @@ export const CardPage = () => {
               </Button>
             </div>
           </div>
+
+          <DriverCardDetails card={card} />
 
           {showDriverCardsValuesChart && (
             <DriverCardsValuesChart driverId={driver.id} type={cardType} />

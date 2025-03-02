@@ -36,7 +36,7 @@ export const DriverPage = () => {
       content: <DriverRecordsTab />
     },
     {
-      label: t('cards'),
+      label: t('cards.title'),
       value: DRIVER_CARDS_TAB,
       content: <DriverCardsTab />
     }

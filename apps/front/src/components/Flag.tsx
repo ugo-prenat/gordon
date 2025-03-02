@@ -12,7 +12,10 @@ interface IFlagProps {
 export const Flag: FC<IFlagProps> = ({ countryCode, className, tooltip }) => (
   <Tooltip
     title={tooltip}
-    className={cn('cursor-default overflow-hidden', className)}
+    className={cn(
+      'w-5 cursor-default overflow-hidden rounded-[2px]',
+      className
+    )}
   >
     {/* <AspectRatio ratio={16 / 9}> */}
     <CountryFlag countryCode={countryCode as CountryCode} />

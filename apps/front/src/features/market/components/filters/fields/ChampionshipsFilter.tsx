@@ -44,7 +44,7 @@ export const ChampionshipsFilter = ({
       id="championships"
       options={options}
       onChange={onChange}
-      label={t('championships')}
+      label={t('championships.title')}
     />
   );
 };

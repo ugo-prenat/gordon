@@ -3,6 +3,11 @@
   "seasons": "Seasons",
   "name": "Name",
   "teams": "Teams",
+  "team": "Team",
+  "season": "Season",
+  "nationality": "Nationality",
+  "age": "Age",
+  "championship": "Championship",
   "search": "Search",
   "showMore.true": "Show more",
   "showMore.false": "Show less",
@@ -25,17 +30,22 @@
   "overview": "Overview",
   "records": "Records",
   "values.history": "Price graph",
-  "cards": "Cards",
   "admin": "Admin",
   "type": "Type",
   "buy": "Buy now",
 
-  "cards.types": "Types",
-  "cards.types.common": "Common",
-  "cards.types.rare": "Rare",
-  "cards.types.unique": "Unique",
-  "cards.types.champion": "Champion",
-  "cards.types.vintage": "Vintage",
+  "cards": {
+    "title": "Cards",
+    "details": "Card details",
+    "types": {
+      "title": "Types",
+      "common": "Common",
+      "rare": "Rare",
+      "unique": "Unique",
+      "champion": "Champion",
+      "vintage": "Vintage"
+    }
+  },
 
   "races.types.SPR": "Sprint race",
   "races.types.FEA": "Feature race",
@@ -45,10 +55,12 @@
   "races.results.Ret": "Retired",
   "races.results.NC": "Non classified",
 
-  "championships": "Championships",
-  "championships.f1": "Formula 1",
-  "championships.f2": "Formula 2",
-  "championships.f3": "Formula 3",
+  "championships": {
+    "title": "Championships",
+    "f1": "Formula 1",
+    "f2": "Formula 2",
+    "f3": "Formula 3"
+  },
 
   "records.trend": {
     "-2": "strong decline",

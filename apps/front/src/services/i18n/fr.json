@@ -3,6 +3,11 @@
   "seasons": "Saisons",
   "name": "Nom",
   "teams": "Équipes",
+  "team": "Équipe",
+  "season": "Saison",
+  "nationality": "Nationalité",
+  "age": "Âge",
+  "championship": "Championnat",
   "search": "Rechercher",
   "showMore.true": "Voir plus",
   "showMore.false": "Voir moins",
@@ -25,17 +30,22 @@
   "overview": "Aperçu",
   "records": "Performances",
   "values.history": "Graph des prix",
-  "cards": "Cartes",
   "admin": "Admin",
   "type": "Type",
   "buy": "Acheter",
 
-  "cards.types": "Types",
-  "cards.types.common": "Commune",
-  "cards.types.rare": "Rare",
-  "cards.types.unique": "Unique",
-  "cards.types.champion": "Champion",
-  "cards.types.vintage": "Vintage",
+  "cards": {
+    "title": "Cartes",
+    "details": "Détails de la carte",
+    "types": {
+      "title": "Types",
+      "common": "Commune",
+      "rare": "Rare",
+      "unique": "Unique",
+      "champion": "Champion",
+      "vintage": "Vintage"
+    }
+  },
 
   "races.types.SPR": "Course sprint",
   "races.types.FEA": "Course principale",
@@ -45,10 +55,12 @@
   "races.results.Ret": "Abandon",
   "races.results.NC": "Non classé",
 
-  "championships": "Championnats",
-  "championships.f1": "Formule 1",
-  "championships.f2": "Formule 2",
-  "championships.f3": "Formule 3",
+  "championships": {
+    "title": "Championnats",
+    "f1": "Formule 1",
+    "f2": "Formule 2",
+    "f3": "Formule 3"
+  },
 
   "records.trend": {
     "-2": "forte baisse",
