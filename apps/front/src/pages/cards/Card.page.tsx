@@ -37,7 +37,7 @@ export const CardPage = () => {
             <DriverCard card={card} />
           </div>
         </div>
-        <div className="w-full lg:w-1/2 h-full flex flex-col gap-10 lg:overflow-auto p-6">
+        <div className="w-full lg:w-1/2 h-full flex flex-col gap-10 lg:overflow-auto p-4 md:p-10">
           <div className="flex flex-col gap-2">
             <Link to={`/drivers/${driver.id}`}>
               <Button variant="link" className="text-4xl font-bold">

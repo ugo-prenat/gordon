@@ -8,7 +8,7 @@ import {
   WithTeam
 } from '@gordon/models';
 import { driverCardsTable } from './driverCards.schemas';
-import { and, desc, eq, inArray, sql } from 'drizzle-orm';
+import { and, between, desc, eq, inArray, sql } from 'drizzle-orm';
 import { db } from '@db';
 import { getDriverIdsByName } from '@services/drivers/drivers.utils';
 export const getDBDriverCards = (
@@ -20,7 +20,15 @@ export const getDBDriverCards = (
         filters.driverId
           ? eq(driverCardsTable.driverId, filters.driverId)
           : undefined,
-        // filters.value
+        filters.value?.max
+          ? filters.value.min
+            ? between(
+                driverCardsTable.value,
+                filters.value.min,
+                filters.value.max
+              )
+            : between(driverCardsTable.value, 0, filters.value.max)
+          : undefined,
         driverIds ? inArray(driverCardsTable.driverId, driverIds) : undefined,
         filters.teamIds
           ? inArray(driverCardsTable.teamId, filters.teamIds)
