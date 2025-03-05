@@ -30,17 +30,3 @@ export const Description: FC<HTMLAttributes<HTMLParagraphElement>> = ({
 export const P: FC<PropsWithChildren> = ({ children }) => (
   <p className="leading-7 [&:not(:first-child)]:mt-6">{children}</p>
 );
-
-export const Price: FC<PropsWithChildren & { className?: string }> = ({
-  children,
-  className
-}) => (
-  <p
-    className={cn(
-      'font-mono font-bold text-base tabular-nums text-foreground',
-      className
-    )}
-  >
-    {children}
-  </p>
-);

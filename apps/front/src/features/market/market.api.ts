@@ -7,6 +7,7 @@ import {
 import { api } from '@/services/api/rpc.api';
 import { handleRes } from '@/services/api/api.utils';
 import ms from 'ms';
+import { isNotEmpty } from '@gordon/utils';
 
 export const useMarketDrivers = (
   filters: MarketDriverCardFilters,
@@ -37,7 +38,9 @@ const fetchMarketDrivers = ({
         teamIds: teamIds?.join(','),
         championships: championships?.join(','),
         value:
-          value?.min && value?.max ? `${value.min},${value.max}` : undefined
+          isNotEmpty(value?.min) && isNotEmpty(value?.max)
+            ? `${value?.min},${value?.max}`
+            : undefined
       }
     })
     .then(handleRes);

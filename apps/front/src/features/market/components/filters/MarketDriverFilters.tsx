@@ -6,6 +6,7 @@ import { NameFilter } from './fields/NameFilter';
 import { Dispatch, SetStateAction } from 'react';
 import { TeamsFilter } from './fields/TeamsFilter';
 import { TypesFilter } from './fields/TypesFilter';
+import { ValuesFilter } from './fields/ValuesFilter';
 
 interface IMarketDriverFiltersProps {
   filters: MarketDriverCardFilters;
@@ -29,6 +30,7 @@ export const MarketDriverFilters = ({
         unmodifiableValue={unmodifiableFilters?.name}
         onChange={onChange('name')}
       />
+      <ValuesFilter onChange={onChange('value')} value={filters.value} />
       <TeamsFilter
         onChange={onChange('teamIds')}
         checkedTeamIds={filters.teamIds}

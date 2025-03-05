@@ -16,6 +16,10 @@ export const mergeFilters = (
       ...(filters.championships || []),
       ...(unmodifiableFilters.championships || [])
     ],
+    value: {
+      min: filters.value?.min,
+      max: filters.value?.max
+    },
     seasons: [
       ...new Set([
         ...(filters.seasons || []),

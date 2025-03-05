@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Link } from '@tanstack/react-router';
 import { DriverCard } from '@/features/cards/components/drivers/DriverCard';
 import { IMarketDriverCard, Resource } from '@gordon/models';
-import { Price } from '@/components/typography';
+import { Price } from '@/components/Price';
 
 interface IMarketCardProps {
   resource: Resource;
@@ -16,7 +16,7 @@ export const MarketCard: FC<IMarketCardProps> = ({ resource, card }) => {
       <Link to={`/cards/${id}`}>
         <DriverCard card={card} disableHover />
         <div className="flex justify-between mt-2">
-          <Price className="text-sm">{value.toLocaleString()}</Price>
+          <Price value={value} />
           <p>{valueTrend}</p>
         </div>
       </Link>

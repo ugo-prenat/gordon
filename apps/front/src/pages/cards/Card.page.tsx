@@ -10,7 +10,7 @@ import { DriverRecordsChart } from '@/features/records/components/recordsChart/D
 import { DriverCardsValuesChart } from '@/features/values/components/DriverCardsValuesChart';
 import { CARD_TYPES_WITH_VALUES, CardTypeWithValues } from '@gordon/models';
 import { ValueTrendBadge } from '@/features/values/components/ValueTrendBadge';
-import { Price } from '@/components/typography';
+import { Price } from '@/components/Price';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
 import { DriverCardDetails } from '@/features/cards/components/drivers/DriverCardDetails';
 
@@ -47,7 +47,7 @@ export const CardPage = () => {
 
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-4">
-                <Price className="text-2xl">{value.toLocaleString()}</Price>
+                <Price value={value} className="text-2xl [&>span]:text-lg" />
                 <ValueTrendBadge trend={valueTrend} />
               </div>
 

@@ -15,10 +15,7 @@ interface IFiltersContainerProps extends PropsWithChildren {}
 
 export const FiltersContainer: FC<IFiltersContainerProps> = ({ children }) => {
   const t = useTranslation();
-
   const isMobile = useIsMobile();
-
-  console.log({ isMobile });
 
   if (isMobile) {
     return (

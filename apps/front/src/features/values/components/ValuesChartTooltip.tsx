@@ -3,7 +3,7 @@ import { IFrontDriverCardValue } from '@gordon/models';
 import { Flag } from '@/components/Flag';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
 import { ValueTrendBadge } from '@/features/values/components/ValueTrendBadge';
-import { Price } from '@/components/typography';
+import { Price } from '@/components/Price';
 
 export const ValuesChartTooltip: FC<{ cardValue: IFrontDriverCardValue }> = ({
   cardValue
@@ -22,7 +22,7 @@ export const ValuesChartTooltip: FC<{ cardValue: IFrontDriverCardValue }> = ({
   return (
     <div className="flex flex-col gap-1">
       <div className="flex justify-between items-center">
-        <Price>{value.toLocaleString()}</Price>
+        <Price value={value} />
         <ValueTrendBadge trend={valueTrend} />
       </div>
 
