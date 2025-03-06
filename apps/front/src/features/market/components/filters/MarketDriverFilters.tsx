@@ -3,7 +3,6 @@ import { SeasonsFilter } from './fields/SeasonsFilter';
 import { FiltersContainer } from './FiltersContainer';
 import { MarketDriverCardFilters } from '@gordon/models';
 import { NameFilter } from './fields/NameFilter';
-import { Dispatch, SetStateAction } from 'react';
 import { TeamsFilter } from './fields/TeamsFilter';
 import { TypesFilter } from './fields/TypesFilter';
 import { ValuesFilter } from './fields/ValuesFilter';
@@ -11,7 +10,7 @@ import { ValuesFilter } from './fields/ValuesFilter';
 interface IMarketDriverFiltersProps {
   filters: MarketDriverCardFilters;
   unmodifiableFilters?: MarketDriverCardFilters;
-  onFiltersChange: Dispatch<SetStateAction<MarketDriverCardFilters>>;
+  onFiltersChange: (key: keyof MarketDriverCardFilters, value: unknown) => void;
 }
 
 export const MarketDriverFilters = ({
@@ -20,7 +19,7 @@ export const MarketDriverFilters = ({
   onFiltersChange
 }: IMarketDriverFiltersProps) => {
   const onChange = (key: keyof MarketDriverCardFilters) => (value: unknown) =>
-    onFiltersChange((prevFilters) => ({ ...prevFilters, [key]: value }));
+    onFiltersChange(key, value);
 
   return (
     <FiltersContainer>

@@ -11,24 +11,46 @@ import { useTranslation } from '@/services/i18n/i18n.hooks';
 import { DriverCardSkeleton } from '@/features/cards/components/drivers/DriverCardSkeleton';
 import { Button } from '@/components/ui/button';
 import NoResultImgSrc from '@/assets/search-no-result.png';
+import { marketRoute } from '@/services/router/router.routes';
 
 export const MarketDriversTab: FC<{
+  defaultFilters?: MarketDriverCardFilters;
+  otherFilters?: Record<string, unknown>;
   unmodifiableFilters?: MarketDriverCardFilters;
-}> = ({ unmodifiableFilters = {} }) => {
+}> = ({ defaultFilters = {}, otherFilters = {}, unmodifiableFilters = {} }) => {
   const t = useTranslation();
-  const [filters, setFilters] = useState<MarketDriverCardFilters>({});
+  const navigate = marketRoute.useNavigate();
+
+  const [filters, setFilters] = useState<MarketDriverCardFilters>(
+    mergeFilters(defaultFilters, unmodifiableFilters)
+  );
 
   const { data, isPending, isError, error, refetch } = useMarketDrivers(
     mergeFilters(filters, unmodifiableFilters)
   );
 
-  const handleClearFilters = () => setFilters({});
+  const handleFiltersChange = (
+    key: keyof MarketDriverCardFilters,
+    value: unknown
+  ) => {
+    const newFilters = mergeFilters(
+      { ...filters, [key]: value },
+      unmodifiableFilters
+    );
+    setFilters(newFilters);
+    navigate({ search: { ...otherFilters, ...newFilters } });
+  };
+
+  const handleClearFilters = () => {
+    setFilters({});
+    navigate({ search: otherFilters });
+  };
 
   return (
     <div className="flex h-full overflow-hidden">
       <MarketDriverFilters
         filters={filters}
-        onFiltersChange={setFilters}
+        onFiltersChange={handleFiltersChange}
         unmodifiableFilters={unmodifiableFilters}
       />
       {isPending && <LoadingState />}

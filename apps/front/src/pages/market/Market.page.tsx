@@ -14,7 +14,7 @@ import { buildTabTitle } from './market.utils';
 
 export const MarketPage = () => {
   const t = useTranslation();
-  const { tab } = marketRoute.useSearch();
+  const { tab, ...defaultFilters } = marketRoute.useSearch();
   const navigate = marketRoute.useNavigate();
 
   const defaultTab = tab || MARKET_DRIVERS_TAB;
@@ -30,16 +30,7 @@ export const MarketPage = () => {
     {
       label: t('drivers'),
       value: MARKET_DRIVERS_TAB,
-      content: (
-        <MarketDriversTab
-          unmodifiableFilters={
-            {
-              // types: ['champion'],
-              // championships: ['f1']
-            }
-          }
-        />
-      )
+      content: <MarketDriversTab defaultFilters={defaultFilters} />
     },
     {
       label: t('chassis'),

@@ -3,6 +3,13 @@ import { driverRoute } from '@/services/router/router.routes';
 
 export const DriverCardsTab = () => {
   const { id: driverId } = driverRoute.useParams();
+  const { tab, ...defaultFilters } = driverRoute.useSearch();
 
-  return <MarketDriversTab unmodifiableFilters={{ driverId }} />;
+  return (
+    <MarketDriversTab
+      otherFilters={{ tab }}
+      defaultFilters={defaultFilters}
+      unmodifiableFilters={{ driverId }}
+    />
+  );
 };
