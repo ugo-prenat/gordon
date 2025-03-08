@@ -4,8 +4,8 @@ import { teamsTable } from '@services/teams/teams.schemas';
 import { relations } from 'drizzle-orm';
 import {
   integer,
+  numeric,
   pgTable,
-  smallint,
   text,
   timestamp,
   uuid
@@ -25,7 +25,7 @@ export const driverCardsTable = pgTable('driver_cards', {
   season: integer('season').notNull(),
   championship: text('championship').$type<Championship>().notNull(),
   value: integer('value').notNull().default(-1),
-  valueTrend: smallint('value_trend').notNull(),
+  valueTrend: numeric('value_trend', { precision: 5, scale: 2 }).notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow()
 });
 

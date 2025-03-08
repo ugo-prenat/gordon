@@ -1,1 +1,0 @@
-ALTER TABLE "driver_cards" ADD COLUMN "championship" text DEFAULT 'f1' NOT NULL;

@@ -8,7 +8,7 @@
     "dev": "tsup --watch --onSuccess 'node --env-file=.env dist/server.js'",
     "build": "tsup",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
+    "db:migrate": "tsx --env-file=.env ./src/migrate.ts",
     "db:studio": "drizzle-kit studio",
     "db:push": "drizzle-kit push",
     "db:drop": "drizzle-kit drop"
@@ -19,6 +19,7 @@
     "@gordon/utils": "workspace:*",
     "@hono/node-server": "^1.12.2",
     "@hono/zod-validator": "^0.2.2",
+    "@neondatabase/serverless": "^0.10.4",
     "discord-webhook-node": "^1.1.8",
     "drizzle-orm": "^0.33.0",
     "hono": "^4.5.11",

@@ -1,1 +1,0 @@
-ALTER TABLE "teams" ALTER COLUMN "dark_logo_path" DROP DEFAULT;

@@ -1,1 +1,0 @@
-ALTER TABLE "driver_cards_values" ALTER COLUMN "value_trend" DROP DEFAULT;

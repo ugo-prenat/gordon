@@ -1,1 +1,0 @@
-ALTER TABLE "driver_cards_value" ADD COLUMN "id" serial PRIMARY KEY NOT NULL;

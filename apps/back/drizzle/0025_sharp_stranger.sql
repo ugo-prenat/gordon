@@ -1,1 +1,0 @@
-ALTER TABLE "records" ALTER COLUMN "race_country_code" SET NOT NULL;

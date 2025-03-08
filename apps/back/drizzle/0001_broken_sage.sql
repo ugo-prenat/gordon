@@ -1,0 +1,1 @@
+ALTER TABLE "driver_cards" ALTER COLUMN "value_trend" SET DATA TYPE numeric(5, 2);

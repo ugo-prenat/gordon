@@ -1,1 +1,0 @@
-ALTER TABLE "driver_cards" ALTER COLUMN "championship" DROP DEFAULT;

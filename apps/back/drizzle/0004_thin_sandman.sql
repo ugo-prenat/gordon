@@ -1,1 +1,0 @@
-ALTER TABLE "drivers" DROP COLUMN IF EXISTS "value_trend";

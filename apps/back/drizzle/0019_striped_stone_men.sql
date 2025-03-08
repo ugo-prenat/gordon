@@ -1,1 +1,0 @@
-ALTER TABLE "drivers" RENAME COLUMN "number_logo_url" TO "number_logo_path";
