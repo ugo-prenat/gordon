@@ -12,10 +12,10 @@ export const getDBTeam = (id: string): Promise<IDBTeam | undefined> =>
     with: { parentTeam: true }
   });
 
-export const createDBTeam = (team: IInsertDBTeam): Promise<string[]> =>
+export const createDBTeam = (teams: IInsertDBTeam[]): Promise<string[]> =>
   db
     .insert(teamsTable)
-    .values(team)
+    .values(teams)
     .returning({ id: teamsTable.id })
     .then((ids) => ids.map(({ id }) => id));
 

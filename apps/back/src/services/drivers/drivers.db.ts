@@ -8,10 +8,10 @@ import {
   PartialWithId
 } from '@gordon/models';
 
-export const createDBDriver = (driver: IInsertDBDriver): Promise<string[]> =>
+export const createDBDriver = (drivers: IInsertDBDriver[]): Promise<string[]> =>
   db
     .insert(driversTable)
-    .values(driver)
+    .values(drivers)
     .returning({ id: driversTable.id })
     .then((ids) => ids.map(({ id }) => id));
 

@@ -24,7 +24,7 @@ export const teamsRoutes = new Hono()
   })
 
   .post('/', async (c) => {
-    const body: IInsertDBTeam = await c.req.json();
+    const body: IInsertDBTeam[] = await c.req.json();
 
     return createDBTeam(body)
       .then((createdTeam) => c.json({ team: createdTeam }, 201))
