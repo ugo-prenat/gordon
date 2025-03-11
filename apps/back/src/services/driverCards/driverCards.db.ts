@@ -54,7 +54,16 @@ export const getDBDriverCards = (
             WHEN ${driverCardsTable.type} = 'vintage' THEN 5
             ELSE 6
           END`
-        )
+        ),
+        desc(
+          sql`CASE 
+            WHEN ${driverCardsTable.championship} = 'f3' THEN 1
+            WHEN ${driverCardsTable.championship} = 'f2' THEN 2
+            WHEN ${driverCardsTable.championship} = 'f1' THEN 3
+            ELSE 4
+          END`
+        ),
+        desc(driverCardsTable.value)
       ]
     })
   );
