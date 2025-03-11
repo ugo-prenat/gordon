@@ -15,6 +15,20 @@
       "when": 1741470771183,
       "tag": "0001_broken_sage",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1741725566355,
+      "tag": "0002_supreme_shockwave",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1741727541772,
+      "tag": "0003_late_pyro",
+      "breakpoints": true
     }
   ]
 }

@@ -25,7 +25,9 @@ export const driverCardsTable = pgTable('driver_cards', {
   season: integer('season').notNull(),
   championship: text('championship').$type<Championship>().notNull(),
   value: integer('value').notNull().default(-1),
-  valueTrend: numeric('value_trend', { precision: 5, scale: 2 }).notNull(),
+  valueTrend: numeric('value_trend', { precision: 5, scale: 2 })
+    .default('0')
+    .notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow()
 });
 

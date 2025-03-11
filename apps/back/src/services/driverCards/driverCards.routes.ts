@@ -41,7 +41,7 @@ export const driverCardsRouter = new Hono()
   })
 
   .post('/', async (c) => {
-    const body: IInsertDBDriverCard = await c.req.json();
+    const body: IInsertDBDriverCard[] = await c.req.json();
 
     return createDBDriverCard(body)
       .then((createdDriverCard) =>

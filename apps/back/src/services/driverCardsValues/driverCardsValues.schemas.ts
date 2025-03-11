@@ -2,7 +2,14 @@ import { CardTypeWithValues } from '@gordon/models';
 import { driversTable } from '@services/drivers/drivers.schemas';
 import { recordsTable } from '@services/records/records.schemas';
 import { relations } from 'drizzle-orm';
-import { integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
+import {
+  integer,
+  numeric,
+  pgTable,
+  serial,
+  text,
+  timestamp
+} from 'drizzle-orm/pg-core';
 
 export const driverCardsValuesTable = pgTable('driver_cards_values', {
   id: serial('id').primaryKey(),
@@ -14,7 +21,7 @@ export const driverCardsValuesTable = pgTable('driver_cards_values', {
     .references(() => recordsTable.id),
   type: text('type').$type<CardTypeWithValues>().notNull(),
   value: integer('value').notNull(),
-  valueTrend: integer('value_trend').notNull(),
+  valueTrend: numeric('value_trend', { precision: 5, scale: 2 }).notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow()
 });
 

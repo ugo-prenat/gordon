@@ -68,11 +68,11 @@ export const getDBDriverCard = (
   });
 
 export const createDBDriverCard = (
-  driverCard: IInsertDBDriverCard
+  driverCards: IInsertDBDriverCard[]
 ): Promise<string[]> =>
   db
     .insert(driverCardsTable)
-    .values(driverCard)
+    .values(driverCards)
     .returning({ id: driverCardsTable.id })
     .then((ids) => ids.map(({ id }) => id));
 
@@ -93,7 +93,7 @@ export const updateDBDriverCardFromValue = ({
 }: IDBDriverCardValue) =>
   db
     .update(driverCardsTable)
-    .set({ value, valueTrend })
+    .set({ value, valueTrend: valueTrend.toString() })
     .where(
       and(
         eq(driverCardsTable.type, type),

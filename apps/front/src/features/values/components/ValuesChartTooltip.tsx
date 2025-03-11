@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { IFrontDriverCardValue } from '@gordon/models';
 import { Flag } from '@/components/Flag';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
-import { ValueTrendBadge } from '@/features/values/components/ValueTrendBadge';
 import { Price } from '@/components/Price';
 
 export const ValuesChartTooltip: FC<{ cardValue: IFrontDriverCardValue }> = ({
@@ -10,7 +9,7 @@ export const ValuesChartTooltip: FC<{ cardValue: IFrontDriverCardValue }> = ({
 }) => {
   const t = useTranslation();
 
-  const { record, value, valueTrend } = cardValue;
+  const { record, value } = cardValue;
   const { race, result, championship } = record;
   const { countryCode, round, key } = race;
 
@@ -21,10 +20,7 @@ export const ValuesChartTooltip: FC<{ cardValue: IFrontDriverCardValue }> = ({
 
   return (
     <div className="flex flex-col gap-1">
-      <div className="flex justify-between items-center">
-        <Price value={value} />
-        <ValueTrendBadge trend={valueTrend} />
-      </div>
+      <Price value={value} />
 
       <p className="font-medium">Round {round}</p>
       <div className="flex items-center gap-2">

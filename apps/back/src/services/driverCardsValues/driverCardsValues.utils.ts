@@ -20,6 +20,7 @@ import {
   DRIVER_CARD_VALUE_MULTIPLIER
 } from './driverCardsValues.models';
 import { MAX_RECORD_SCORE } from '@scraper/scraper.models';
+import { roundNum } from '@gordon/utils';
 
 export const updateDriverCardsValues = (insertedRecords: IDBRecord[]) => {
   const records = dbRecordsToRecords(insertedRecords);
@@ -82,7 +83,7 @@ const calculateCardValue = (
 
   return {
     value: Math.floor(newValue),
-    valueTrend: calculateValueTrend(prevValue, newValue)
+    valueTrend: roundNum(((newValue - prevValue) / prevValue) * 100) // min -15%, max 15%
   };
 };
 
@@ -103,16 +104,6 @@ const calculteBaseCardValue = (
       : 1; // 5% bonus for avgScore between 99-100% and score = MAX_RECORD_SCORE
 
   return baseValue * avgScoreBonus;
-};
-
-const calculateValueTrend = (prevValue: number, newValue: number): number => {
-  const percentChange = (newValue - prevValue) / prevValue;
-
-  if (percentChange >= 0.15) return 2; // >15% increase
-  if (percentChange >= 0.05) return 1; // 5-15% increase
-  if (percentChange <= -0.15) return -2; // >15% decrease
-  if (percentChange <= -0.05) return -1; // 5-15% decrease
-  return 0; // within ±5%
 };
 
 export const dbDriverCardsValuesToFrontDriverCardsValues = (
