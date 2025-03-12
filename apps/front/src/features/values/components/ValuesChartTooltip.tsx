@@ -9,7 +9,7 @@ export const ValuesChartTooltip: FC<{ cardValue: IFrontDriverCardValue }> = ({
 }) => {
   const t = useTranslation();
 
-  const { record, value } = cardValue;
+  const { record, value, valueTrend } = cardValue;
   const { race, result, championship } = record;
   const { countryCode, round, key } = race;
 
@@ -20,7 +20,7 @@ export const ValuesChartTooltip: FC<{ cardValue: IFrontDriverCardValue }> = ({
 
   return (
     <div className="flex flex-col gap-1">
-      <Price value={value} />
+      <Price value={value} percentage={valueTrend} colorAnimation />
 
       <p className="font-medium">Round {round}</p>
       <div className="flex items-center gap-2">

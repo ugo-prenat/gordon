@@ -3,6 +3,7 @@ import { Link } from '@tanstack/react-router';
 import { DriverCard } from '@/features/cards/components/drivers/DriverCard';
 import { IMarketDriverCard, Resource } from '@gordon/models';
 import { Price } from '@/components/Price';
+import { ValueTrendBadge } from '@/features/values/components/ValueTrendBadge';
 
 interface IMarketCardProps {
   resource: Resource;
@@ -16,8 +17,8 @@ export const MarketCard: FC<IMarketCardProps> = ({ resource, card }) => {
       <Link to={`/cards/${id}`}>
         <DriverCard card={card} disableHover />
         <div className="flex justify-between mt-2">
-          <Price value={value} />
-          <p>{valueTrend}</p>
+          <Price value={value} percentage={valueTrend} />
+          <ValueTrendBadge trend={valueTrend} />
         </div>
       </Link>
     </div>

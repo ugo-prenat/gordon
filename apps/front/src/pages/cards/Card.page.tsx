@@ -9,10 +9,10 @@ import { CardPageError } from './CardPageError';
 import { DriverRecordsChart } from '@/features/records/components/recordsChart/DriverRecordsChart';
 import { DriverCardsValuesChart } from '@/features/values/components/DriverCardsValuesChart';
 import { CARD_TYPES_WITH_VALUES, CardTypeWithValues } from '@gordon/models';
-import { ValueTrendBadge } from '@/features/values/components/ValueTrendBadge';
 import { Price } from '@/components/Price';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
 import { DriverCardDetails } from '@/features/cards/components/drivers/DriverCardDetails';
+import { PercentValue } from '@/components/typography';
 
 export const CardPage = () => {
   const { id } = cardRoute.useParams();
@@ -46,9 +46,15 @@ export const CardPage = () => {
             </Link>
 
             <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
-                <Price value={value} className="text-2xl [&>span]:text-lg" />
-                <ValueTrendBadge trend={valueTrend} />
+              <div className="flex items-end gap-2">
+                <Price
+                  value={value}
+                  initialAnimate
+                  colorAnimation
+                  percentage={valueTrend}
+                  className="text-2xl [&>span]:text-lg"
+                />
+                <PercentValue value={valueTrend} className="mb-1" />
               </div>
 
               <Button variant="default" className="px-4 py-2 font-bold">

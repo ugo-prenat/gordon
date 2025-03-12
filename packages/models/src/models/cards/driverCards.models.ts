@@ -21,8 +21,8 @@ export interface IInsertDBDriverCard
 export interface IDBDriverCard extends WithDate<IDriverCard> {}
 
 export interface IMarketDriverCard
-  extends Omit<IDriverCard, 'driverId' | 'teamId'> {
-  value: number;
+  extends Omit<IDriverCard, 'driverId' | 'teamId' | 'valueTrend'> {
+  valueTrend: number;
   driver: Pick<
     IDriver,
     'id' | 'firstName' | 'lastName' | 'nationalityCountryCode' | 'dateOfBirth'

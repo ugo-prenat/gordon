@@ -30,3 +30,19 @@ export const Description: FC<HTMLAttributes<HTMLParagraphElement>> = ({
 export const P: FC<PropsWithChildren> = ({ children }) => (
   <p className="leading-7 [&:not(:first-child)]:mt-6">{children}</p>
 );
+
+export const PercentValue: FC<{ value: number; className?: string }> = ({
+  value,
+  className
+}) => (
+  <p
+    className={cn('font-semibold text-sm', className, {
+      'text-success': value > 0,
+      'text-destructive': value < 0
+    })}
+  >
+    {value > 0 ? '+' : ''}
+    {value}
+    <span>%</span>
+  </p>
+);
