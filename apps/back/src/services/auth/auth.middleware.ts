@@ -1,6 +1,7 @@
 import { Context, Next } from 'hono';
 import { verifyToken } from './auth.utils';
 import { handleError } from '@utils/api.utils';
+import { JWT_EXPIRED_ERROR } from './auth.models';
 
 export const authMiddleware = async (c: Context, next: Next) => {
   if (c.req.path.startsWith('/auth')) return next();
@@ -14,6 +15,8 @@ export const authMiddleware = async (c: Context, next: Next) => {
       return next();
     })
     .catch((error) =>
-      handleError(c, 'AUTH-2', 'Token expired or invalid')(error)
+      error.name === JWT_EXPIRED_ERROR
+        ? handleError(c, 'AUTH-2', 'Expired token', 403)(error)
+        : handleError(c, 'AUTH-3', 'Invalid token')(error)
     );
 };
