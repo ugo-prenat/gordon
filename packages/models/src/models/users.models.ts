@@ -1,10 +1,35 @@
-export type Role = 'user' | 'admin' | 'owner';
+export const USER_ROLE = 'user' as const;
+export const ADMIN_ROLE = 'admin' as const;
 
-export interface IUser {
+export const ROLES = [USER_ROLE, ADMIN_ROLE] as const;
+export type Role = (typeof ROLES)[number];
+
+export interface IBaseUser {
   id: string;
-  email: string;
+  role: Role;
   name: string;
+  credits: number;
   picturePath: string;
+  lastLogin: Date;
 }
 
-// add lastLogin
+export interface IGuestUser extends IBaseUser {
+  isGuest: true;
+}
+
+export interface ISignedUser extends IBaseUser {
+  isGuest: false;
+  email: string;
+  password: string;
+}
+
+export type IUser = IGuestUser | ISignedUser;
+
+export type IFrontUser = Omit<IUser, 'password'>;
+
+export type IInsertDBUser = Omit<
+  IUser,
+  'picturePath' | 'credits' | 'lastLogin'
+>;
+
+export type IDBUser = IUser;

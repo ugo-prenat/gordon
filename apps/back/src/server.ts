@@ -9,6 +9,7 @@ import { driversRouter } from '@services/drivers/drivers.routes';
 import { recordsRouter } from '@services/records/records.routes';
 import { driverCardsRouter } from '@services/driverCards/driverCards.routes';
 import { teamsRoutes } from '@services/teams/teams.routes';
+import { usersRoutes } from '@services/users/users.routes';
 
 const port = 4000;
 const app = new Hono();
@@ -38,6 +39,7 @@ const router = app
   // /cards/chassis/:id
 
   .route('/teams', teamsRoutes)
+  .route('/users', usersRoutes)
 
   .notFound((c) => {
     const err = new APIError(
