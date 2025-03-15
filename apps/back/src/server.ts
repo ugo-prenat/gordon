@@ -10,14 +10,19 @@ import { recordsRouter } from '@services/records/records.routes';
 import { driverCardsRouter } from '@services/driverCards/driverCards.routes';
 import { teamsRoutes } from '@services/teams/teams.routes';
 import { usersRoutes } from '@services/users/users.routes';
+import { authMiddleware } from '@services/auth/auth.middleware';
+import { authRoutes } from '@services/auth/auth.routes';
 
-const port = 4000;
+const port = +process.env.PORT! || 4000;
 const app = new Hono();
 
 app.use('*', cors());
 app.use('*', honoLogger());
+app.use('*', authMiddleware);
 
 const router = app
+  .route('/auth', authRoutes)
+
   .route('/drivers', driversRouter)
   .route('/records', recordsRouter)
 

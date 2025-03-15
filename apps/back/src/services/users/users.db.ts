@@ -11,9 +11,9 @@ export const getDBUser = (id: string): Promise<IDBUser | undefined> =>
     IDBUser | undefined
   >;
 
-export const createDBUser = (user: IInsertDBUser): Promise<IDBUser[]> =>
+export const createDBUser = (user: IInsertDBUser): Promise<IDBUser> =>
   db
     .insert(usersTable)
     .values(user)
     .returning()
-    .then((users) => users as IDBUser[]);
+    .then((users) => users[0] as IDBUser);
