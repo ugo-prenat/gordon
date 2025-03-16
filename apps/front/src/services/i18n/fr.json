@@ -1,4 +1,5 @@
 {
+  "id": "Id",
   "retry": "Réessayer",
   "seasons": "Saisons",
   "name": "Nom",
@@ -11,6 +12,8 @@
   "search": "Rechercher",
   "showMore.true": "Voir plus",
   "showMore.false": "Voir moins",
+  "getStarted": "Commencer",
+  "session.refreshed": "La session a été rafraîchie",
 
   "settings": "Paramètres",
   "back.to.market": "Retour au marché",
@@ -92,5 +95,24 @@
   "driver.values.timeRange.all": "Tout",
   "driver.values.timeRange.last-2-seasons": "2 dernières saisons",
   "driver.values.timeRange.last-season": "Dernière saison",
-  "driver.values.timeRange.last-10-races": "10 dernières courses"
+  "driver.values.timeRange.last-10-races": "10 dernières courses",
+
+  "register": {
+    "title": "Inscription",
+    "dialog.title": "Choisissez le nom de votre manager de course",
+    "submit": "Continuer en tant qu'invité",
+    "submit.loading": "Création de votre écurie...",
+    "submit.error": "Une erreur est survenue lors de la création de votre écurie",
+    "error": {
+      "id": {
+        "min": "L'identifiant doit contenir au moins 2 caractères",
+        "max": "L'identifiant doit contenir au plus 30 caractères",
+        "specialChars": "L'identifiant ne peut pas contenir de caractères spéciaux"
+      },
+      "name": {
+        "min": "Le nom doit contenir au moins 2 caractères",
+        "max": "Le nom doit contenir au plus 30 caractères"
+      }
+    }
+  }
 }

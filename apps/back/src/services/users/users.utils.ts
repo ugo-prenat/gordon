@@ -9,10 +9,3 @@ export const formatUserToFront = (user: IDBUser): IFrontUser => {
   const { password, ...rest } = user;
   return rest;
 };
-
-export const buildGuestUserId = () => {
-  const id = Math.floor(Math.random() * 10000)
-    .toString()
-    .padStart(4, '0');
-  return `guest-${id}`;
-};

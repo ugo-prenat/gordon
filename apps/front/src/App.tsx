@@ -1,23 +1,26 @@
-import { router } from '@/services/router/router';
-import { RouterProvider } from '@tanstack/react-router';
 import { updateRootElement } from './services/store/settings/settings.utils';
 import { useEffect } from 'react';
 import { useSettings } from './services/store/settings/settings.stores';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient } from './services/api/queryClient.api';
+import { Toaster } from './components/ui/sonner';
+import { toast } from 'sonner';
+import { useTranslation } from './services/i18n/i18n.hooks';
+import { isSessionRefreshed } from './services/api/rpc.api';
 
 export const App = () => {
   const { theme } = useSettings();
+  const t = useTranslation();
 
   useEffect(() => {
     updateRootElement(theme);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (isSessionRefreshed()) toast.success(t('session.refreshed'));
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {/* <ReactQueryDevtools /> */}
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <>
+      <Toaster />
+    </>
   );
 };

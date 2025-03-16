@@ -22,3 +22,6 @@ export const isFirst = <T>(array: T[], index: number): boolean => index === 0;
 
 export const isLast = <T>(array: T[], index: number): boolean =>
   index === array.length - 1;
+
+export const wait = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));

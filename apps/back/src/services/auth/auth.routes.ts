@@ -1,12 +1,8 @@
 import { createDBUser, getDBUser } from '@services/users/users.db';
 import { Hono } from 'hono';
-import {
-  authRegisterSchema,
-  IJwtPayload,
-  JWT_EXPIRED_ERROR
-} from './auth.models';
+import { IJwtPayload, JWT_EXPIRED_ERROR } from './auth.models';
 import { payloadValidator } from '@middlewares/payloadValidator.middleware';
-import { IInsertDBUser } from '@gordon/models';
+import { IInsertDBUser, userRegistrationSchema } from '@gordon/models';
 import { handleError } from '@utils/api.utils';
 import { signToken, verifyToken } from './auth.utils';
 import { decode } from 'hono/jwt';
@@ -16,7 +12,10 @@ export const authRoutes = new Hono()
     const token = c.req.header('Authorization')?.replace('Bearer ', '');
     if (!token)
       return Promise.resolve(
-        c.json({ code: 'AUR-1', message: 'No access token provided' }, 401)
+        c.json(
+          { code: 'AUR-1', message: 'No access token provided', status: 401 },
+          401
+        )
       );
 
     return verifyToken(token)
@@ -34,7 +33,7 @@ export const authRoutes = new Hono()
       });
   })
 
-  .post('/register', payloadValidator(authRegisterSchema), (c) => {
+  .post('/register', payloadValidator(userRegistrationSchema), (c) => {
     const { id, name } = c.req.valid('json');
     const user: IInsertDBUser = { id, name, role: 'user', isGuest: true };
 

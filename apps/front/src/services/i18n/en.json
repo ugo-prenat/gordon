@@ -1,4 +1,5 @@
 {
+  "id": "Id",
   "retry": "Retry",
   "seasons": "Seasons",
   "name": "Name",
@@ -11,7 +12,8 @@
   "search": "Search",
   "showMore.true": "Show more",
   "showMore.false": "Show less",
-
+  "getStarted": "Get started",
+  "session.refreshed": "The session has been refreshed",
   "settings": "Settings",
   "back.to.market": "Back to market",
 
@@ -93,5 +95,24 @@
   "driver.values.timeRange.all": "All",
   "driver.values.timeRange.last-2-seasons": "Last 2 seasons",
   "driver.values.timeRange.last-season": "Last season",
-  "driver.values.timeRange.last-10-races": "Last 10 races"
+  "driver.values.timeRange.last-10-races": "Last 10 races",
+
+  "register": {
+    "title": "Register",
+    "dialog.title": "Choose your racing manager name",
+    "submit": "Continue as guest",
+    "submit.loading": "Creating your team...",
+    "submit.error": "An error occurred while creating your team",
+    "error": {
+      "id": {
+        "min": "The id must be at least 2 characters long",
+        "max": "The id must be at most 30 characters long",
+        "specialChars": "The id cannot contain special characters"
+      },
+      "name": {
+        "min": "The name must be at least 2 characters long",
+        "max": "The name must be at most 30 characters long"
+      }
+    }
+  }
 }
