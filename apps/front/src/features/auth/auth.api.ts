@@ -1,5 +1,5 @@
 import { handleRes } from '@/services/api/api.utils';
-import { api } from '@/services/api/rpc.api';
+import { api } from '@/services/api/api.utils';
 import { IAPIError, RegistrationUser } from '@gordon/models';
 import { useMutation } from '@tanstack/react-query';
 

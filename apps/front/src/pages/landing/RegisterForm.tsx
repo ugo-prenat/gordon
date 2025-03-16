@@ -15,7 +15,7 @@ import { isEmpty } from '@gordon/utils';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useAuthRegistration } from '@/features/auth/auth.api';
 import { toast } from 'sonner';
-import { storeAccessToken } from '@/services/api/rpc.api';
+import { storeAccessToken } from '@/services/api/api.utils';
 
 export const RegisterForm = () => {
   const t = useTranslation();

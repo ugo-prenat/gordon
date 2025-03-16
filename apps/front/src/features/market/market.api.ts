@@ -4,8 +4,7 @@ import {
   IMarketDriverCard,
   MarketDriverCardFilters
 } from '@gordon/models';
-import { api } from '@/services/api/rpc.api';
-import { handleRes } from '@/services/api/api.utils';
+import { api, handleRes } from '@/services/api/api.utils';
 import ms from 'ms';
 import { isNotEmpty } from '@gordon/utils';
 

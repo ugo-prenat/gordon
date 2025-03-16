@@ -17,6 +17,6 @@ export const authMiddleware = async (c: Context, next: Next) => {
     .catch((error) =>
       error.name === JWT_EXPIRED_ERROR
         ? handleError(c, 'AUTH-2', 'Expired token', 403)(error)
-        : handleError(c, 'AUTH-3', 'Invalid token')(error)
+        : handleError(c, 'AUTH-3', 'Invalid token', 401)(error)
     );
 };

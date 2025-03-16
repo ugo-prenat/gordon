@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { IAPIError, ITeam } from '@gordon/models';
-import { api } from '@/services/api/rpc.api';
-import { handleRes } from '@/services/api/api.utils';
+import { handleRes, api } from '@/services/api/api.utils';
 import ms from 'ms';
 
 export const useTeams = () =>

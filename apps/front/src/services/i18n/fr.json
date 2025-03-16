@@ -13,7 +13,6 @@
   "showMore.true": "Voir plus",
   "showMore.false": "Voir moins",
   "getStarted": "Commencer",
-  "session.refreshed": "La session a été rafraîchie",
 
   "settings": "Paramètres",
   "back.to.market": "Retour au marché",
@@ -114,5 +113,10 @@
         "max": "Le nom doit contenir au plus 30 caractères"
       }
     }
+  },
+
+  "session": {
+    "refreshed": "La session a été rafraîchie",
+    "killed": "La session a été interrompue"
   }
 }

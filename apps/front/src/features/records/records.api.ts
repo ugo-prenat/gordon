@@ -1,5 +1,4 @@
-import { api } from '@/services/api/rpc.api';
-import { handleRes } from '@/services/api/api.utils';
+import { api, handleRes } from '@/services/api/api.utils';
 import { IAPIError, IRecord } from '@gordon/models';
 import { useQuery } from '@tanstack/react-query';
 import ms from 'ms';

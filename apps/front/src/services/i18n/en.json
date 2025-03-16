@@ -114,5 +114,10 @@
         "max": "The name must be at most 30 characters long"
       }
     }
+  },
+
+  "session": {
+    "refreshed": "The session has been refreshed",
+    "killed": "The session has been interrupted"
   }
 }
