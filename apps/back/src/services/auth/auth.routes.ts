@@ -6,8 +6,43 @@ import { IInsertDBUser, userRegistrationSchema } from '@gordon/models';
 import { handleError } from '@utils/api.utils';
 import { signToken, verifyToken } from './auth.utils';
 import { decode } from 'hono/jwt';
+import { formatUserToFront } from '@services/users/users.utils';
+import { StatusCode } from 'hono/utils/http-status';
 
 export const authRoutes = new Hono()
+  .get('/', (c) => {
+    const token = c.req.header('Authorization')?.replace('Bearer ', '');
+    if (!token)
+      return Promise.resolve(
+        c.json(
+          {
+            code: 'AUR-1',
+            message: 'No access token provided',
+            status: 401 as StatusCode
+          },
+          401
+        )
+      );
+
+    const { payload } = decode(token);
+    const { sub } = payload as IJwtPayload;
+
+    return getDBUser(sub)
+      .then((user) =>
+        user
+          ? c.json(formatUserToFront(user), 200)
+          : c.json(
+              {
+                code: 'AUR-6',
+                message: 'No user found',
+                status: 404 as StatusCode
+              },
+              404
+            )
+      )
+      .catch(handleError(c, 'AUR-7'));
+  })
+
   .post('/refresh', (c) => {
     const token = c.req.header('Authorization')?.replace('Bearer ', '');
     if (!token)
@@ -53,5 +88,5 @@ export const authRoutes = new Hono()
           ? c.json({ message: 'Id already taken' }, 400)
           : c.json({}, 200)
       )
-      .catch(handleError(c, 'AUR-6'))
+      .catch(handleError(c, 'AUR-8'))
   );

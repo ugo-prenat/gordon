@@ -2,9 +2,12 @@ import { Link } from '@tanstack/react-router';
 import { Button } from '../ui/button';
 import { SettingsPopupMenu } from '../settingsPopupMenu/SettingsPopupMenu';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
+import { Price } from '../Price';
+import { useAuthStore } from '@/services/store/auth/auth.stores';
 
 export const Header = () => {
   const t = useTranslation();
+  const { user } = useAuthStore();
 
   return (
     <div id="header" className="p-3 border-b flex justify-between">
@@ -33,7 +36,10 @@ export const Header = () => {
         </Button>
       </div>
 
-      <SettingsPopupMenu />
+      <div className="flex items-center gap-x-6">
+        <Price value={user.credits} percentage={0} />
+        <SettingsPopupMenu />
+      </div>
     </div>
   );
 };

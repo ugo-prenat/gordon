@@ -10,25 +10,27 @@ import {
   fullscreenRoute,
   landingRoute,
   marketRoute,
-  navRoute,
-  onboardingRoute,
+  protectedRoute,
   rootRoute,
-  cardRoute
+  cardRoute,
+  navRoute
 } from './router.routes';
 
 const routeTree = rootRoute.addChildren([
-  fullscreenRoute.addChildren([landingRoute, onboardingRoute]),
+  fullscreenRoute.addChildren([landingRoute]),
   navRoute.addChildren([
-    marketRoute,
+    protectedRoute.addChildren([
+      marketRoute,
 
-    driversListRoute,
-    driverRoute,
+      driversListRoute,
+      driverRoute,
 
-    chassisListRoute,
-    chassisRoute,
+      chassisListRoute,
+      chassisRoute,
 
-    adminRoute,
-    cardRoute
+      adminRoute,
+      cardRoute
+    ])
   ])
 ]);
 

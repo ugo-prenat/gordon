@@ -3,33 +3,27 @@ import { devtools } from 'zustand/middleware';
 import { IUser } from '@gordon/models';
 
 interface IAuthStore {
-  user: IUser | null;
-  accessToken: string | null;
-  setUser: (user: IUser) => void;
-  setAccessToken: (token: string) => void;
+  user: IUser;
+  isAuthenticated: boolean;
+  authenticateUser: (user: IUser) => void;
   logout: () => void;
 }
 
-export const useAuth = create<IAuthStore>()(
-  devtools((set) => ({
-    user: temptUser,
-    accessToken: tempToken,
-
-    setUser: (user) => set({ user }),
-    setAccessToken: (token) => set({ accessToken: token }),
-
-    logout: () => set({ user: null })
-  }))
-);
-
-const temptUser: IUser = {
-  id: 'ougo',
-  email: 'ougou@gmail.com',
-  name: 'ougo dev',
-  picturePath: 'vroom'
+const virginUser: IUser = {
+  id: '',
+  name: '',
+  credits: 0,
+  role: 'user',
+  isGuest: true,
+  picturePath: '',
+  lastLogin: new Date()
 };
 
-const tempToken = "c'est safe";
-
-export const getAccessToken = () => useAuth.getState().accessToken;
-export const getUser = () => useAuth.getState().user;
+export const useAuthStore = create<IAuthStore>()(
+  devtools((set) => ({
+    user: virginUser,
+    isAuthenticated: false,
+    authenticateUser: (user) => set({ user, isAuthenticated: true }),
+    logout: () => set({ user: virginUser, isAuthenticated: false })
+  }))
+);
