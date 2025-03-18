@@ -12,39 +12,31 @@ import { teamsRoutes } from '@services/teams/teams.routes';
 import { usersRoutes } from '@services/users/users.routes';
 import { authMiddleware } from '@services/auth/auth.middleware';
 import { authRoutes } from '@services/auth/auth.routes';
+import { userDriverCardsRouter } from '@services/userDriverCards/userDriverCards.routes';
+import { IJwtPayload } from '@services/auth/auth.models';
+
+type ServerVariables = {
+  Variables: {
+    jwtPayload: IJwtPayload;
+  };
+};
 
 const port = +process.env.PORT! || 4000;
-const app = new Hono();
+const app = new Hono<ServerVariables>();
 
 app.use('*', cors());
 app.use('*', honoLogger());
 app.use('*', authMiddleware);
 
 const router = app
+
   .route('/auth', authRoutes)
-
-  .route('/drivers', driversRouter)
-  .route('/records', recordsRouter)
-
-  // DRIVER CARDS
-  // /cards/drivers/market
-  // /cards/drivers/market/:id
-  .route('/cards/drivers/market', driverCardsRouter)
-
-  // CHASSIS CARDS
-  // /cards/chassis/market
-  // /cards/chassis/market/:id
-
-  // USER DRIVER CARDS
-  // /cards/drivers
-  // /cards/drivers/:id
-
-  // USER CHASSIS CARDS
-  // /cards/chassis
-  // /cards/chassis/:id
-
   .route('/teams', teamsRoutes)
   .route('/users', usersRoutes)
+  .route('/drivers', driversRouter)
+  .route('/records', recordsRouter)
+  .route('/cards/drivers', userDriverCardsRouter)
+  .route('/cards/drivers/market', driverCardsRouter)
 
   .notFound((c) => {
     const err = new APIError(

@@ -14,6 +14,8 @@ import { teamsRelations, teamsTable } from '@services/teams/teams.schemas';
 import { driverCardsValuesRelations } from '@services/driverCardsValues/driverCardsValues.schemas';
 import { driverCardsValuesTable } from '@services/driverCardsValues/driverCardsValues.schemas';
 import { usersTable } from '@services/users/users.schemas';
+import { userDriverCardsRelations } from '@services/userDriverCards/userDriverCards.schemas';
+import { userDriverCardsTable } from '@services/userDriverCards/userDriverCards.schemas';
 
 export default {
   driversTable,
@@ -31,5 +33,8 @@ export default {
   teamsTable,
   teamsRelations,
 
-  usersTable
+  usersTable,
+
+  userDriverCardsTable,
+  userDriverCardsRelations
 };

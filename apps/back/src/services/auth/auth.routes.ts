@@ -10,13 +10,15 @@ import { formatUserToFront } from '@services/users/users.utils';
 import { StatusCode } from 'hono/utils/http-status';
 
 export const authRoutes = new Hono()
+  .onError((e, c) => handleError(c, 'AUR-1')(e))
+
   .get('/', (c) => {
     const token = c.req.header('Authorization')?.replace('Bearer ', '');
     if (!token)
       return Promise.resolve(
         c.json(
           {
-            code: 'AUR-1',
+            code: 'AUR-2',
             message: 'No access token provided',
             status: 401 as StatusCode
           },
@@ -33,14 +35,14 @@ export const authRoutes = new Hono()
           ? c.json(formatUserToFront(user), 200)
           : c.json(
               {
-                code: 'AUR-6',
+                code: 'AUR-3',
                 message: 'No user found',
                 status: 404 as StatusCode
               },
               404
             )
       )
-      .catch(handleError(c, 'AUR-7'));
+      .catch(handleError(c, 'AUR-4'));
   })
 
   .post('/refresh', (c) => {
@@ -48,7 +50,7 @@ export const authRoutes = new Hono()
     if (!token)
       return Promise.resolve(
         c.json(
-          { code: 'AUR-1', message: 'No access token provided', status: 401 },
+          { code: 'AUR-5', message: 'No access token provided', status: 401 },
           401
         )
       );
@@ -62,9 +64,9 @@ export const authRoutes = new Hono()
 
           return signToken({ sub, role })
             .then((jwt) => c.json({ jwt }, 201))
-            .catch(handleError(c, 'AUR-2', 'Failed to sign a new token'));
+            .catch(handleError(c, 'AUR-6'));
         }
-        return handleError(c, 'AUR-3', 'Invalid token')(error);
+        return handleError(c, 'AUR-7', 'Invalid token')(error);
       });
   })
 
@@ -76,9 +78,9 @@ export const authRoutes = new Hono()
       .then(({ id, role }) =>
         signToken({ sub: id, role })
           .then((jwt) => c.json({ jwt }, 201))
-          .catch(handleError(c, 'AUR-4'))
+          .catch(handleError(c, 'AUR-8'))
       )
-      .catch(handleError(c, 'AUR-5'));
+      .catch(handleError(c, 'AUR-9'));
   })
 
   .get('/checkId/:id', (c) =>
@@ -88,5 +90,5 @@ export const authRoutes = new Hono()
           ? c.json({ message: 'Id already taken' }, 400)
           : c.json({}, 200)
       )
-      .catch(handleError(c, 'AUR-8'))
+      .catch(handleError(c, 'AUR-10'))
   );
