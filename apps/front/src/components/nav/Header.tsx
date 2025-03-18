@@ -9,6 +9,8 @@ export const Header = () => {
   const t = useTranslation();
   const { user } = useAuthStore();
 
+  const isUserAdmin = user.role === 'admin';
+
   return (
     <div id="header" className="p-3 border-b flex justify-between">
       <div className="flex items-center gap-x-6 pl-3">
@@ -23,17 +25,19 @@ export const Header = () => {
             {t('market')}
           </Link>
         </Button>
-        <Button variant="link">
-          <Link
-            to="/admin"
-            className="flex items-center opacity-60 text-2xl font-bold transition-opacity ease-in-out hover:opacity-100"
-            activeProps={{
-              className: '!opacity-100'
-            }}
-          >
-            {t('admin')}
-          </Link>
-        </Button>
+        {isUserAdmin && (
+          <Button variant="link">
+            <Link
+              to="/admin"
+              className="flex items-center opacity-60 text-2xl font-bold transition-opacity ease-in-out hover:opacity-100"
+              activeProps={{
+                className: '!opacity-100'
+              }}
+            >
+              {t('admin')}
+            </Link>
+          </Button>
+        )}
       </div>
 
       <div className="flex items-center gap-x-6">

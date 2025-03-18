@@ -1,4 +1,4 @@
-import { Outlet } from '@tanstack/react-router';
+import { Navigate, Outlet, useRouterState } from '@tanstack/react-router';
 import { useAuthStore } from '@/services/store/auth/auth.stores';
 import { fetchAuthenticateUser } from '@/features/auth/auth.api';
 import { useEffect } from 'react';
@@ -8,7 +8,11 @@ import { ShinyText } from '../ShinyText';
 
 export const ProtectedRoute = () => {
   const t = useTranslation();
-  const { isAuthenticated, authenticateUser } = useAuthStore();
+  const { isAuthenticated, authenticateUser, user } = useAuthStore();
+
+  const routePath = useRouterState().location.pathname;
+  const isAdminPage = routePath.includes('/admin');
+  const isUserAdmin = isAuthenticated && user.role === 'admin';
 
   const handleAuthenticateUser = () =>
     fetchAuthenticateUser().then(authenticateUser).catch(handleKillSession);
@@ -23,6 +27,8 @@ export const ProtectedRoute = () => {
         <ShinyText text={t('session.loading')} />
       </div>
     );
+
+  if (isAdminPage && !isUserAdmin) return <Navigate to="/market" />;
 
   return <Outlet />;
 };
