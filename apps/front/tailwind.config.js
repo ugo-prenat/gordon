@@ -149,6 +149,10 @@ const config = {
           '100%': {
             backgroundPosition: '-100% 0'
           }
+        },
+        shine: {
+          '0%': { 'background-position': '100%' },
+          '100%': { 'background-position': '-100%' }
         }
       },
       transitionDuration: {
@@ -160,7 +164,8 @@ const config = {
         breath: 'breath 4s ease-in-out infinite',
         throb: 'throb 3s ease-in-out infinite',
         'fade-in': 'fade-in 1s ease-in-out forwards',
-        skeleton: 'skeleton 2.5s ease-in-out infinite'
+        skeleton: 'skeleton 2.5s ease-in-out infinite',
+        shine: 'shine 5s linear infinite'
       }
     }
   },

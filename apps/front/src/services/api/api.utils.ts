@@ -41,7 +41,7 @@ const handleRefreshToken = <T>() =>
       .catch(handleKillSession<T>)
   );
 
-const handleKillSession = <T>() => {
+export const handleKillSession = <T>() => {
   localStorage.removeItem(ACCESS_TOKEN_STORAGE_KEY);
   localStorage.removeItem(SESSION_REFRESHED_STORAGE_KEY);
   localStorage.setItem(KILL_SESSION_STORAGE_KEY, 'true');

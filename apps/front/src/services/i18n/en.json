@@ -118,6 +118,7 @@
 
   "session": {
     "refreshed": "The session has been refreshed",
-    "killed": "The session has been interrupted"
+    "killed": "The session has been interrupted",
+    "loading": "Retrieving drivers"
   }
 }

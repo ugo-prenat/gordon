@@ -117,6 +117,7 @@
 
   "session": {
     "refreshed": "La session a été rafraîchie",
-    "killed": "La session a été interrompue"
+    "killed": "La session a été interrompue",
+    "loading": "Récupération des pilotes"
   }
 }

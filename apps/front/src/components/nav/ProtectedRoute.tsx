@@ -1,23 +1,17 @@
-import { Outlet, useNavigate } from '@tanstack/react-router';
+import { Outlet } from '@tanstack/react-router';
 import { useAuthStore } from '@/services/store/auth/auth.stores';
 import { fetchAuthenticateUser } from '@/features/auth/auth.api';
 import { useEffect } from 'react';
-import { toast } from 'sonner';
+import { handleKillSession } from '@/services/api/api.utils';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
-import { wait } from '@gordon/utils';
+import { ShinyText } from '../ShinyText';
 
 export const ProtectedRoute = () => {
   const t = useTranslation();
-  const navigate = useNavigate();
   const { isAuthenticated, authenticateUser } = useAuthStore();
 
   const handleAuthenticateUser = () =>
-    fetchAuthenticateUser()
-      .then((user) => wait(1000).then(() => authenticateUser(user)))
-      .catch(() => {
-        toast.error(t('session.killed'));
-        navigate({ to: '/' });
-      });
+    fetchAuthenticateUser().then(authenticateUser).catch(handleKillSession);
 
   useEffect(() => {
     if (!isAuthenticated) handleAuthenticateUser();
@@ -26,7 +20,7 @@ export const ProtectedRoute = () => {
   if (!isAuthenticated)
     return (
       <div className="flex h-screen w-screen items-center justify-center">
-        loading chef
+        <ShinyText text={t('session.loading')} />
       </div>
     );
 
