@@ -6,6 +6,7 @@ interface IAuthStore {
   user: IUser;
   isAuthenticated: boolean;
   authenticateUser: (user: IUser) => void;
+  setUserCredits: (credits: number) => void;
   logout: () => void;
 }
 
@@ -24,6 +25,8 @@ export const useAuthStore = create<IAuthStore>()(
     user: virginUser,
     isAuthenticated: false,
     authenticateUser: (user) => set({ user, isAuthenticated: true }),
+    setUserCredits: (credits) =>
+      set((state) => ({ user: { ...state.user, credits } })),
     logout: () => set({ user: virginUser, isAuthenticated: false })
   }))
 );

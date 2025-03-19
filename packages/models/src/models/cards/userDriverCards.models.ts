@@ -2,7 +2,7 @@ export interface IUserDriverCard {
   xp: number;
   ownerId: string;
   cardId: string;
-  ownedAt: Date;
+  ownedAt: string;
 }
 
 export interface IInsertDBUserDriverCard

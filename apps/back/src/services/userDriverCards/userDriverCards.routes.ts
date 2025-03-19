@@ -70,4 +70,17 @@ export const userDriverCardsRouter = new Hono()
         });
       })
       .catch(handleError(c, 'UDC-9'));
+  })
+
+  .get('/:id', (c) => {
+    const { id } = c.req.param();
+    const { sub } = c.get('jwtPayload');
+
+    return getDBUserDriverCard(id, sub)
+      .then((userDriverCard) => {
+        if (!userDriverCard)
+          throw new APIError('No user driver card found', 'UDC-10', 404);
+        return c.json(userDriverCard, 200);
+      })
+      .catch(handleError(c, 'UDC-11'));
   });

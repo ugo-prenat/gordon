@@ -35,8 +35,9 @@ const router = app
   .route('/users', usersRoutes)
   .route('/drivers', driversRouter)
   .route('/records', recordsRouter)
-  .route('/cards/drivers', userDriverCardsRouter)
+
   .route('/cards/drivers/market', driverCardsRouter)
+  .route('/cards/drivers', userDriverCardsRouter)
 
   .notFound((c) => {
     const err = new APIError(

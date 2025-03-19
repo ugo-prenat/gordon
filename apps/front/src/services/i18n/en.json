@@ -35,6 +35,7 @@
   "admin": "Admin",
   "type": "Type",
   "buy": "Buy now",
+  "sell": "Sell",
 
   "cards": {
     "title": "Cards",
@@ -120,5 +121,10 @@
     "refreshed": "The session has been refreshed",
     "killed": "The session has been interrupted",
     "loading": "Retrieving drivers"
+  },
+
+  "trade": {
+    "sell.error": "Error while selling",
+    "buy.error": "Error while buying"
   }
 }

@@ -10,15 +10,13 @@ import { DriverRecordsChart } from '@/features/records/components/recordsChart/D
 import { DriverCardsValuesChart } from '@/features/values/components/DriverCardsValuesChart';
 import { CARD_TYPES_WITH_VALUES, CardTypeWithValues } from '@gordon/models';
 import { Price } from '@/components/Price';
-import { useTranslation } from '@/services/i18n/i18n.hooks';
 import { DriverCardDetails } from '@/features/cards/components/drivers/DriverCardDetails';
 import { PercentValue } from '@/components/typography';
+import { CardTradeBtn } from '@/features/cards/components/CardTradeBtn';
 
 export const CardPage = () => {
   const { id } = cardRoute.useParams();
   const { data: card, isPending, isError, error, refetch } = useDriverCard(id);
-
-  const t = useTranslation();
 
   if (isPending) return <CardPageSkeleton />;
   if (isError) return <CardPageError onRefresh={refetch} error={error} />;
@@ -57,9 +55,7 @@ export const CardPage = () => {
                 <PercentValue value={valueTrend} className="mb-1" />
               </div>
 
-              <Button variant="default" className="px-4 py-2 font-bold">
-                {t('buy')}
-              </Button>
+              <CardTradeBtn cardId={id} />
             </div>
           </div>
 

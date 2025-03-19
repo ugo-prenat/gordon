@@ -43,3 +43,5 @@ notes.txt
 *.tsbuildinfo
 
 *.log
+
+.cursor/
