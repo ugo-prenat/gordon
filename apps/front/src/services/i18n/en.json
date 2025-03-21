@@ -125,6 +125,7 @@
 
   "trade": {
     "sell.error": "Error while selling",
-    "buy.error": "Error while buying"
+    "buy.error": "Error while buying",
+    "notEnoughCredits": "Insufficient credits"
   }
 }

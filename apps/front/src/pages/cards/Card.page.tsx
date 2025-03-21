@@ -55,7 +55,7 @@ export const CardPage = () => {
                 <PercentValue value={valueTrend} className="mb-1" />
               </div>
 
-              <CardTradeBtn cardId={id} />
+              <CardTradeBtn cardId={id} cardValue={value} />
             </div>
           </div>
 

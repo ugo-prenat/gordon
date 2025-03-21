@@ -124,6 +124,7 @@
 
   "trade": {
     "sell.error": "Erreur lors de la vente",
-    "buy.error": "Erreur lors de l'achat"
+    "buy.error": "Erreur lors de l'achat",
+    "notEnoughCredits": "Crédits insuffisants"
   }
 }
