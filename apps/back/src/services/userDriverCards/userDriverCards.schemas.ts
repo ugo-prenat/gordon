@@ -19,6 +19,7 @@ export const userDriverCardsTable = pgTable('user_driver_cards', {
   cardId: uuid('card_id')
     .notNull()
     .references(() => driverCardsTable.id),
+  purchaseValue: integer('purchase_value').notNull(),
   ownedAt: timestamp('owned_at').notNull().defaultNow()
 });
 

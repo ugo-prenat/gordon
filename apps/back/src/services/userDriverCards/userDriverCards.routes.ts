@@ -34,7 +34,11 @@ export const userDriverCardsRouter = new Hono()
 
           const credits = user.credits - card.value;
 
-          return createDBUserDriverCard({ cardId, ownerId: sub }).then(() =>
+          return createDBUserDriverCard({
+            cardId,
+            ownerId: sub,
+            purchaseValue: card.value
+          }).then(() =>
             updateDBUser({ id: sub, credits }).then((updatedUser) =>
               c.json(formatUserToFront(updatedUser), 200)
             )
