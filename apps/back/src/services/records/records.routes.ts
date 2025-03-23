@@ -27,12 +27,21 @@ export const recordsRouter = new Hono()
       .catch(handleError(c, 'RER-4'))
   )
 
-  .post('/', (c) =>
-    // db
+  .post('/', (c) => {
+    const { role } = c.get('jwtPayload');
+
+    if (role !== 'admin')
+      return c.json(
+        { code: 'RER-5', message: 'Unauthorized', status: 401 },
+        401
+      );
+
+    // return db
     //   .execute(
     //     sql`TRUNCATE TABLE "public"."records", "public"."driver_cards_values"`
     //   )
-    getDBDrivers()
+    // .then(() => getDBDrivers())
+    return getDBDrivers()
       .then((drivers) =>
         scrapRecords(drivers).then((records) =>
           createDBRecords(records).then((insertedRecords) => {
@@ -50,15 +59,14 @@ export const recordsRouter = new Hono()
           })
         )
       )
-
       .catch((e) => {
         // notify error
-        return handleError(c, 'RER-5')(e);
-      })
-  )
+        return handleError(c, 'RER-6')(e);
+      });
+  })
 
   .post('/notify', (c) =>
     notify()
       .then(() => c.json('notified', 201))
-      .catch(handleError(c, 'RER-6'))
+      .catch(handleError(c, 'RER-7'))
   );

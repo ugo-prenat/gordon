@@ -2,7 +2,11 @@ import { createDBUser, getDBUser } from '@services/users/users.db';
 import { Hono } from 'hono';
 import { IJwtPayload, JWT_EXPIRED_ERROR } from './auth.models';
 import { payloadValidator } from '@middlewares/payloadValidator.middleware';
-import { IInsertDBUser, userRegistrationSchema } from '@gordon/models';
+import {
+  APIError,
+  IInsertDBUser,
+  userRegistrationSchema
+} from '@gordon/models';
 import { handleError } from '@utils/api.utils';
 import { signToken, verifyToken } from './auth.utils';
 import { decode } from 'hono/jwt';
@@ -55,19 +59,25 @@ export const authRoutes = new Hono()
         )
       );
 
-    return verifyToken(token)
-      .then(() => c.json({ jwt: token }))
-      .catch((error) => {
-        if (error.name === JWT_EXPIRED_ERROR) {
-          const { payload } = decode(token);
-          const { sub, role } = payload as IJwtPayload;
+    const { sub } = decode(token).payload as IJwtPayload;
 
-          return signToken({ sub, role })
-            .then((jwt) => c.json({ jwt }, 201))
-            .catch(handleError(c, 'AUR-6'));
-        }
-        return handleError(c, 'AUR-7', 'Invalid token')(error);
-      });
+    return getDBUser(sub)
+      .then((user) => {
+        if (!user)
+          throw new APIError('Token attached to an unknown user', 'AUR-6', 404);
+
+        return verifyToken(token)
+          .then(() => c.json({ jwt: token }))
+          .catch((error) => {
+            if (error.name === JWT_EXPIRED_ERROR) {
+              return signToken({ sub, role: user.role })
+                .then((jwt) => c.json({ jwt }, 201))
+                .catch(handleError(c, 'AUR-6'));
+            }
+            return handleError(c, 'AUR-7', 'Invalid token')(error);
+          });
+      })
+      .catch(handleError(c, 'AUR-8'));
   })
 
   .post('/register', payloadValidator(userRegistrationSchema), (c) => {
@@ -76,9 +86,7 @@ export const authRoutes = new Hono()
 
     return createDBUser(user)
       .then(({ id, role }) =>
-        signToken({ sub: id, role })
-          .then((jwt) => c.json({ jwt }, 201))
-          .catch(handleError(c, 'AUR-8'))
+        signToken({ sub: id, role }).then((jwt) => c.json({ jwt }, 201))
       )
       .catch(handleError(c, 'AUR-9'));
   })
