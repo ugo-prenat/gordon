@@ -1,5 +1,5 @@
 import { db } from '@db';
-import { chassisCardsTable } from './chassisCards.schema';
+import { chassisCardsTable } from './chassisCards.schemas';
 import {
   IDBChassisCard,
   IInsertDBChassisCard,

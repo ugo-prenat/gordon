@@ -24,7 +24,7 @@ import {
 import {
   chassisCardsRelations,
   chassisCardsTable
-} from '@services/chassisCards/chassisCards.schema';
+} from '@services/chassisCards/chassisCards.schemas';
 
 export default {
   driversTable,
