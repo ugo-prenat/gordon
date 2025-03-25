@@ -1,6 +1,12 @@
 import { z } from 'zod';
-import { Championship, CHAMPIONSHIPS, IDriver, ITeam, WithDate } from '../..';
-import { CARD_TYPES, CardType } from './cards.models';
+import {
+  Championship,
+  CHAMPIONSHIPS,
+  IDriver,
+  ITeam,
+  WithDate
+} from '../../..';
+import { CARD_TYPES, CardType } from '../cards.models';
 
 export interface IDriverCard {
   id: string;

@@ -1,6 +1,6 @@
-import { WithDate } from '../../types/types';
-import { IRecord } from '../records.models';
-import { CardTypeWithValues } from './cards.models';
+import { WithDate } from '../../../types/types';
+import { IRecord } from '../../records.models';
+import { CardTypeWithValues } from '../cards.models';
 
 export interface IDriverCardValue {
   id: number;

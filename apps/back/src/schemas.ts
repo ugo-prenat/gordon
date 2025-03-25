@@ -17,7 +17,10 @@ import { usersTable } from '@services/users/users.schemas';
 import { userDriverCardsRelations } from '@services/userDriverCards/userDriverCards.schemas';
 import { userDriverCardsTable } from '@services/userDriverCards/userDriverCards.schemas';
 import { circuitsTable } from '@services/circuits/circuits.schemas';
-
+import {
+  chassisTable,
+  chassisRelations
+} from '@services/chassis/chassis.schemas';
 export default {
   driversTable,
   driversRelations,
@@ -39,5 +42,8 @@ export default {
   userDriverCardsTable,
   userDriverCardsRelations,
 
-  circuitsTable
+  circuitsTable,
+
+  chassisTable,
+  chassisRelations
 };

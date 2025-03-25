@@ -27,10 +27,10 @@ export const driversRouter = new Hono()
   .get('/:id', (c) =>
     getDBDriver(c.req.param('id'))
       .then((driver) => {
-        if (!driver) throw new APIError('no driver found', 'DRR-4', 404);
+        if (!driver) throw new APIError('no driver found', 'DRR-3', 404);
         return c.json(formatToFront(driver), 200);
       })
-      .catch(handleError(c, 'DRR-3'))
+      .catch(handleError(c, 'DRR-4'))
   )
 
   .get('/:id/records', (c) => {
@@ -58,6 +58,6 @@ export const driversRouter = new Hono()
     const body: IInsertDBDriver[] = await c.req.json();
 
     return createDBDriver(body)
-      .then((createdDriver) => c.json({ driver: createdDriver }, 201))
+      .then((drivers) => c.json({ drivers }, 201))
       .catch(handleError(c, 'DRR-7'));
   });
