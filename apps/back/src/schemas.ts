@@ -21,6 +21,11 @@ import {
   chassisTable,
   chassisRelations
 } from '@services/chassis/chassis.schemas';
+import {
+  chassisCardsRelations,
+  chassisCardsTable
+} from '@services/chassisCards/chassisCards.schema';
+
 export default {
   driversTable,
   driversRelations,
@@ -45,5 +50,8 @@ export default {
   circuitsTable,
 
   chassisTable,
-  chassisRelations
+  chassisRelations,
+
+  chassisCardsTable,
+  chassisCardsRelations
 };

@@ -1,10 +1,12 @@
 import { WithDate } from '../types/types';
+import { Championship } from './championships.models';
 
 export interface IChassis {
   id: string;
   name: string;
   teamId: string;
-  year: number;
+  season: number;
+  championship: Championship;
   picturePath: string;
 }
 

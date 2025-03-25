@@ -16,6 +16,7 @@ import { userDriverCardsRouter } from '@services/userDriverCards/userDriverCards
 import { IJwtPayload } from '@services/auth/auth.models';
 import { circuitsRouter } from '@services/circuits/circuits.routes';
 import { chassisRouter } from '@services/chassis/chassis.routes';
+import { chassisCardsRouter } from '@services/chassisCards/chassisCards.routes';
 
 type ServerVariables = {
   Variables: {
@@ -43,6 +44,8 @@ const router = app
 
   .route('/cards/drivers/market', driverCardsRouter)
   .route('/cards/drivers', userDriverCardsRouter)
+
+  .route('/cards/chassis/market', chassisCardsRouter)
 
   .notFound((c) => {
     const err = new APIError(

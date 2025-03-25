@@ -14,6 +14,8 @@ export * from './models/cards/drivers/driverCards.models';
 export * from './models/cards/drivers/driverCardsValues.models';
 export * from './models/cards/drivers/userDriverCards.models';
 
+export * from './models/cards/chassis/chassisCards.models';
+
 export * from './types/types';
 
 export * from './constants';

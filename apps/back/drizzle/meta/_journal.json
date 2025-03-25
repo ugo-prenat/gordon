@@ -71,6 +71,13 @@
       "when": 1742934319693,
       "tag": "0009_tired_night_thrasher",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1742936399021,
+      "tag": "0010_eager_typhoid_mary",
+      "breakpoints": true
     }
   ]
 }
