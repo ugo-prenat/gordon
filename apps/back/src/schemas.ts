@@ -16,6 +16,7 @@ import { driverCardsValuesTable } from '@services/driverCardsValues/driverCardsV
 import { usersTable } from '@services/users/users.schemas';
 import { userDriverCardsRelations } from '@services/userDriverCards/userDriverCards.schemas';
 import { userDriverCardsTable } from '@services/userDriverCards/userDriverCards.schemas';
+import { circuitsTable } from '@services/circuits/circuits.schemas';
 
 export default {
   driversTable,
@@ -36,5 +37,7 @@ export default {
   usersTable,
 
   userDriverCardsTable,
-  userDriverCardsRelations
+  userDriverCardsRelations,
+
+  circuitsTable
 };

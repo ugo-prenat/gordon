@@ -14,6 +14,7 @@ import { authMiddleware } from '@services/auth/auth.middleware';
 import { authRoutes } from '@services/auth/auth.routes';
 import { userDriverCardsRouter } from '@services/userDriverCards/userDriverCards.routes';
 import { IJwtPayload } from '@services/auth/auth.models';
+import { circuitsRouter } from '@services/circuits/circuits.routes';
 
 type ServerVariables = {
   Variables: {
@@ -35,6 +36,7 @@ const router = app
   .route('/users', usersRoutes)
   .route('/drivers', driversRouter)
   .route('/records', recordsRouter)
+  .route('/circuits', circuitsRouter)
 
   .route('/cards/drivers/market', driverCardsRouter)
   .route('/cards/drivers', userDriverCardsRouter)

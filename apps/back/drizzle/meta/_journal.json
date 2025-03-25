@@ -57,6 +57,13 @@
       "when": 1742623199606,
       "tag": "0007_early_bedlam",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1742885953614,
+      "tag": "0008_shocking_daredevil",
+      "breakpoints": true
     }
   ]
 }
