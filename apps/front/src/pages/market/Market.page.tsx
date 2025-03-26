@@ -10,7 +10,7 @@ import { MarketDriversTab } from './tabs/MarketDriversTab';
 import { MarketChassisTab } from './tabs/MarketChassisTab';
 import { marketRoute } from '@/services/router/router.routes';
 import { useState } from 'react';
-import { buildTabTitle } from './market.utils';
+import { buildTabTitle } from '@/features/market/market.utils';
 
 export const MarketPage = () => {
   const t = useTranslation();

@@ -1,4 +1,4 @@
-import { ICompleteAPIError, MarketDriverCardFilters } from '@gordon/models';
+import { ICompleteAPIError, MarketCardFilters } from '@gordon/models';
 import { logger } from '@utils/logger/logger.index';
 import { MiddlewareHandler } from 'hono';
 import { ZodSchema } from 'zod';
@@ -7,7 +7,7 @@ export const queriesValidator =
   <T extends ZodSchema>(
     schema: T
   ): MiddlewareHandler<{
-    Variables: { queries: MarketDriverCardFilters };
+    Variables: { queries: MarketCardFilters };
   }> =>
   async (c, next) => {
     const { name, driverId, teamIds, types, seasons, championships, value } =
@@ -18,7 +18,7 @@ export const queriesValidator =
       driverId,
       types: types?.split(','),
       teamIds: teamIds?.split(','),
-      seasons: seasons?.split(',').map(Number),
+      seasons: seasons?.split(',')?.map(Number),
       championships: championships?.split(','),
       value: value
         ? {
@@ -34,7 +34,7 @@ export const queriesValidator =
       const code = 'QVM-1';
       const status = 400;
       const message =
-        'invalid types, queries must match MarketDriverCardFilters interface';
+        'invalid types, queries must match MarketCardFilters interface';
 
       logger.error<ICompleteAPIError>({
         code,

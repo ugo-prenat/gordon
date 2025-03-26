@@ -1,6 +1,7 @@
 export * from './models/users.models';
 export * from './models/teams.models';
 export * from './models/common.models';
+export * from './models/market.models';
 export * from './models/errors.models';
 export * from './models/drivers.models';
 export * from './models/chassis.models';

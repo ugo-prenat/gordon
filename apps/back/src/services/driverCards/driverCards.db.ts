@@ -2,7 +2,7 @@ import {
   IDBDriverCard,
   IDBDriverCardValue,
   IInsertDBDriverCard,
-  MarketDriverCardFilters,
+  MarketCardFilters,
   PartialWithId,
   WithDriver,
   WithTeam
@@ -12,7 +12,7 @@ import { and, between, desc, eq, inArray, sql } from 'drizzle-orm';
 import { db } from '@db';
 import { getDriverIdsByName } from '@services/drivers/drivers.utils';
 export const getDBDriverCards = (
-  filters: MarketDriverCardFilters
+  filters: MarketCardFilters
 ): Promise<WithDriver<WithTeam<IDBDriverCard>>[]> =>
   getDriverIdsByName(filters.name).then((driverIds) =>
     db.query.driverCardsTable.findMany({

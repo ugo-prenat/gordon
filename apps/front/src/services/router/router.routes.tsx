@@ -16,7 +16,7 @@ import { z } from 'zod';
 import { zodSearchValidator } from '@tanstack/router-zod-adapter';
 import { MARKET_CHASSIS_TAB, MARKET_TABS } from '@/pages/market/market.models';
 import { CardPage } from '@/pages/cards/Card.page';
-import { marketDriverCardFiltersSchema } from '@gordon/models';
+import { marketCardFiltersSchema } from '@gordon/models';
 import { ProtectedRoute } from '@/components/nav/ProtectedRoute';
 
 export const rootRoute = createRootRoute();
@@ -52,7 +52,7 @@ export const marketRoute = createRoute({
   validateSearch: zodSearchValidator(
     z
       .object({ tab: z.enum(MARKET_TABS).optional() })
-      .merge(marketDriverCardFiltersSchema)
+      .merge(marketCardFiltersSchema)
   )
 });
 
@@ -69,7 +69,7 @@ export const driverRoute = createRoute({
   validateSearch: zodSearchValidator(
     z
       .object({ tab: z.enum(DRIVER_PAGE_TABS).optional() })
-      .merge(marketDriverCardFiltersSchema)
+      .merge(marketCardFiltersSchema)
   )
 });
 

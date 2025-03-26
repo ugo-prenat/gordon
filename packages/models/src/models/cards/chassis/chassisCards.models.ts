@@ -1,5 +1,7 @@
+import { z } from 'zod';
 import {
   CardType,
+  CHAMPIONSHIPS,
   IDBChassis,
   IMarketChassis,
   WithDate,
@@ -31,3 +33,18 @@ export interface ICompleteDBChassisCard extends IDBChassisCard {
 export interface IMarketChassisCard extends Omit<IChassisCard, 'chassisId'> {
   chassis: IMarketChassis;
 }
+
+export type MarketChassisCardFilters = z.infer<
+  typeof marketChassisCardFiltersSchema
+>;
+
+export const marketChassisCardFiltersSchema = z.object({
+  chassisId: z.string().optional(),
+  name: z.string().optional(),
+  teamIds: z.array(z.string()).optional(),
+  seasons: z.array(z.number()).optional(),
+  championships: z.array(z.enum(CHAMPIONSHIPS)).optional(),
+  value: z
+    .object({ min: z.number().optional(), max: z.number().optional() })
+    .optional()
+});

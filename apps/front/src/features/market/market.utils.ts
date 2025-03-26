@@ -1,13 +1,13 @@
-import { MarketDriverCardFilters } from '@gordon/models';
-import { MarketTab } from './market.models';
+import { MarketTab } from '@/pages/market/market.models';
+import { MarketCardFilters } from '@gordon/models';
 import cleanDeep from 'clean-deep';
 
 export const buildTabTitle = (tab: MarketTab) => `page.market.tabTitle.${tab}`;
 
 export const mergeFilters = (
-  filters: MarketDriverCardFilters,
-  unmodifiableFilters: MarketDriverCardFilters
-): MarketDriverCardFilters =>
+  filters: MarketCardFilters,
+  unmodifiableFilters: MarketCardFilters
+): MarketCardFilters =>
   cleanDeep({
     ...filters,
     ...unmodifiableFilters,

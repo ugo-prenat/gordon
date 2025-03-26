@@ -80,7 +80,8 @@
   "page.market.filters.teams.search": "Search a team",
   "page.market.filters.teams.noResults": "No team found",
   "page.market.drivers.search.noResults": "No driver found",
-  "page.market.drivers.search.clearFilters": "Clear filters",
+  "page.market.chassis.search.noResults": "No chassis found",
+  "page.market.search.clearFilters": "Clear filters",
   "page.driver.tabTitle": "Driver profile",
   "page.market.filters.title": "Filters",
 

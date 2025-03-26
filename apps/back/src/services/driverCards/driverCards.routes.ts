@@ -3,7 +3,7 @@ import { handleError } from '@utils/api.utils';
 import {
   APIError,
   IInsertDBDriverCard,
-  marketDriverCardFiltersSchema
+  marketCardFiltersSchema
 } from '@gordon/models';
 import {
   createDBDriverCard,
@@ -20,7 +20,7 @@ export const driverCardsRouter = new Hono()
   .onError((e, c) => handleError(c, 'DCR-1')(e))
 
   // /cards/drivers/market
-  .get('/', queriesValidator(marketDriverCardFiltersSchema), (c) => {
+  .get('/', queriesValidator(marketCardFiltersSchema), (c) => {
     const filters = c.get('queries');
 
     return getDBDriverCards(filters)

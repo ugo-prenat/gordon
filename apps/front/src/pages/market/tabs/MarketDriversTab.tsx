@@ -1,10 +1,8 @@
 import { useMarketDrivers } from '@/features/market/market.api';
 import { CardsListContainer } from '@/features/cards/components/CardsListContainer';
-import { MarketCard } from '@/features/cards/components/MarketCard';
-import { MarketDriverFilters } from '@/features/market/components/filters/MarketDriverFilters';
-import { FC, useState } from 'react';
-import { MarketDriverCardFilters } from '@gordon/models';
-import { mergeFilters } from '../market.utils';
+import { DriverMarketCard } from '@/features/cards/components/drivers/DriverMarketCard';
+import { FC } from 'react';
+import { MarketCardFilters } from '@gordon/models';
 import { isEmpty, isNotEmpty } from '@gordon/utils';
 import { Alert } from '@/components/Alert';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
@@ -12,45 +10,34 @@ import { DriverCardSkeleton } from '@/features/cards/components/drivers/DriverCa
 import { Button } from '@/components/ui/button';
 import NoResultImgSrc from '@/assets/search-no-result.png';
 import { marketRoute } from '@/services/router/router.routes';
+import { useMarketFilters } from '@/features/market/market.hooks';
+import { mergeFilters } from '@/features/market/market.utils';
+import { MarketFilters } from '@/features/market/components/filters/MarketFilters';
 
 export const MarketDriversTab: FC<{
-  defaultFilters?: MarketDriverCardFilters;
+  defaultFilters?: MarketCardFilters;
   otherFilters?: Record<string, unknown>;
-  unmodifiableFilters?: MarketDriverCardFilters;
+  unmodifiableFilters?: MarketCardFilters;
 }> = ({ defaultFilters = {}, otherFilters = {}, unmodifiableFilters = {} }) => {
   const t = useTranslation();
   const navigate = marketRoute.useNavigate();
 
-  const [filters, setFilters] = useState<MarketDriverCardFilters>(
-    mergeFilters(defaultFilters, unmodifiableFilters)
-  );
+  const { filters, onFiltersChange, onClearFilters } = useMarketFilters({
+    navigate,
+    otherFilters,
+    defaultFilters,
+    unmodifiableFilters
+  });
 
   const { data, isPending, isError, error, refetch } = useMarketDrivers(
     mergeFilters(filters, unmodifiableFilters)
   );
 
-  const handleFiltersChange = (
-    key: keyof MarketDriverCardFilters,
-    value: unknown
-  ) => {
-    const newFilters = mergeFilters(
-      { ...filters, [key]: value },
-      unmodifiableFilters
-    );
-    setFilters(newFilters);
-    navigate({ search: { ...otherFilters, ...newFilters } });
-  };
-
-  const handleClearFilters = () => {
-    setFilters({});
-    navigate({ search: otherFilters });
-  };
-
   return (
     <div className="flex h-full overflow-hidden">
-      <MarketDriverFilters
+      <MarketFilters
         filters={filters}
-        onFiltersChange={handleFiltersChange}
+        onFiltersChange={onFiltersChange}
         unmodifiableFilters={unmodifiableFilters}
       />
       {isPending && <LoadingState />}
@@ -64,12 +51,12 @@ export const MarketDriversTab: FC<{
         />
       )}
       {data && isEmpty(data) && (
-        <NoResultState onFiltersClear={handleClearFilters} />
+        <NoResultState onFiltersClear={onClearFilters} />
       )}
       {data && isNotEmpty(data) && (
         <CardsListContainer className="pl-2">
           {data.map((card) => (
-            <MarketCard key={card.id} resource="driver" card={card} />
+            <DriverMarketCard key={card.id} card={card} />
           ))}
         </CardsListContainer>
       )}
@@ -92,7 +79,7 @@ const NoResultState = ({ onFiltersClear }: { onFiltersClear: () => void }) => {
           {t('page.market.drivers.search.noResults')}
         </p>
         <Button variant="outline" size="sm" onClick={onFiltersClear}>
-          {t('page.market.drivers.search.clearFilters')}
+          {t('page.market.search.clearFilters')}
         </Button>
       </div>
     </div>

@@ -1,19 +1,14 @@
 import { FC } from 'react';
 import { Link } from '@tanstack/react-router';
 import { DriverCard } from '@/features/cards/components/drivers/DriverCard';
-import { IMarketDriverCard, Resource } from '@gordon/models';
+import { IMarketDriverCard } from '@gordon/models';
 import { Price } from '@/components/Price';
 import { ValueTrendBadge } from '@/features/values/components/ValueTrendBadge';
 
-interface IMarketCardProps {
-  resource: Resource;
-  card: IMarketDriverCard; // IMarketDriverCard | IMarketChassisCard;
-}
-
-export const MarketCard: FC<IMarketCardProps> = ({ resource, card }) => {
+export const DriverMarketCard: FC<{ card: IMarketDriverCard }> = ({ card }) => {
   const { id, value, valueTrend } = card;
   return (
-    <div id={`${resource}-market-card`} className="flex flex-col gap-2">
+    <div id="driver-market-card" className="flex flex-col gap-2">
       <Link to={`/cards/${id}`}>
         <DriverCard card={card} disableHover />
         <div className="flex justify-between mt-2">

@@ -1,24 +1,24 @@
 import { ChampionshipsFilter } from './fields/ChampionshipsFilter';
 import { SeasonsFilter } from './fields/SeasonsFilter';
 import { FiltersContainer } from './FiltersContainer';
-import { MarketDriverCardFilters } from '@gordon/models';
+import { MarketCardFilters } from '@gordon/models';
 import { NameFilter } from './fields/NameFilter';
 import { TeamsFilter } from './fields/TeamsFilter';
 import { TypesFilter } from './fields/TypesFilter';
 import { ValuesFilter } from './fields/ValuesFilter';
 
-interface IMarketDriverFiltersProps {
-  filters: MarketDriverCardFilters;
-  unmodifiableFilters?: MarketDriverCardFilters;
-  onFiltersChange: (key: keyof MarketDriverCardFilters, value: unknown) => void;
+interface IMarketFiltersProps {
+  filters: MarketCardFilters;
+  unmodifiableFilters?: MarketCardFilters;
+  onFiltersChange: (key: keyof MarketCardFilters, value: unknown) => void;
 }
 
-export const MarketDriverFilters = ({
+export const MarketFilters = ({
   filters,
   unmodifiableFilters,
   onFiltersChange
-}: IMarketDriverFiltersProps) => {
-  const onChange = (key: keyof MarketDriverCardFilters) => (value: unknown) =>
+}: IMarketFiltersProps) => {
+  const onChange = (key: keyof MarketCardFilters) => (value: unknown) =>
     onFiltersChange(key, value);
 
   return (
