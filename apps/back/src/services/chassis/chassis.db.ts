@@ -1,7 +1,12 @@
 import { db } from '@db';
 import { chassisTable } from './chassis.schemas';
-import { IDBChassis, IInsertDBChassis, WithTeam } from '@gordon/models';
-import { eq } from 'drizzle-orm';
+import {
+  IDBChassis,
+  IInsertDBChassis,
+  MarketCardFilters,
+  WithTeam
+} from '@gordon/models';
+import { and, eq, ilike, inArray } from 'drizzle-orm';
 
 export const createDBChassis = (chassis: IInsertDBChassis[]) =>
   db
@@ -10,8 +15,24 @@ export const createDBChassis = (chassis: IInsertDBChassis[]) =>
     .returning({ id: chassisTable.id })
     .then((ids) => ids.map(({ id }) => id));
 
-export const getDBChassis = (): Promise<WithTeam<IDBChassis>[]> =>
-  db.query.chassisTable.findMany({ with: { team: true } });
+export const getDBChassis = (
+  filters?: MarketCardFilters
+): Promise<WithTeam<IDBChassis>[]> =>
+  db.query.chassisTable.findMany({
+    where: and(
+      filters?.name ? ilike(chassisTable.name, `%${filters.name}%`) : undefined,
+      filters?.teamIds
+        ? inArray(chassisTable.teamId, filters.teamIds)
+        : undefined,
+      filters?.championships
+        ? inArray(chassisTable.championship, filters.championships)
+        : undefined,
+      filters?.seasons
+        ? inArray(chassisTable.season, filters.seasons)
+        : undefined
+    ),
+    with: { team: true }
+  });
 
 export const getDBChassisById = (
   id: string

@@ -10,12 +10,21 @@ export const queriesValidator =
     Variables: { queries: MarketCardFilters };
   }> =>
   async (c, next) => {
-    const { name, driverId, teamIds, types, seasons, championships, value } =
-      c.req.query();
+    const {
+      name,
+      driverId,
+      chassisId,
+      teamIds,
+      types,
+      seasons,
+      championships,
+      value
+    } = c.req.query();
 
     const rawQueries = {
       name,
       driverId,
+      chassisId,
       types: types?.split(','),
       teamIds: teamIds?.split(','),
       seasons: seasons?.split(',')?.map(Number),

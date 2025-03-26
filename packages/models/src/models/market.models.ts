@@ -6,6 +6,7 @@ export type MarketCardFilters = z.infer<typeof marketCardFiltersSchema>;
 
 export const marketCardFiltersSchema = z.object({
   driverId: z.string().optional(),
+  chassisId: z.string().optional(),
   name: z.string().optional(),
   teamIds: z.array(z.string()).optional(),
   types: z.array(z.enum(CARD_TYPES)).optional(),

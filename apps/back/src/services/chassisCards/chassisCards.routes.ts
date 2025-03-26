@@ -1,6 +1,10 @@
 import { Hono } from 'hono';
 import { handleError } from '@utils/api.utils';
-import { APIError, IInsertDBChassisCard } from '@gordon/models';
+import {
+  APIError,
+  IInsertDBChassisCard,
+  marketCardFiltersSchema
+} from '@gordon/models';
 import {
   createDBChassisCard,
   getDBChassisCardById,
@@ -10,12 +14,13 @@ import {
   formatToMarketChassisCards,
   formatToMarketChassisCard
 } from './chassisCards.utils';
+import { queriesValidator } from '@middlewares/queriesValidator.middleware';
 export const chassisCardsRouter = new Hono()
   .onError((e, c) => handleError(c, 'CCR-1')(e))
 
   // /cards/chassis/market
-  .get('/', (c) =>
-    getDBChassisCards()
+  .get('/', queriesValidator(marketCardFiltersSchema), (c) =>
+    getDBChassisCards(c.get('queries'))
       .then((cards) => c.json(formatToMarketChassisCards(cards), 200))
       .catch(handleError(c, 'CCR-2'))
   )
