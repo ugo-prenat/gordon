@@ -1,14 +1,18 @@
 import { Hono } from 'hono';
 import { createDBChassis, getDBChassis, getDBChassisById } from './chassis.db';
 import { APIError, IInsertDBChassis } from '@gordon/models';
-import { formatToFront, handleError } from '@utils/api.utils';
+import { handleError } from '@utils/api.utils';
+import {
+  formatToMarketChassis,
+  multipleFormatToMarketChassis
+} from './chassis.utils';
 
 export const chassisRouter = new Hono()
   .onError((e, c) => handleError(c, 'CHR-1')(e))
 
   .get('/', (c) =>
     getDBChassis()
-      .then((chassis) => c.json(formatToFront(chassis), 200))
+      .then((chassis) => c.json(multipleFormatToMarketChassis(chassis), 200))
       .catch(handleError(c, 'CHR-2'))
   )
 
@@ -16,7 +20,7 @@ export const chassisRouter = new Hono()
     getDBChassisById(c.req.param('id'))
       .then((chassis) => {
         if (!chassis) throw new APIError('no chassis found', 'CHR-3', 404);
-        return c.json(formatToFront(chassis), 200);
+        return c.json(formatToMarketChassis(chassis), 200);
       })
       .catch(handleError(c, 'CHR-4'))
   )

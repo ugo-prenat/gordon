@@ -1,19 +1,22 @@
 import { Hono } from 'hono';
-import { formatToFront, handleError } from '@utils/api.utils';
+import { handleError } from '@utils/api.utils';
 import { APIError, IInsertDBChassisCard } from '@gordon/models';
 import {
   createDBChassisCard,
   getDBChassisCardById,
   getDBChassisCards
 } from './chassisCards.db';
-
+import {
+  formatToMarketChassisCards,
+  formatToMarketChassisCard
+} from './chassisCards.utils';
 export const chassisCardsRouter = new Hono()
   .onError((e, c) => handleError(c, 'CCR-1')(e))
 
   // /cards/chassis/market
   .get('/', (c) =>
     getDBChassisCards()
-      .then((cards) => c.json(formatToFront(cards), 200))
+      .then((cards) => c.json(formatToMarketChassisCards(cards), 200))
       .catch(handleError(c, 'CCR-2'))
   )
 
@@ -22,7 +25,7 @@ export const chassisCardsRouter = new Hono()
     getDBChassisCardById(c.req.param('id'))
       .then((card) => {
         if (!card) throw new APIError('chassis card not found', 'CCR-3', 404);
-        return c.json(formatToFront(card), 200);
+        return c.json(formatToMarketChassisCard(card), 200);
       })
       .catch(handleError(c, 'CCR-4'))
   )

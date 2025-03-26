@@ -1,6 +1,6 @@
 import { db } from '@db';
 import { chassisTable } from './chassis.schemas';
-import { IDBChassis, IInsertDBChassis } from '@gordon/models';
+import { IDBChassis, IInsertDBChassis, WithTeam } from '@gordon/models';
 import { eq } from 'drizzle-orm';
 
 export const createDBChassis = (chassis: IInsertDBChassis[]) =>
@@ -10,10 +10,16 @@ export const createDBChassis = (chassis: IInsertDBChassis[]) =>
     .returning({ id: chassisTable.id })
     .then((ids) => ids.map(({ id }) => id));
 
-export const getDBChassis = () => db.query.chassisTable.findMany();
+export const getDBChassis = (): Promise<WithTeam<IDBChassis>[]> =>
+  db.query.chassisTable.findMany({ with: { team: true } });
 
-export const getDBChassisById = (id: string) =>
-  db.query.chassisTable.findFirst({ where: eq(chassisTable.id, id) });
+export const getDBChassisById = (
+  id: string
+): Promise<WithTeam<IDBChassis> | undefined> =>
+  db.query.chassisTable.findFirst({
+    where: eq(chassisTable.id, id),
+    with: { team: true }
+  });
 
 export const updateDBChassis = (chassis: IDBChassis) =>
   db.update(chassisTable).set(chassis).where(eq(chassisTable.id, chassis.id));

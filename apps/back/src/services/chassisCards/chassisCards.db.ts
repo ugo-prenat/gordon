@@ -1,6 +1,7 @@
 import { db } from '@db';
 import { chassisCardsTable } from './chassisCards.schemas';
 import {
+  ICompleteDBChassisCard,
   IDBChassisCard,
   IInsertDBChassisCard,
   PartialWithId
@@ -14,10 +15,22 @@ export const createDBChassisCard = (chassisCards: IInsertDBChassisCard[]) =>
     .returning({ id: chassisCardsTable.id })
     .then((ids) => ids.map(({ id }) => id));
 
-export const getDBChassisCards = () => db.query.chassisCardsTable.findMany();
+export const getDBChassisCards = (): Promise<ICompleteDBChassisCard[]> =>
+  db.query.chassisCardsTable.findMany({
+    with: {
+      chassis: {
+        with: { team: true }
+      }
+    }
+  });
 
-export const getDBChassisCardById = (id: string) =>
-  db.query.chassisCardsTable.findFirst({ where: eq(chassisCardsTable.id, id) });
+export const getDBChassisCardById = (
+  id: string
+): Promise<ICompleteDBChassisCard | undefined> =>
+  db.query.chassisCardsTable.findFirst({
+    where: eq(chassisCardsTable.id, id),
+    with: { chassis: { with: { team: true } } }
+  });
 
 export const updateDBChassisCard = (
   chassisCard: PartialWithId<IDBChassisCard>

@@ -1,4 +1,10 @@
-import { CardType, WithDate } from '../../..';
+import {
+  CardType,
+  IDBChassis,
+  IMarketChassis,
+  WithDate,
+  WithTeam
+} from '../../..';
 
 export interface IChassisCard {
   id: string;
@@ -16,4 +22,12 @@ export interface IInsertDBChassisCard
 export interface IDBChassisCard
   extends WithDate<Omit<IChassisCard, 'multiplier'>> {
   multiplier: string;
+}
+
+export interface ICompleteDBChassisCard extends IDBChassisCard {
+  chassis: WithTeam<IDBChassis>;
+}
+
+export interface IMarketChassisCard extends Omit<IChassisCard, 'chassisId'> {
+  chassis: IMarketChassis;
 }
