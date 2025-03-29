@@ -7,7 +7,7 @@ import {
 } from '@gordon/models';
 import {
   createDBChassisCard,
-  getDBChassisCardById,
+  getDBChassisCard,
   getDBChassisCards
 } from './chassisCards.db';
 import {
@@ -27,7 +27,7 @@ export const chassisCardsRouter = new Hono()
 
   // /cards/chassis/market/:id
   .get('/:id', (c) =>
-    getDBChassisCardById(c.req.param('id'))
+    getDBChassisCard(c.req.param('id'))
       .then((card) => {
         if (!card) throw new APIError('chassis card not found', 'CCR-3', 404);
         return c.json(formatToMarketChassisCard(card), 200);

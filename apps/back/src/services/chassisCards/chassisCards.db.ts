@@ -59,7 +59,7 @@ export const getDBChassisCards = (
     })
   );
 
-export const getDBChassisCardById = (
+export const getDBChassisCard = (
   id: string
 ): Promise<ICompleteDBChassisCard | undefined> =>
   db.query.chassisCardsTable.findFirst({
