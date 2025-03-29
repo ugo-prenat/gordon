@@ -23,7 +23,7 @@ export const ChassisCard: FC<IChassisCardProps> = ({
       <div>
         <ChassisPicture
           id={id}
-          pictureUrl={buildPictureUrl(picturePath + 'rt', 'c_fit,w_800,ar_5:3')}
+          pictureUrl={buildPictureUrl(picturePath, 'c_fit,w_800,ar_5:3')}
         />
         <div className="absolute inset-0 bottom-0 flex flex-col items-center justify-end text-background dark:text-foreground z-10 p-4">
           <div className="w-full opacity-0 animate-fade-in">

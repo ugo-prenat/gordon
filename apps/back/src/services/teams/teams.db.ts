@@ -4,7 +4,9 @@ import { teamsTable } from './teams.schemas';
 import { eq } from 'drizzle-orm';
 
 export const getDBTeams = (): Promise<IDBTeam[]> =>
-  db.query.teamsTable.findMany();
+  db.query.teamsTable.findMany({
+    orderBy: (teams, { desc }) => [desc(teams.parentTeamId)]
+  });
 
 export const getDBTeam = (id: string): Promise<IDBTeam | undefined> =>
   db.query.teamsTable.findFirst({
