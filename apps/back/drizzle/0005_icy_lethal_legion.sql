@@ -1,1 +1,0 @@
-ALTER TABLE "users" ALTER COLUMN "picture_path" SET DEFAULT '';

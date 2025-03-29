@@ -1,17 +1,10 @@
 import { driverCardsTable } from '@services/driverCards/driverCards.schemas';
 import { usersTable } from '@services/users/users.schemas';
 import { relations } from 'drizzle-orm';
-import {
-  integer,
-  pgTable,
-  serial,
-  text,
-  timestamp,
-  uuid
-} from 'drizzle-orm/pg-core';
+import { integer, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 export const userDriverCardsTable = pgTable('user_driver_cards', {
-  id: serial('id').primaryKey(),
+  id: uuid('id').primaryKey().defaultRandom(),
   xp: integer('xp').notNull().default(0),
   ownerId: text('owner_id')
     .notNull()

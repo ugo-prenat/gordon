@@ -19,5 +19,5 @@ export const createDBUserDriverCard = (
   userDriverCard: IInsertDBUserDriverCard
 ) => db.insert(userDriverCardsTable).values(userDriverCard).returning();
 
-export const deleteDBUserDriverCard = (id: number) =>
+export const deleteDBUserDriverCard = (id: string) =>
   db.delete(userDriverCardsTable).where(eq(userDriverCardsTable.id, id));

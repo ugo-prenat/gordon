@@ -1,3 +1,33 @@
+CREATE TABLE IF NOT EXISTS "chassis" (
+	"id" text PRIMARY KEY NOT NULL,
+	"name" text NOT NULL,
+	"season" integer NOT NULL,
+	"championship" text NOT NULL,
+	"team_id" text NOT NULL,
+	"picture_path" text NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "chassis_cards" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"chassis_id" text NOT NULL,
+	"multiplier" numeric(3, 1) NOT NULL,
+	"value" integer NOT NULL,
+	"type" text NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "circuits" (
+	"id" text PRIMARY KEY NOT NULL,
+	"name" text NOT NULL,
+	"svg" text NOT NULL,
+	"picture_path" text NOT NULL,
+	"country_code" text NOT NULL,
+	"f1_lap_record" integer NOT NULL,
+	"coordinates" "point" NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "driver_cards" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"driver_id" text NOT NULL,
@@ -8,7 +38,7 @@ CREATE TABLE IF NOT EXISTS "driver_cards" (
 	"season" integer NOT NULL,
 	"championship" text NOT NULL,
 	"value" integer DEFAULT -1 NOT NULL,
-	"value_trend" smallint NOT NULL,
+	"value_trend" numeric(5, 2) DEFAULT '0' NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
@@ -18,7 +48,7 @@ CREATE TABLE IF NOT EXISTS "driver_cards_values" (
 	"record_id" integer NOT NULL,
 	"type" text NOT NULL,
 	"value" integer NOT NULL,
-	"value_trend" integer NOT NULL,
+	"value_trend" numeric(5, 2) NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
@@ -69,6 +99,47 @@ CREATE TABLE IF NOT EXISTS "teams" (
 	"created_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "user_chassis_cards" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"owner_id" text NOT NULL,
+	"card_id" uuid NOT NULL,
+	"purchase_value" integer NOT NULL,
+	"owned_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "user_driver_cards" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"xp" integer DEFAULT 0 NOT NULL,
+	"owner_id" text NOT NULL,
+	"card_id" uuid NOT NULL,
+	"purchase_value" integer NOT NULL,
+	"owned_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "users" (
+	"id" text PRIMARY KEY NOT NULL,
+	"name" text NOT NULL,
+	"email" text,
+	"password" text,
+	"is_guest" boolean NOT NULL,
+	"role" text NOT NULL,
+	"credits" integer DEFAULT 0 NOT NULL,
+	"picture_path" text DEFAULT '' NOT NULL,
+	"last_login" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "chassis" ADD CONSTRAINT "chassis_team_id_teams_id_fk" FOREIGN KEY ("team_id") REFERENCES "public"."teams"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "chassis_cards" ADD CONSTRAINT "chassis_cards_chassis_id_chassis_id_fk" FOREIGN KEY ("chassis_id") REFERENCES "public"."chassis"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "driver_cards" ADD CONSTRAINT "driver_cards_driver_id_drivers_id_fk" FOREIGN KEY ("driver_id") REFERENCES "public"."drivers"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
@@ -101,6 +172,30 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "teams" ADD CONSTRAINT "teams_parent_team_id_teams_id_fk" FOREIGN KEY ("parent_team_id") REFERENCES "public"."teams"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "user_chassis_cards" ADD CONSTRAINT "user_chassis_cards_owner_id_users_id_fk" FOREIGN KEY ("owner_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "user_chassis_cards" ADD CONSTRAINT "user_chassis_cards_card_id_chassis_cards_id_fk" FOREIGN KEY ("card_id") REFERENCES "public"."chassis_cards"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "user_driver_cards" ADD CONSTRAINT "user_driver_cards_owner_id_users_id_fk" FOREIGN KEY ("owner_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "user_driver_cards" ADD CONSTRAINT "user_driver_cards_card_id_driver_cards_id_fk" FOREIGN KEY ("card_id") REFERENCES "public"."driver_cards"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

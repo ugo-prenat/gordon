@@ -1,4 +1,5 @@
 export interface IUserDriverCard {
+  id: string;
   xp: number;
   ownerId: string;
   cardId: string;
@@ -7,8 +8,6 @@ export interface IUserDriverCard {
 }
 
 export interface IInsertDBUserDriverCard
-  extends Omit<IUserDriverCard, 'ownedAt' | 'xp'> {}
+  extends Omit<IUserDriverCard, 'id' | 'ownedAt' | 'xp'> {}
 
-export interface IDBUserDriverCard extends IUserDriverCard {
-  id: number;
-}
+export interface IDBUserDriverCard extends IUserDriverCard {}
