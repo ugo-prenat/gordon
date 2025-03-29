@@ -46,8 +46,8 @@ export const CardContainer: FC<ICardContainerProps> = ({
         }
       )}
     >
-      <AspectRatio ratio={4 / 5}>
-        <div className="z-50 relative">
+      <AspectRatio ratio={resource === 'driver' ? 4 / 5 : 5 / 3}>
+        <div className="z-50 relative h-full">
           <div className="h-full">{children}</div>
         </div>
         <div id="gradient" style={mousePositions} />
