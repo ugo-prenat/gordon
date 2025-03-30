@@ -29,7 +29,7 @@ const fetchMarketDrivers = ({
   championships,
   value
 }: MarketCardFilters) =>
-  api.cards.drivers.market
+  api.market.drivers
     .$get({
       query: {
         name,
@@ -64,7 +64,7 @@ const fetchMarketChassis = ({
   championships,
   value
 }: MarketChassisCardFilters) =>
-  api.cards.chassis.market
+  api.market.chassis
     .$get({
       query: {
         chassisId,

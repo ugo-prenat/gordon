@@ -36,7 +36,7 @@ export const ChassisCard: FC<IChassisCardProps> = ({
             </p>
 
             <div className="flex justify-between items-end">
-              <TeamLogo {...team} className="w-5 rounded-[2px]" />
+              <TeamLogo {...team} className="w-5 h-5 rounded-[2px]" />
               <p className="text-xs font-extralight opacity-70">{season}</p>
               <ChampionshipLogo championship={championship} type={type} />
             </div>

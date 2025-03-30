@@ -1,6 +1,7 @@
 import { api, handleRes } from '@/services/api/api.utils';
 import {
   IAPIError,
+  IDBUserDriverCard,
   IMarketDriverCard,
   IUser,
   IUserDriverCard
@@ -18,7 +19,7 @@ export const useDriverCard = (id: string) =>
   });
 
 const fetchDriverCard = (id: string) =>
-  api.cards.drivers.market[':id'].$get({ param: { id } }).then(handleRes);
+  api.market.drivers[':id'].$get({ param: { id } }).then(handleRes);
 
 export const useUserDriverCard = (id: string) =>
   useQuery<IUserDriverCard, IAPIError>({
@@ -28,8 +29,8 @@ export const useUserDriverCard = (id: string) =>
     retry: false
   });
 
-const fetchUserDriverCard = (id: string) =>
-  api.cards.drivers[':id'].$get({ param: { id } }).then(handleRes);
+const fetchUserDriverCard = (id: string): Promise<IDBUserDriverCard> =>
+  api['my-team'].drivers[':id'].$get({ param: { id } }).then(handleRes);
 
 export const useTradeUserDriverCard = (action: TradeAction, id: string) =>
   useMutation<IUser, IAPIError>({
@@ -44,9 +45,9 @@ const fetchTradeUserDriverCard = (
   id: string
 ): Promise<IUser> =>
   action === 'buy'
-    ? (api.cards.drivers.buy
+    ? (api['my-team'].drivers.buy
         .$post({ json: { cardId: id } })
         .then(handleRes) as Promise<IUser>)
-    : (api.cards.drivers.sell
+    : (api['my-team'].drivers.sell
         .$post({ json: { cardId: id } })
         .then(handleRes) as Promise<IUser>);

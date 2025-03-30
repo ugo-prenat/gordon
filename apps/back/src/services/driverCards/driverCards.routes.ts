@@ -19,7 +19,7 @@ import { queriesValidator } from '@middlewares/queriesValidator.middleware';
 export const driverCardsRouter = new Hono()
   .onError((e, c) => handleError(c, 'DCR-1')(e))
 
-  // /cards/drivers/market
+  // /market/drivers
   .get('/', queriesValidator(marketCardFiltersSchema), (c) => {
     const filters = c.get('queries');
 
@@ -28,7 +28,7 @@ export const driverCardsRouter = new Hono()
       .catch(handleError(c, 'DCR-2'));
   })
 
-  // /cards/drivers/market/:id
+  // /market/drivers/:id
   .get('/:id', (c) => {
     const id = c.req.param('id');
 

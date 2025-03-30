@@ -18,14 +18,14 @@ import { queriesValidator } from '@middlewares/queriesValidator.middleware';
 export const chassisCardsRouter = new Hono()
   .onError((e, c) => handleError(c, 'CCR-1')(e))
 
-  // /cards/chassis/market
+  // /market/chassis
   .get('/', queriesValidator(marketCardFiltersSchema), (c) =>
     getDBChassisCards(c.get('queries'))
       .then((cards) => c.json(formatToMarketChassisCards(cards), 200))
       .catch(handleError(c, 'CCR-2'))
   )
 
-  // /cards/chassis/market/:id
+  // /market/chassis/:id
   .get('/:id', (c) =>
     getDBChassisCard(c.req.param('id'))
       .then((card) => {

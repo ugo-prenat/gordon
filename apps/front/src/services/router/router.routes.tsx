@@ -82,13 +82,13 @@ export const chassisListRoute = createRoute({
 });
 
 export const cardRoute = createRoute({
-  path: '/cards/$id',
+  path: '/market/drivers/$id',
   component: CardPage,
   getParentRoute: () => protectedRoute
 });
 
 export const chassisRoute = createRoute({
-  path: '/chassis/$id',
+  path: '/market/chassis/$id',
   component: ChassisPage,
   getParentRoute: () => protectedRoute
 });
