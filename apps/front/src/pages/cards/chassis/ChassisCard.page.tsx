@@ -1,8 +1,12 @@
 import { FC } from 'react';
-import { IMarketChassisCard } from '@gordon/models';
+import { IMarketChassisCard, IUserChassisCard } from '@gordon/models';
 
-export const ChassisCardPage: FC<{ chassisCard: IMarketChassisCard }> = ({
-  chassisCard
-}) => {
-  return <div>ChassisCardPage</div>;
+export const ChassisCardPage: FC<{
+  card: IMarketChassisCard;
+  userChassisCard?: IUserChassisCard;
+}> = ({ card, userChassisCard }) => {
+  const { chassis, type, value, id } = card;
+  const { name } = chassis;
+
+  return <div>{name}</div>;
 };

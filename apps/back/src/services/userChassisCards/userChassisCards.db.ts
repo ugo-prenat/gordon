@@ -1,18 +1,27 @@
-import { IDBUserChassisCard, IInsertDBUserChassisCard } from '@gordon/models';
+import {
+  ICompleteDBUserChassisCard,
+  IDBUserChassisCard,
+  IInsertDBUserChassisCard
+} from '@gordon/models';
 import { userChassisCardsTable } from './userChassisCards.schemas';
 import { db } from '@db';
 import { eq } from 'drizzle-orm';
 import { and } from 'drizzle-orm';
 
-export const getDBUserChassisCard = (
-  cardId: string,
-  ownerId: string
-): Promise<IDBUserChassisCard | undefined> =>
+export const getDBUserChassisCard = ({
+  id,
+  cardId,
+  ownerId
+}: Partial<IDBUserChassisCard>): Promise<
+  ICompleteDBUserChassisCard | undefined
+> =>
   db.query.userChassisCardsTable.findFirst({
     where: and(
-      eq(userChassisCardsTable.cardId, cardId),
-      eq(userChassisCardsTable.ownerId, ownerId)
-    )
+      id ? eq(userChassisCardsTable.id, id) : undefined,
+      cardId ? eq(userChassisCardsTable.cardId, cardId) : undefined,
+      ownerId ? eq(userChassisCardsTable.ownerId, ownerId) : undefined
+    ),
+    with: { card: { with: { chassis: { with: { team: true } } } } }
   });
 
 export const createDBUserChassisCard = (

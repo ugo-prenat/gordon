@@ -1,7 +1,9 @@
 import { api, handleRes } from '@/services/api/api.utils';
 import {
   IAPIError,
+  ICompleteUserChassisCard,
   ICompleteUserDriverCard,
+  IMarketChassisCard,
   IMarketDriverCard,
   IUser
 } from '@gordon/models';
@@ -49,3 +51,23 @@ const fetchTradeUserDriverCard = (
     : (api.cards.drivers.sell
         .$post({ json: { cardId: id } })
         .then(handleRes) as Promise<IUser>);
+
+export const useChassisCard = (id: string) =>
+  useQuery<IMarketChassisCard, IAPIError>({
+    queryKey: ['chassisCard', id],
+    queryFn: () => fetchChassisCard(id),
+    staleTime: ms('10m')
+  });
+
+const fetchChassisCard = (id: string) =>
+  api.market.cards.chassis[':id'].$get({ param: { id } }).then(handleRes);
+
+export const useUserChassisCard = (id: string) =>
+  useQuery<ICompleteUserChassisCard, IAPIError>({
+    queryKey: ['userChassisCard', id],
+    queryFn: () => fetchUserChassisCard(id),
+    retry: false
+  });
+
+const fetchUserChassisCard = (id: string): Promise<ICompleteUserChassisCard> =>
+  api.cards.chassis[':id'].$get({ param: { id } }).then(handleRes);

@@ -11,6 +11,7 @@ import {
 } from './userChassisCards.db';
 import { formatUserToFront } from '@services/users/users.utils';
 import { getDBChassisCard } from '@services/chassisCards/chassisCards.db';
+import { formatUserChassisCardToFront } from './userChassisCards.utils';
 
 const cardIdPayloadSchema = z.object({
   cardId: z.string().uuid()
@@ -59,18 +60,20 @@ export const userChassisCardsRouter = new Hono()
         return getDBUser(sub).then((user) => {
           if (!user) throw new APIError('No user found', 'UCC-7', 404);
 
-          return getDBUserChassisCard(cardId, sub).then((userChassisCard) => {
-            if (!userChassisCard)
-              throw new APIError('No user chassis card found', 'UCC-8', 404);
+          return getDBUserChassisCard({ cardId, ownerId: sub }).then(
+            (userChassisCard) => {
+              if (!userChassisCard)
+                throw new APIError('No user chassis card found', 'UCC-8', 404);
 
-            return deleteDBUserChassisCard(userChassisCard.id).then(() => {
-              const credits = user.credits + card.value;
+              return deleteDBUserChassisCard(userChassisCard.id).then(() => {
+                const credits = user.credits + card.value;
 
-              return updateDBUser({ id: sub, credits }).then((updatedUser) =>
-                c.json(formatUserToFront(updatedUser), 200)
-              );
-            });
-          });
+                return updateDBUser({ id: sub, credits }).then((updatedUser) =>
+                  c.json(formatUserToFront(updatedUser), 200)
+                );
+              });
+            }
+          );
         });
       })
       .catch(handleError(c, 'UCC-9'));
@@ -78,13 +81,12 @@ export const userChassisCardsRouter = new Hono()
 
   .get('/:id', (c) => {
     const { id } = c.req.param();
-    const { sub } = c.get('jwtPayload');
 
-    return getDBUserChassisCard(id, sub)
+    return getDBUserChassisCard({ id })
       .then((userChassisCard) => {
         if (!userChassisCard)
           throw new APIError('No user chassis card found', 'UCC-10', 404);
-        return c.json(userChassisCard, 200);
+        return c.json(formatUserChassisCardToFront(userChassisCard), 200);
       })
       .catch(handleError(c, 'UCC-11'));
   });

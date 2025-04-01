@@ -16,10 +16,10 @@ import { zodSearchValidator } from '@tanstack/router-zod-adapter';
 import { MARKET_CHASSIS_TAB, MARKET_TABS } from '@/pages/market/market.models';
 import { marketCardFiltersSchema } from '@gordon/models';
 import { ProtectedRoute } from '@/components/nav/ProtectedRoute';
-import { DriverCardPage } from '@/pages/cards/drivers/DriverCard.page';
-import { ChassisCardPage } from '@/pages/cards/chassis/ChassisCard.page';
 import { UserDriverCardPage } from '@/pages/cards/drivers/UserDriverCard.page';
 import { UserChassisCardPage } from '@/pages/cards/chassis/userChassisCard.page';
+import { MarketDriverCardPage } from '@/pages/cards/drivers/MarketDriverCard.page';
+import { MarketChassisCardPage } from '@/pages/cards/chassis/MarketChassisCard.page';
 
 export const rootRoute = createRootRoute();
 
@@ -85,13 +85,13 @@ export const chassisListRoute = createRoute({
 
 export const marketDriverCardRoute = createRoute({
   path: '/market/cards/drivers/$id',
-  component: DriverCardPage,
+  component: MarketDriverCardPage,
   getParentRoute: () => protectedRoute
 });
 
 export const marketChassisCardRoute = createRoute({
   path: '/market/cards/chassis/$id',
-  component: ChassisCardPage,
+  component: MarketChassisCardPage,
   getParentRoute: () => protectedRoute
 });
 
