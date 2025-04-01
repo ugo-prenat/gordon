@@ -1,18 +1,26 @@
-import { IDBUserDriverCard, IInsertDBUserDriverCard } from '@gordon/models';
+import {
+  ICompleteDBUserDriverCard,
+  IDBUserDriverCard,
+  IInsertDBUserDriverCard
+} from '@gordon/models';
 import { userDriverCardsTable } from './userDriverCards.schemas';
 import { db } from '@db';
-import { eq } from 'drizzle-orm';
-import { and } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 
-export const getDBUserDriverCard = (
-  cardId: string,
-  ownerId: string
-): Promise<IDBUserDriverCard | undefined> =>
+export const getDBUserDriverCard = ({
+  id,
+  cardId,
+  ownerId
+}: Partial<IDBUserDriverCard>): Promise<
+  ICompleteDBUserDriverCard | undefined
+> =>
   db.query.userDriverCardsTable.findFirst({
     where: and(
-      eq(userDriverCardsTable.cardId, cardId),
-      eq(userDriverCardsTable.ownerId, ownerId)
-    )
+      id ? eq(userDriverCardsTable.id, id) : undefined,
+      cardId ? eq(userDriverCardsTable.cardId, cardId) : undefined,
+      ownerId ? eq(userDriverCardsTable.ownerId, ownerId) : undefined
+    ),
+    with: { card: { with: { driver: true, team: true } } }
   });
 
 export const createDBUserDriverCard = (

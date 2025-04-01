@@ -10,14 +10,16 @@ import { LandingPage } from '@/pages/landing/Landing.page';
 import { DriverPage } from '@/pages/drivers/Driver.page';
 import { MarketPage } from '@/pages/market/Market.page';
 import { NavRoute } from '@components/nav/NavRoute';
-import { ChassisPage } from '@/pages/chassis/Chassis.page';
 import { DRIVER_PAGE_TABS } from '@/pages/drivers/drivers.models';
 import { z } from 'zod';
 import { zodSearchValidator } from '@tanstack/router-zod-adapter';
 import { MARKET_CHASSIS_TAB, MARKET_TABS } from '@/pages/market/market.models';
-import { CardPage } from '@/pages/cards/Card.page';
 import { marketCardFiltersSchema } from '@gordon/models';
 import { ProtectedRoute } from '@/components/nav/ProtectedRoute';
+import { DriverCardPage } from '@/pages/cards/drivers/DriverCard.page';
+import { ChassisCardPage } from '@/pages/cards/chassis/ChassisCard.page';
+import { UserDriverCardPage } from '@/pages/cards/drivers/UserDriverCard.page';
+import { UserChassisCardPage } from '@/pages/cards/chassis/userChassisCard.page';
 
 export const rootRoute = createRootRoute();
 
@@ -81,15 +83,27 @@ export const chassisListRoute = createRoute({
   getParentRoute: () => protectedRoute
 });
 
-export const cardRoute = createRoute({
-  path: '/market/drivers/$id',
-  component: CardPage,
+export const marketDriverCardRoute = createRoute({
+  path: '/market/cards/drivers/$id',
+  component: DriverCardPage,
   getParentRoute: () => protectedRoute
 });
 
-export const chassisRoute = createRoute({
-  path: '/market/chassis/$id',
-  component: ChassisPage,
+export const marketChassisCardRoute = createRoute({
+  path: '/market/cards/chassis/$id',
+  component: ChassisCardPage,
+  getParentRoute: () => protectedRoute
+});
+
+export const userDriverCardRoute = createRoute({
+  path: '/cards/drivers/$id',
+  component: UserDriverCardPage,
+  getParentRoute: () => protectedRoute
+});
+
+export const userChassisCardRoute = createRoute({
+  path: '/cards/chassis/$id',
+  component: UserChassisCardPage,
   getParentRoute: () => protectedRoute
 });
 

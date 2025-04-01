@@ -9,7 +9,7 @@ export const DriverMarketCard: FC<{ card: IMarketDriverCard }> = ({ card }) => {
   const { id, value, valueTrend } = card;
   return (
     <div id="driver-market-card" className="flex flex-col gap-2">
-      <Link to={`/market/drivers/${id}`}>
+      <Link to={`/market/cards/drivers/${id}`}>
         <DriverCard card={card} disableHover />
         <div className="flex justify-between mt-2">
           <Price value={value} percentage={valueTrend} />

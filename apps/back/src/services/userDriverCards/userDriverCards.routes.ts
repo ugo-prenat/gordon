@@ -11,6 +11,7 @@ import {
   getDBUserDriverCard
 } from './userDriverCards.db';
 import { formatUserToFront } from '@services/users/users.utils';
+import { formatUserDriverCardToFront } from './userDrvierCards.utils';
 
 const cardIdPayloadSchema = z.object({
   cardId: z.string().uuid()
@@ -59,18 +60,20 @@ export const userDriverCardsRouter = new Hono()
         return getDBUser(sub).then((user) => {
           if (!user) throw new APIError('No user found', 'UDC-7', 404);
 
-          return getDBUserDriverCard(cardId, sub).then((userDriverCard) => {
-            if (!userDriverCard)
-              throw new APIError('No user driver card found', 'UDC-8', 404);
+          return getDBUserDriverCard({ cardId, ownerId: sub }).then(
+            (userDriverCard) => {
+              if (!userDriverCard)
+                throw new APIError('No user driver card found', 'UDC-8', 404);
 
-            return deleteDBUserDriverCard(userDriverCard.id).then(() => {
-              const credits = user.credits + card.value;
+              return deleteDBUserDriverCard(userDriverCard.id).then(() => {
+                const credits = user.credits + card.value;
 
-              return updateDBUser({ id: sub, credits }).then((updatedUser) =>
-                c.json(formatUserToFront(updatedUser), 200)
-              );
-            });
-          });
+                return updateDBUser({ id: sub, credits }).then((updatedUser) =>
+                  c.json(formatUserToFront(updatedUser), 200)
+                );
+              });
+            }
+          );
         });
       })
       .catch(handleError(c, 'UDC-9'));
@@ -78,13 +81,12 @@ export const userDriverCardsRouter = new Hono()
 
   .get('/:id', (c) => {
     const { id } = c.req.param();
-    const { sub } = c.get('jwtPayload');
 
-    return getDBUserDriverCard(id, sub)
+    return getDBUserDriverCard({ id })
       .then((userDriverCard) => {
         if (!userDriverCard)
           throw new APIError('No user driver card found', 'UDC-10', 404);
-        return c.json(userDriverCard, 200);
+        return c.json(formatUserDriverCardToFront(userDriverCard), 200);
       })
       .catch(handleError(c, 'UDC-11'));
   });

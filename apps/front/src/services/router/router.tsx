@@ -6,14 +6,16 @@ import {
   driverRoute,
   driversListRoute,
   chassisListRoute,
-  chassisRoute,
   fullscreenRoute,
   landingRoute,
   marketRoute,
   protectedRoute,
   rootRoute,
-  cardRoute,
-  navRoute
+  navRoute,
+  userDriverCardRoute,
+  userChassisCardRoute,
+  marketDriverCardRoute,
+  marketChassisCardRoute
 } from './router.routes';
 
 const routeTree = rootRoute.addChildren([
@@ -22,14 +24,17 @@ const routeTree = rootRoute.addChildren([
     protectedRoute.addChildren([
       marketRoute,
 
-      driversListRoute,
       driverRoute,
 
-      chassisListRoute,
-      chassisRoute,
+      driversListRoute,
+      userDriverCardRoute,
+      marketDriverCardRoute,
 
-      adminRoute,
-      cardRoute
+      chassisListRoute,
+      userChassisCardRoute,
+      marketChassisCardRoute,
+
+      adminRoute
     ])
   ])
 ]);

@@ -10,7 +10,7 @@ export const ChassisMarketCard: FC<{ card: IMarketChassisCard }> = ({
   const { id, multiplier, value } = card;
   return (
     <div id="driver-market-card" className="flex flex-col gap-2">
-      <Link to={`/cards/${id}`}>
+      <Link to={`/market/cards/chassis/${id}`}>
         <ChassisCard card={card} disableHover />
         <div className="flex justify-between mt-2">
           <Price value={value} percentage={0} />

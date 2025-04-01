@@ -43,11 +43,11 @@ const router = app
   .route('/chassis', chassisRouter)
   .route('/circuits', circuitsRouter)
 
-  .route('/market/drivers', driverCardsRouter)
-  .route('/market/chassis', chassisCardsRouter)
+  .route('/market/cards/drivers', driverCardsRouter)
+  .route('/market/cards/chassis', chassisCardsRouter)
 
-  .route('/my-team/drivers', userDriverCardsRouter)
-  .route('/my-team/chassis', userChassisCardsRouter)
+  .route('/cards/drivers', userDriverCardsRouter)
+  .route('/cards/chassis', userChassisCardsRouter)
 
   .notFound((c) => {
     const err = new APIError(

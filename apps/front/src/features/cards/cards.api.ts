@@ -1,10 +1,9 @@
 import { api, handleRes } from '@/services/api/api.utils';
 import {
   IAPIError,
-  IDBUserDriverCard,
+  ICompleteUserDriverCard,
   IMarketDriverCard,
-  IUser,
-  IUserDriverCard
+  IUser
 } from '@gordon/models';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import ms from 'ms';
@@ -19,18 +18,17 @@ export const useDriverCard = (id: string) =>
   });
 
 const fetchDriverCard = (id: string) =>
-  api.market.drivers[':id'].$get({ param: { id } }).then(handleRes);
+  api.market.cards.drivers[':id'].$get({ param: { id } }).then(handleRes);
 
 export const useUserDriverCard = (id: string) =>
-  useQuery<IUserDriverCard, IAPIError>({
+  useQuery<ICompleteUserDriverCard, IAPIError>({
     queryKey: ['userDriverCard', id],
     queryFn: () => fetchUserDriverCard(id),
-    staleTime: ms('10m'),
     retry: false
   });
 
-const fetchUserDriverCard = (id: string): Promise<IDBUserDriverCard> =>
-  api['my-team'].drivers[':id'].$get({ param: { id } }).then(handleRes);
+const fetchUserDriverCard = (id: string): Promise<ICompleteUserDriverCard> =>
+  api.cards.drivers[':id'].$get({ param: { id } }).then(handleRes);
 
 export const useTradeUserDriverCard = (action: TradeAction, id: string) =>
   useMutation<IUser, IAPIError>({
@@ -45,9 +43,9 @@ const fetchTradeUserDriverCard = (
   id: string
 ): Promise<IUser> =>
   action === 'buy'
-    ? (api['my-team'].drivers.buy
+    ? (api.cards.drivers.buy
         .$post({ json: { cardId: id } })
         .then(handleRes) as Promise<IUser>)
-    : (api['my-team'].drivers.sell
+    : (api.cards.drivers.sell
         .$post({ json: { cardId: id } })
         .then(handleRes) as Promise<IUser>);
