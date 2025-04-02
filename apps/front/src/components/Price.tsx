@@ -6,7 +6,7 @@ type TextColor = 'positive' | 'negative' | 'default';
 
 interface IPriceProps {
   value: number;
-  percentage: number;
+  percentage?: number;
   className?: string;
   initialAnimate?: boolean;
   colorAnimation?: boolean;
@@ -14,7 +14,7 @@ interface IPriceProps {
 
 export const Price: FC<IPriceProps> = ({
   value,
-  percentage,
+  percentage = 0,
   className,
   initialAnimate = false,
   colorAnimation = false

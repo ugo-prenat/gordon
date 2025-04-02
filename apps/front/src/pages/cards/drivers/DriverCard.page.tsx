@@ -20,8 +20,6 @@ export const DriverCardPage: FC<{
   card: IMarketDriverCard;
   userDriverCard?: IUserDriverCard;
 }> = ({ card, userDriverCard }) => {
-  console.log({ userDriverCard });
-
   const { driver, type, value, valueTrend, id } = card;
   const { firstName, lastName } = driver;
 
@@ -56,7 +54,7 @@ export const DriverCardPage: FC<{
                 <PercentValue value={valueTrend} className="mb-1" />
               </div>
 
-              <CardTradeBtn cardId={id} cardValue={value} />
+              <CardTradeBtn cardId={id} cardValue={value} resource="driver" />
             </div>
           </div>
 

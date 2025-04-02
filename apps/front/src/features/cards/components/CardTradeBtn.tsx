@@ -10,9 +10,14 @@ export type TradeAction = 'buy' | 'sell';
 interface ICardTradeBtnProps {
   cardId: string;
   cardValue: number;
+  resource: 'driver' | 'chassis';
 }
 
-export const CardTradeBtn = ({ cardId, cardValue }: ICardTradeBtnProps) => {
+export const CardTradeBtn = ({
+  cardId,
+  cardValue,
+  resource
+}: ICardTradeBtnProps) => {
   const t = useTranslation();
   const { setUserCredits, user } = useAuthStore();
 
