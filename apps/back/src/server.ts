@@ -18,6 +18,7 @@ import { circuitsRouter } from '@services/circuits/circuits.routes';
 import { chassisRouter } from '@services/chassis/chassis.routes';
 import { chassisCardsRouter } from '@services/chassisCards/chassisCards.routes';
 import { userChassisCardsRouter } from '@services/userChassisCards/userChassisCards.routes';
+import { myTeamRouter } from '@services/myTeam/myTeam.routes';
 
 type ServerVariables = {
   Variables: {
@@ -48,6 +49,8 @@ const router = app
 
   .route('/cards/drivers', userDriverCardsRouter)
   .route('/cards/chassis', userChassisCardsRouter)
+
+  .route('/my-team', myTeamRouter)
 
   .notFound((c) => {
     const err = new APIError(

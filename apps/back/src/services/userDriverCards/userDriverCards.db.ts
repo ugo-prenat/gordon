@@ -7,6 +7,14 @@ import { userDriverCardsTable } from './userDriverCards.schemas';
 import { db } from '@db';
 import { and, eq } from 'drizzle-orm';
 
+export const getDBUserDriverCards = (
+  ownerId: string
+): Promise<ICompleteDBUserDriverCard[]> =>
+  db.query.userDriverCardsTable.findMany({
+    where: eq(userDriverCardsTable.ownerId, ownerId),
+    with: { card: { with: { driver: true, team: true } } }
+  });
+
 export const getDBUserDriverCard = ({
   id,
   cardId,

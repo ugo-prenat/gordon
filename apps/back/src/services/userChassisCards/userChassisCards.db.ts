@@ -8,6 +8,14 @@ import { db } from '@db';
 import { eq } from 'drizzle-orm';
 import { and } from 'drizzle-orm';
 
+export const getDBUserChassisCards = (
+  ownerId: string
+): Promise<ICompleteDBUserChassisCard[]> =>
+  db.query.userChassisCardsTable.findMany({
+    where: eq(userChassisCardsTable.ownerId, ownerId),
+    with: { card: { with: { chassis: { with: { team: true } } } } }
+  });
+
 export const getDBUserChassisCard = ({
   id,
   cardId,
