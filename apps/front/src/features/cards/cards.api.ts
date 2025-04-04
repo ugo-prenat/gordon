@@ -5,7 +5,8 @@ import {
   ICompleteUserDriverCard,
   IMarketChassisCard,
   IMarketDriverCard,
-  IUser
+  IUser,
+  Resource
 } from '@gordon/models';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import ms from 'ms';
@@ -22,35 +23,70 @@ export const useDriverCard = (id: string) =>
 const fetchDriverCard = (id: string) =>
   api.market.cards.drivers[':id'].$get({ param: { id } }).then(handleRes);
 
+export const useUserPossessCard = (id: string, resource: Resource) =>
+  useQuery<{ id: string }, IAPIError>({
+    queryKey: ['userCard', id, resource],
+    queryFn: () => fetchUserPossessCard(id, resource),
+    retry: false
+  });
+
+const fetchUserPossessCard = (
+  id: string,
+  resource: Resource
+): Promise<{ id: string }> =>
+  resource === 'driver'
+    ? api.cards.drivers[':id']
+        .$get({ param: { id } })
+        .then(handleRes)
+        .then(({ id }) => ({ id }))
+    : api.cards.chassis[':id']
+        .$get({ param: { id } })
+        .then(handleRes)
+        .then(({ id }) => ({ id }));
+
+export const useTradeUserCard = (
+  action: TradeAction,
+  id: string,
+  resource: Resource
+) =>
+  useMutation<IUser, IAPIError>({
+    mutationFn: () => fetchTradeUserCard(action, id, resource),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['userCard', id, resource] });
+    }
+  });
+
+const fetchTradeUserCard = (
+  action: TradeAction,
+  id: string,
+  resource: Resource
+): Promise<IUser> => {
+  if (resource === 'driver') {
+    return action === 'buy'
+      ? (api.cards.drivers.buy
+          .$post({ json: { cardId: id } })
+          .then(handleRes) as Promise<IUser>)
+      : (api.cards.drivers.sell
+          .$post({ json: { cardId: id } })
+          .then(handleRes) as Promise<IUser>);
+  }
+  return action === 'buy'
+    ? (api.cards.chassis.buy
+        .$post({ json: { cardId: id } })
+        .then(handleRes) as Promise<IUser>)
+    : (api.cards.chassis.sell
+        .$post({ json: { cardId: id } })
+        .then(handleRes) as Promise<IUser>);
+};
+
 export const useUserDriverCard = (id: string) =>
   useQuery<ICompleteUserDriverCard, IAPIError>({
     queryKey: ['userDriverCard', id],
-    queryFn: () => fetchUserDriverCard(id),
-    retry: false
+    queryFn: () => fetchUserDriverCard(id)
   });
 
 const fetchUserDriverCard = (id: string): Promise<ICompleteUserDriverCard> =>
   api.cards.drivers[':id'].$get({ param: { id } }).then(handleRes);
-
-export const useTradeUserDriverCard = (action: TradeAction, id: string) =>
-  useMutation<IUser, IAPIError>({
-    mutationFn: () => fetchTradeUserDriverCard(action, id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['userDriverCard', id] });
-    }
-  });
-
-const fetchTradeUserDriverCard = (
-  action: TradeAction,
-  id: string
-): Promise<IUser> =>
-  action === 'buy'
-    ? (api.cards.drivers.buy
-        .$post({ json: { cardId: id } })
-        .then(handleRes) as Promise<IUser>)
-    : (api.cards.drivers.sell
-        .$post({ json: { cardId: id } })
-        .then(handleRes) as Promise<IUser>);
 
 export const useChassisCard = (id: string) =>
   useQuery<IMarketChassisCard, IAPIError>({

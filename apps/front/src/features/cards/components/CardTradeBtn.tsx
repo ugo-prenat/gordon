@@ -1,16 +1,17 @@
 import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/services/i18n/i18n.hooks';
-import { useTradeUserDriverCard, useUserDriverCard } from '../cards.api';
+import { useTradeUserCard, useUserPossessCard } from '../cards.api';
 import { useAuthStore } from '@/services/store/auth/auth.stores';
 import { toast } from 'sonner';
 import { Tooltip } from '@/components/Tooltip';
+import { Resource } from '@gordon/models';
 
 export type TradeAction = 'buy' | 'sell';
 
 interface ICardTradeBtnProps {
   cardId: string;
   cardValue: number;
-  resource: 'driver' | 'chassis';
+  resource: Resource;
 }
 
 export const CardTradeBtn = ({
@@ -24,22 +25,25 @@ export const CardTradeBtn = ({
   const {
     error,
     isPending,
-    refetch: refetchUserDriverCard
-  } = useUserDriverCard(cardId);
+    refetch: refetchUserCard
+  } = useUserPossessCard(cardId, resource);
 
   const action: TradeAction = error?.status === 404 ? 'buy' : 'sell';
 
   const canBuyTheCard = action === 'buy' ? cardValue <= user?.credits : true;
   const title = !canBuyTheCard ? t('trade.notEnoughCredits') : undefined;
 
-  const { mutateAsync: tradeUserDriverCard, isPending: isTrading } =
-    useTradeUserDriverCard(action, cardId);
+  const { mutateAsync: tradeUserCard, isPending: isTrading } = useTradeUserCard(
+    action,
+    cardId,
+    resource
+  );
 
   const handleClick = () =>
-    tradeUserDriverCard()
+    tradeUserCard()
       .then((updatedUser) => {
         setUserCredits(updatedUser.credits);
-        refetchUserDriverCard();
+        refetchUserCard();
       })
       .catch(() => toast.error(t(`trade.${action}.error`)));
 
