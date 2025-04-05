@@ -35,11 +35,11 @@ const fetchUserPossessCard = (
   resource: Resource
 ): Promise<{ id: string }> =>
   resource === 'driver'
-    ? api.cards.drivers[':id']
+    ? api['my-team'].cards.drivers[':id']
         .$get({ param: { id } })
         .then(handleRes)
         .then(({ id }) => ({ id }))
-    : api.cards.chassis[':id']
+    : api['my-team'].cards.chassis[':id']
         .$get({ param: { id } })
         .then(handleRes)
         .then(({ id }) => ({ id }));
